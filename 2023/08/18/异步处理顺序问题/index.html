@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>异步处理顺序问题 | 前端面试笔记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="&#96;&#96;function switchMap(fn) {    let id &#x3D; 0;    let last&#x3D; 0;    let cache; return new Proxy(fn, &amp;#123;     async apply (_, this, args) &amp;#123;         const temp &#x3D; id;         id++;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="异步处理顺序问题">
+<meta property="og:url" content="https://nlovesye.github.io/interview-notes/2023/08/18/%E5%BC%82%E6%AD%A5%E5%A4%84%E7%90%86%E9%A1%BA%E5%BA%8F%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:site_name" content="前端面试笔记">
+<meta property="og:description" content="&#96;&#96;function switchMap(fn) {    let id &#x3D; 0;    let last&#x3D; 0;    let cache; return new Proxy(fn, &amp;#123;     async apply (_, this, args) &amp;#123;         const temp &#x3D; id;         id++;">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-08-18T13:03:04.000Z">
+<meta property="article:modified_time" content="2023-08-18T12:09:57.427Z">
+<meta property="article:author" content="ns">
+<meta property="article:tag" content="前端 面试 笔记">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/interview-notes/atom.xml" title="前端面试笔记" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/interview-notes/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/interview-notes/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/interview-notes/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/interview-notes/" id="logo">前端面试笔记</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/interview-notes/">Home</a>
+        
+          <a class="main-nav-link" href="/interview-notes/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/interview-notes/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://nlovesye.github.io/interview-notes"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-异步处理顺序问题" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/interview-notes/2023/08/18/%E5%BC%82%E6%AD%A5%E5%A4%84%E7%90%86%E9%A1%BA%E5%BA%8F%E9%97%AE%E9%A2%98/" class="article-date">
+  <time class="dt-published" datetime="2023-08-18T13:03:04.000Z" itemprop="datePublished">2023-08-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      异步处理顺序问题
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>&#96;&#96;<br>function switchMap(fn) {<br>    let id &#x3D; 0;<br>    let last&#x3D; 0;<br>    let cache;</p>
+<pre><code>return new Proxy(fn, &#123;
+    async apply (_, this, args) &#123;
+        const temp = id;
+        id++;
+    
+        const result = await Reflect.apply(_, this, args);
+       
+        if (temp &lt; last) &#123;
+            return cache;
+        &#125;
+
+        cache = result;
+        last = temp;
+        return result;
+    &#125;
+&#125;)
+</code></pre>
+<p>}</p>
+<p>function wait(param) {<br>    return new Promise((resolve) &#x3D;&gt; {<br>        if (‘number’ &#x3D;&#x3D;&#x3D; typeof param) {<br>            setTimeout(resolve, param);<br>        } else if (‘function’ &#x3D;&#x3D;&#x3D; param) {<br>            const timer &#x3D; setInterval(() &#x3D;&gt; {<br>                if (param()) {<br>                    clearInterval(timer);<br>                    resolve();<br>                }<br>            }, 100);<br>        } else {<br>            resolve();<br>        }<br>    });<br>}</p>
+<p>function mergeMap(fn) {<br>    let id &#x3D; 0;<br>    let ids &#x3D; new Set();</p>
+<pre><code>return new Proxy(fn, &#123;
+    async apply (_, this, args) &#123;
+       const task = Reflect.apply(_, this, args);
+       const temp = id;
+       id++;
+       ids.add(temp);
+       await wait(() =&gt; !ids.has(temp - 1));
+       ids.delete(temp);
+       return await task;
+    &#125;
+&#125;);
+</code></pre>
+<p>}</p>
+<p>function concatMap(fn) {<br>    let id &#x3D; 0;<br>    let ids &#x3D; new Set();</p>
+<pre><code>return new Proxy(fn, &#123;
+    async apply (_, this, args) &#123;
+       const temp = id;
+       id++;
+       ids.add(temp);
+       await wait(() =&gt; !ids.has(temp - 1));
+       const task = Reflect.apply(_, this, args);
+       ids.delete(temp);
+       return await task;
+    &#125;
+&#125;);
+</code></pre>
+<p>}<br>&#96;&#96;</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E5%BC%82%E6%AD%A5%E5%A4%84%E7%90%86%E9%A1%BA%E5%BA%8F%E9%97%AE%E9%A2%98/" data-id="cllgjt3680004ffoh2f1b9akf" data-title="异步处理顺序问题" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/interview-notes/2023/08/18/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          前端性能优化
+        
+      </div>
+    </a>
+  
+  
+    <a href="/interview-notes/2023/08/18/%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0call%E3%80%81apply%E3%80%81bind/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">手动实现call、apply、bind</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/interview-notes/categories/JavaScript/">JavaScript</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/interview-notes/archives/2023/08/">八月 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/interview-notes/2023/08/18/this%E7%9B%B8%E5%85%B3/">this相关</a>
+          </li>
+        
+          <li>
+            <a href="/interview-notes/2023/08/18/%E5%87%BD%E6%95%B0%E6%9F%AF%E9%87%8C%E5%8C%96/">函数柯里化</a>
+          </li>
+        
+          <li>
+            <a href="/interview-notes/2023/08/18/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">前端性能优化</a>
+          </li>
+        
+          <li>
+            <a href="/interview-notes/2023/08/18/%E5%BC%82%E6%AD%A5%E5%A4%84%E7%90%86%E9%A1%BA%E5%BA%8F%E9%97%AE%E9%A2%98/">异步处理顺序问题</a>
+          </li>
+        
+          <li>
+            <a href="/interview-notes/2023/08/18/%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0call%E3%80%81apply%E3%80%81bind/">手动实现call、apply、bind</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 ns<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/interview-notes/" class="mobile-nav-link">Home</a>
+  
+    <a href="/interview-notes/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/interview-notes/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/interview-notes/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/interview-notes/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
