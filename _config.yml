@@ -3,13 +3,13 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo-Blog
+title: 前端面试笔记
 subtitle: ''
-description: ''
-keywords:
-author: John Doe
+description: 前端面试笔记
+keywords: 前端 面试 笔记
+author: ns
 # language: en
-language: zh-cn
+language: zh-CN
 timezone: ''
 
 # URL
@@ -99,7 +99,8 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: landscape
+# theme: BlueLake
+theme: NexT
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
