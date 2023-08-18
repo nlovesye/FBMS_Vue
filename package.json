@@ -7,7 +7,7 @@
     "clean": "hexo clean",
     "hexo": "hexo deploy",
     "server": "hexo server",
-    "gh-pages": "run-s build clean"
+    "gh-pages": "run-s clean build"
   },
   "hexo": {
     "version": "6.3.0"

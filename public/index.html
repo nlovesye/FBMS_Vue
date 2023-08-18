@@ -1,231 +1,957 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <meta name="keywords" content="hexo,个人博客,blog" />
-  <meta name="description" content="某某的个人博客" />
-  <meta http-equiv="x-dns-prefetch-control" content="on">
-  <link rel="dns-prefetch" href="https://busuanzi.ibruce.info">
-  <link rel="dns-prefetch" href="https://at.alicdn.com">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/interview-notes/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/interview-notes/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/interview-notes/favicon.png">
+  <link rel="mask-icon" href="/interview-notes/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/interview-notes/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"nlovesye.github.io","root":"/interview-notes/","images":"/interview-notes/images","scheme":"Gemini","darkmode":true,"version":"8.18.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/interview-notes/js/config.js"></script>
+
+    <meta name="description" content="前端面试笔记">
+<meta property="og:type" content="website">
+<meta property="og:title" content="前端面试笔记">
+<meta property="og:url" content="https://nlovesye.github.io/interview-notes/index.html">
+<meta property="og:site_name" content="前端面试笔记">
+<meta property="og:description" content="前端面试笔记">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="ns">
+<meta property="article:tag" content="前端 面试 笔记">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://nlovesye.github.io/interview-notes/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":true,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"index.html","title":""}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>前端面试笔记</title>
   
-  <link rel="dns-prefetch" href="https://widget.daovoice.io">
-  <link rel="dns-prefetch" href="https://widget-static-cdn.daovoice.io">
-  <link rel="dns-prefetch" href="https://im.daovoice.io">
-  
-  
-  <link rel="dns-prefetch" href="https://hm.baidu.com/">
-  
-  
-  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
-  <link rel="dns-prefetch" href="https://api.github.com">
-  <link rel="dns-prefetch" href="https://avatars3.githubusercontent.com">
-  
-  <link rel="stylesheet" type="text/css" href="/interview-notes/./style/main.css">
-	<link rel="shortcut icon" href="/favicon.ico" title="Favicon">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
-	<title>前端</title>
-  
-  <script>var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="https://hm.baidu.com/hm.js?awwssw1snsnsnn1ndndnndnd99j";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s);})();
-  </script>
-  
-  
-    <script>(function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/123456.js","daovoice");daovoice('init',{app_id: "123456"});daovoice('update');
-  </script>
-  
-<meta name="generator" content="Hexo 6.3.0"></head>
-<body>
-  <div class="left-aside">
-    <div class="face-img"><img src="https://tva3.sinaimg.cn/crop.0.0.200.200.180/005Kc3C1jw8f2uep0hhkvj305k05k3yk.jpg"></div>
-    <div class="intro-word">
-        <h2></h2>
-        <p>天马行空，爱生活，爱coding</p>
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/interview-notes/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
-    <div class="sns">
-        <ul>
-            
-            <li>
-                <a class="github" target="_blank" href="https://github.com/88888888" title="github">
-                    <img src="/interview-notes/./img/icon-github.png" alt="github" data-tooltip="github">
-                </a>
-            </li>
-            
-            <li>
-                <a class="weibo" target="_blank" href="http://weibo.com/u/888888888" title="weibo">
-                    <img src="/interview-notes/./img/icon-weibo.png" alt="weibo" data-tooltip="weibo">
-                </a>
-            </li>
-            
-            <li>
-                <a class="email" target="_blank" href="mailto:1223456@666666.com" title="email">
-                    <img src="/interview-notes/./img/icon-email.png" alt="email" data-tooltip="email">
-                </a>
-            </li>
-            
-            <li>
-                <a class="sf" target="_blank" href="https://segmentfault.com/u/555555" title="sf">
-                    <img src="/interview-notes/./img/icon-sf.png" alt="sf" data-tooltip="sf">
-                </a>
-            </li>
-            
-            <li>
-                <a class="rss" target="_blank" href="/interview-notes/atom.xml" title="rss">
-                    <img src="/interview-notes/./img/icon-rss.png" alt="rss" data-tooltip="rss">
-                </a>
-            </li>
-            
-        </ul>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/interview-notes/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">前端面试笔记</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
     </div>
+  </div>
 </div>
-<div class="right-aside">
-    <div class="right-nav ms">
-        <div class="main">
-          <svg id="nav-menu" class="icon icon-menu" aria-hidden="true">
-            <use xlink:href="#icon-menu"></use>
-          </svg>
-          <ul class="left">
-              
-              <li>
-                  <a href="/interview-notes/2014/friends/">
-                      友链
-                  </a>
-              </li>
-              
-          </ul>
-          <div class="search">
-            <div class="search-box">
-              <input type="search"  id="search" class="input-search" placeholder="搜索">
-              <i class="icon-search"></i>
-              <div class="search-result-box">
-                <ul id="search-result"></ul>
-              </div>
-            </div>
-            <svg id="nav-search" class="icon icon-search" aria-hidden="true">
-              <use xlink:href="#icon-search"></use>
-            </svg>
-          </div>
-        </div>
-    </div>
-    <div class="right-main">
-        <div class="category">
-            <ul>
-                <li><a href="/interview-notes/" class="active">最新</a></li>
-                
-            </ul>
-        </div>
-        <div class="clear"></div>
-        <div class="list">
-            <div>
-                
-                
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/interview-notes/" rel="section">首页</a></li><li class="menu-item menu-item-tags"><a href="/interview-notes/tags/" rel="section">标签<span class="badge">0</span></a></li><li class="menu-item menu-item-archives"><a href="/interview-notes/archives/" rel="section">归档<span class="badge">9</span></a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
   
-    <div class="item">
-      <div class="title">
-        <a href="/interview-notes/2023/08/18/hello-world/">Hello World</a>
-      </div>
-      <div class="info">
-        <ul>
-          <li>发布 <time datetime="2023-08-18T05:43:50.787Z" itemprop="date">2023-08-18</time>
-          </li>
-          <li>更新 <time datetime="2023-08-18T05:43:50.787Z" itemprop="dateUpdated">2023-08-18</time>
-          </li>
-          <!--<li> 评论 <span id = "url::https://nlovesye.github.io/interview-notes/interview-notes/2023/08/18/hello-world/" class = "cy_cmt_count" ></span>
-          </li>-->
-        </ul>
-      </div>
-    </div>
-  
+  <aside class="sidebar">
 
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
 
-                
-                
-  
-    <div class="item">
-      <div class="title">
-        <a href="/interview-notes/2023/08/18/test1/">test1</a>
-      </div>
-      <div class="info">
-        <ul>
-          <li>发布 <time datetime="2023-08-18T05:03:04.000Z" itemprop="date">2023-08-18</time>
-          </li>
-          <li>更新 <time datetime="2023-08-18T06:00:05.333Z" itemprop="dateUpdated">2023-08-18</time>
-          </li>
-          <!--<li> 评论 <span id = "url::https://nlovesye.github.io/interview-notes/interview-notes/2023/08/18/test1/" class = "cy_cmt_count" ></span>
-          </li>-->
-        </ul>
-      </div>
-    </div>
-  
-
-
-                
-                
-
-            </div>
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
         </div>
-        <div class="clear"></div>
-        <div class="hosted">
-          <ul>
-            <li class="coding">
-              <a target="_blank" rel="noopener" href="https://coding.net/pages">
-                <img src="/interview-notes/./img/coding.png">
-              </a>
-            </li>
-            <li class="github-pages">
-              <a target="_blank" rel="noopener" href="https://pages.github.com">
-                <img src="/interview-notes/./img/github-pages.png">
-              </a>
-            </li>
-          </ul>
-        </div>
-    </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="ns"
+      src="/interview-notes/favicon.png">
+  <p class="site-author-name" itemprop="name">ns</p>
+  <div class="site-description" itemprop="description">前端面试笔记</div>
 </div>
-<script>
-  var homeLeftBgArr = 'https://ws3.sinaimg.cn/large/006tKfTcly1fsulzlvofnj30af0k5jvu.jpg,https://ws2.sinaimg.cn/large/006tNbRwly1fwl2alhqibj31kw2dcu0y.jpg,https://ws1.sinaimg.cn/large/006tNbRwly1fwl2bclcirj31kw2czk7v.jpg,https://ws3.sinaimg.cn/large/006tNbRwly1fwl2c765jej31kw2d1npe.jpg,https://ws3.sinaimg.cn/large/006tNbRwly1fwl2dentnvj31kw2dc1l2.jpg,https://ws4.sinaimg.cn/large/006tNbRwly1fwl2dqawiej31kw2d8x6p.jpg,https://ws3.sinaimg.cn/large/006tNbRwly1fwl2f7yp25j31kw3a97wh.jpg'.split(',');
-  var homeLeftBgArrLen = homeLeftBgArr.length;
-  var leftBackgroundUrl = homeLeftBgArr[Math.floor(Math.random() * homeLeftBgArrLen)];
-  var homeLeftAsideNode = document.getElementsByClassName('left-aside')[0];
-  if (homeLeftAsideNode) {
-    homeLeftAsideNode.style.backgroundImage = 'url(' + leftBackgroundUrl + ')';
-  }
-</script>
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-</script>
-<script>//console
-  var consoleConfig = '\n欢迎访问 https://hufangyun.com ，围观小猿大圣的博客(づ｡◕‿‿◕｡)づ！\n,\n本博客使用 %cHexo%c 搭建，博客主题为小猿大圣开发的 %chexo-themes-yearn%c ~~~ 🎉🎉🎉 \n\n源码 https://github.com/Youthink/hexo-themes-yearn \n\n如果喜欢可以 star 支持一下 ❤️~\n,\n扫描下面的二维码，在手机上查看博客！\n,https://static.hufangyun.com/blog-url-qrcode-180-180.png,\n 想知道这个效果如何实现的？博客内搜索 console 彩蛋 🚀 ！\n'.split(',');
-  var canConsole = true;
-  var consoleInfo = (function(consoleConfig) {
-  if (!canConsole || !consoleConfig || consoleConfig.length < 1) {
-    return;
-  }
-  var consoleColor = '#6190e8';
-  var _console;
-  var backgroundTextStyle = 'padding: 1px 5px;color: #fff;background: ' + consoleColor + ';'
-  var textStyle = 'color: ' + consoleColor + ';';
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/interview-notes/archives/">
+          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
 
-  consoleConfig.map(o => {
-    var num = (o.match(/%c/g) || []).length;
-    if(/^http(s)?:\/\//.test(o)) {
-      console.log('%c     ', 'background: url(' + o + ') no-repeat left center;font-size: 180px;');
-      return;
-    }
-    if (num > 0) {
-      var logArguments = [];
-      for (var i = 0; i < num; i++) {
-        if (i % 2 === 0) {
-          logArguments.push(backgroundTextStyle);
-        } else {
-          logArguments.push(textStyle);
-        }
-      }
-      (_console = console).log.apply(_console, ['%c' + o, textStyle].concat(logArguments));
-      return;
-    }
-    console.log('%c' + o, textStyle);
-  });
-}(consoleConfig));</script><script type="text/javascript" src="/interview-notes/./js/main.js"></script>
+        </div>
+      </div>
+    </div>
 
-  <script src="//at.alicdn.com/t/font_159214_mvtxvg9me9.js"></script>
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://nlovesye.github.io/interview-notes/2023/08/18/%E9%97%AD%E5%8C%85/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/interview-notes/favicon.png">
+      <meta itemprop="name" content="ns">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="前端面试笔记">
+      <meta itemprop="description" content="前端面试笔记">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 前端面试笔记">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/interview-notes/2023/08/18/%E9%97%AD%E5%8C%85/" class="post-title-link" itemprop="url">闭包</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-08-18 16:26:01 / 修改时间：16:28:35" itemprop="dateCreated datePublished" datetime="2023-08-18T16:26:01+08:00">2023-08-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/interview-notes/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="概念："><a href="#概念：" class="headerlink" title="概念："></a>概念：</h2><p>能够访问外部函数作用域中变量的函数</p>
+<h2 id="作用："><a href="#作用：" class="headerlink" title="作用："></a>作用：</h2><p>保护函数的私有变量不受外部干扰，形成不销毁的栈内存<br>保存，把一些函数内的值保存下来，实现方法和属性的私有化</p>
+<p>使用场景：<br>1.自执行函数<br>2.函数作为参数，return返回一个函数<br>3.循环赋值<br>4.使用回调函数就是在使用闭包<br>5.节流防抖<br>6.柯里化实现</p>
+<h2 id="需要注意："><a href="#需要注意：" class="headerlink" title="需要注意："></a>需要注意：</h2><p>容易导致内存泄漏，因为闭包会包含其他的函数作用域，比其他函数更占内存，过度使用会导致内存占用过多。</p>
+<p>&#96;&#96;<br>var data &#x3D; [];</p>
+<p>for (var i &#x3D; 0; i &lt; 3; i++) {<br>  data[i] &#x3D; function () {<br>    console.log(i);<br>  };<br>}</p>
+<p>data<a href="">0</a>;<br>data<a href="">1</a>;<br>data<a href="">2</a><br>&#x2F;* 输出<br>    3<br>    3<br>    3<br>&#x2F;</p>
+<p>var data &#x3D; [];</p>
+<p>for (var i &#x3D; 0; i &lt; 3; i++) {<br>    (function(j){<br>      setTimeout( data[j] &#x3D; function () {<br>        console.log(j);<br>      }, 0)<br>    })(i)<br>}</p>
+<p>data<a href="">0</a>;<br>data<a href="">1</a>;<br>data<a href="">2</a></p>
+<p>var data &#x3D; [];</p>
+<p>for (let i &#x3D; 0; i &lt; 3; i++) {<br>  data[i] &#x3D; function () {<br>    console.log(i);<br>  };<br>}</p>
+<p>data<a href="">0</a>;<br>data<a href="">1</a>;<br>data<a href="">2</a></p>
+<p>var result &#x3D; [];<br>var a &#x3D; 3;<br>var total &#x3D; 0;</p>
+<p>function foo(a) {<br>    for (var i &#x3D; 0; i &lt; 3; i++) {<br>        result[i] &#x3D; function () {<br>            total +&#x3D; i * a;<br>            console.log(total);<br>        }<br>    }<br>}</p>
+<p>foo(1);<br>result<a href="">0</a>;  &#x2F;&#x2F; 3<br>result<a href="">1</a>;  &#x2F;&#x2F; 6<br>result<a href="">2</a>;  &#x2F;&#x2F; 9<br>&#96;&#96;</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://nlovesye.github.io/interview-notes/2023/08/18/this%E7%9B%B8%E5%85%B3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/interview-notes/favicon.png">
+      <meta itemprop="name" content="ns">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="前端面试笔记">
+      <meta itemprop="description" content="前端面试笔记">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 前端面试笔记">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/interview-notes/2023/08/18/this%E7%9B%B8%E5%85%B3/" class="post-title-link" itemprop="url">this相关</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-08-18 13:03:04 / 修改时间：15:51:43" itemprop="dateCreated datePublished" datetime="2023-08-18T13:03:04+08:00">2023-08-18</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>1.运行时确定，绝大多数情况函数的调用方式决定了this的值<br>2.this关键字是函数运行时自动生成的一个内部对象，只能在函数内部使用，总指向调用它的对象<br>3.通过new实例构造函数，此时this指向new构造函数生成的实例对象；<br>4.在严格模式和非严格模式有区别</p>
+<p>默认绑定：浏览器中默认指向window</p>
+<p>隐式绑定：<br><code>var msg = &quot;global msg&quot;; function test () &#123;     console.log(this.msg) &#125; const obj = &#123;     msg: &quot;obj msg&quot;; &#125; obj.test = test; test(); // &quot;global msg&quot; obj.test(); // &quot;obj msg&quot;</code></p>
+<p>new绑定：<br>通过new实例构造函数，此时this指向new构造函数生成的实例对象；</p>
+<p>如果构造函数返回一个对象，则this指向返回的对象<br>如果构造函数返回一个简单类型数据或者null，则this指向实例对象</p>
+<p>显式绑定:<br>call、apply、bind</p>
+<p>es6提供了箭头函数，使我们在书写代码的时候就能确定this指向</p>
+<p>优先级：new绑定&gt;显式绑定&gt;隐式绑定&gt;默认绑定</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://nlovesye.github.io/interview-notes/2023/08/18/%E5%87%BD%E6%95%B0%E6%9F%AF%E9%87%8C%E5%8C%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/interview-notes/favicon.png">
+      <meta itemprop="name" content="ns">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="前端面试笔记">
+      <meta itemprop="description" content="前端面试笔记">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 前端面试笔记">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/interview-notes/2023/08/18/%E5%87%BD%E6%95%B0%E6%9F%AF%E9%87%8C%E5%8C%96/" class="post-title-link" itemprop="url">函数柯里化</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-08-18 13:03:04 / 修改时间：15:53:14" itemprop="dateCreated datePublished" datetime="2023-08-18T13:03:04+08:00">2023-08-18</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>&#96;&#96;<br>function curry(fn, len &#x3D; fn.length) {<br>    return _curry(fn, len)<br>}</p>
+<p>function _curry(fn, len, …arg) {<br>    return function (…params) {<br>        let _arg &#x3D; […arg, …params]<br>        if (_arg.length &gt;&#x3D; len) {<br>            return fn.apply(this, _arg)<br>        } else {<br>            return _curry.call(this, fn, len, …_arg)<br>        }<br>    }<br>}</p>
+<p>let fn &#x3D; curry(function (a, b, c, d, e) {<br>    console.log(a + b + c + d + e)<br>})</p>
+<p>fn(1, 2, 3, 4, 5)  &#x2F;&#x2F; 15<br>fn(1, 2)(3, 4, 5)<br>fn(1, 2)(3)(4)(5)<br>fn(1)(2)(3)(4)(5)<br>&#96;&#96;</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://nlovesye.github.io/interview-notes/2023/08/18/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/interview-notes/favicon.png">
+      <meta itemprop="name" content="ns">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="前端面试笔记">
+      <meta itemprop="description" content="前端面试笔记">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 前端面试笔记">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/interview-notes/2023/08/18/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="post-title-link" itemprop="url">前端性能优化</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-08-18 13:03:04 / 修改时间：15:51:20" itemprop="dateCreated datePublished" datetime="2023-08-18T13:03:04+08:00">2023-08-18</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>1.网络优化<br>·dns预解析-link标签ref设置为dns-prefetch，提前获取域名对应的ip地址<br>·使用缓存-减轻服务器压力，快速得到数据<br>·使用cdn-用户与服务器物理距离对响应时间也有影响<br>·压缩响应<br>·使用多个域名-浏览器会有同域名限制并发下载数的情况，保持在2-4个域名内避免dns查询损耗<br>·避免图片src为空</p>
+<p>2.页面渲染优化<br>webkit渲染引擎流程：<br>    ·处理html并构建dom树<br>    ·处理css并构建css规则树（cssom）<br>    ·dom树和css规则树合成一棵渲染树 render tree<br>    ·根据渲染树，计算每个节点位置<br>    ·调用gpu绘制，合成图层，显示在屏幕上<br>·避免css阻塞-css影响renderTree的构建，应该尽早尽快将css资源加载（放在head标签里、启用cdn实现加载速度优化）<br>·降低css选择器复杂度-浏览器读取选择器遵循的原则是从选择器的右边到左边<br>    1.减少嵌套，最多不超过三层，后代选择器开销较大<br>    2.避免使用通配符，对用到的元素进行匹配即可<br>    3.利用继承，避免重复匹配定义<br>    4.正确使用类选择器和id选择器<br>    6.避免使用css表达式<br>·避免js阻塞-js可以修改cssom和dom，因此js会阻塞页面的解析和渲染，并且会等待css资源的加载，也就会抢走渲染引擎的控制权。给js资源添加defer或者async，延迟js脚本的执行<br>·使用外链式js和css<br>·使用字体图标代替图片图标-图片会增加网络请求次数，拖慢页面加载时间<br>·首屏加载优化-使用骨架屏或者动画优化体验，资源按需加载，首页不需要的资源延迟加载<br>·减少重排（回流）和重绘<br>增加多个节点使用documentFragment：不是真实dom的部分，不会引起重绘和回流<br>用 translate?代替 top ，因为 top 会触发回流，但是translate不会。所以translate会比top节省了一个layout的时间<br>使用 visibility 替换 display: none ，因为前者只会引起重绘，后者会引发回流（改变了布局）；opacity?代替 visiability，visiability会触发重绘（paint），但opacity不会。<br>把 DOM 离线后修改，比如：先把 DOM 给 display:none (有一次 Reflow)，然后你修改 100 次，然后再把它显示出来<br>不要把 DOM 结点的属性值放在一个循环里当成循环里的变量<br><code>javascript复制代码for (let i = 0; i &lt; 1000; i++) &#123;   // 获取 offsetTop 会导致回流，因为需要去获取正确的值   console.log(document.querySelector(&#39;.test&#39;).style.offsetTop) &#125;</code><br>尽量少用table布局，table布局的话，每次有单元格布局改变，都会进行整个tabel回流重绘；<br>最好别频繁去操作DOM节点，最好把需要操作的样式，提前写成class，之后需要修改。只需要修改一次，需要修改的时候，直接修改className，做成一次性更新多条css DOM属性，一次回流重绘总比多次回流重绘要付出的成本低得多；<br>动画实现的速度的选择，动画速度越快，回流次数越多，也可以选择使用 requestAnimationFrame<br>每次访问DOM的偏移量属性的时候，例如获取一个元素的scrollTop、scrollLeft、scrollWidth、offsetTop、offsetLeft、offsetWidth、offsetHeight之类的属性，浏览器为了保证值的正确也会回流取得最新的值，所以如果你要多次操作，最取完做个缓存。更加不要for循环中访问DOM偏移量属性，而且使用的时候，最好定义一个变量，把要需要的值赋值进去，进行值缓存，把回流重绘的次数减少；<br>将频繁运行的动画变为图层，图层能够阻止该节点回流影响别的元素。比如对于 video 标签，浏览器会自动将该节点变为图层。</p>
+<p>3.js优化<br>·使用事件委托<br>·节流和防抖<br>尽量不要使用js动画-css3和canvas动画比js动画性能好<br>·多线程-开启webworker进行复杂计算<br>·计算结果缓存-减少运算次数</p>
+<p>4.图片优化<br>·雪碧图-减少http请求次数<br>·图片懒加载<br>·使用css3代替图片<br>·图片压缩<br>·使用webp格式图片<br>·使用渐进式jpeg</p>
+<p>5.webpack打包优化<br>·缩小loader匹配范围<br>·resolve.modules-默认在项目根目录下的node_modules里面去找，如果没找到会往上层目录的node_modules里面找，以此类推，如果确定第三方模块都按照在项目根目录下，可以显式指定<br>    resolve: { modules: [path.resolve(__dirname, “.&#x2F;node_modules”)] }<br>·resolve.extensions-后缀尝试列表尽量小，导入语句尽量带上后缀<br>·抽离css-借助mini-css-extract-plugin：本插件会将css提取到单独文件，为每个包含css的js文件创建一个css文件，并支持css和sourcemaps的按需加载<br>·代码压缩-js、css、html文件代码、文件大小、图片<br>·tree shaking去除死代码-依赖于esmodule的静态语法分析，usedExports（标记某些函数是否被使用，之后通过terser进行优化）和sideEffects（跳过整个模块&#x2F;文件，直接查看该文件是否有副作用）<br>·css tree shaking-可以安装purgeCss插件<br>·babel-plugin-transform-runtime减少ES6转化ES5冗余<br>·代码分离-将代码分离到不同bundle中，之后可以按需加载或者并行加载这些文件<br>·多线程打包提升打包速度</p>
+<p>6.react优化<br>·map循环展示添加key<br>·路由懒加载<br>·第三方插件按需引入<br>·使用memo、pureComponent等避免不必要的渲染<br>·合理使用useMemo、memo、useCallback</p>
+<p>7.vue优化<br>·v-for添加key<br>·路由懒加载<br>·第三方插件按需引入<br>·合理使用computed和watch<br>·v-for的同时避免使用v-if<br>·destory时销毁事件：比如addEventListener添加的事件、setTimeout、setInterval等</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://nlovesye.github.io/interview-notes/2023/08/18/%E5%BC%82%E6%AD%A5%E5%A4%84%E7%90%86%E9%A1%BA%E5%BA%8F%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/interview-notes/favicon.png">
+      <meta itemprop="name" content="ns">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="前端面试笔记">
+      <meta itemprop="description" content="前端面试笔记">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 前端面试笔记">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/interview-notes/2023/08/18/%E5%BC%82%E6%AD%A5%E5%A4%84%E7%90%86%E9%A1%BA%E5%BA%8F%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">异步处理顺序问题</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-08-18 13:03:04 / 修改时间：15:52:12" itemprop="dateCreated datePublished" datetime="2023-08-18T13:03:04+08:00">2023-08-18</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>&#96;&#96;<br>function switchMap(fn) {<br>    let id &#x3D; 0;<br>    let last&#x3D; 0;<br>    let cache;</p>
+<pre><code>return new Proxy(fn, &#123;
+    async apply (_, this, args) &#123;
+        const temp = id;
+        id++;
+    
+        const result = await Reflect.apply(_, this, args);
+       
+        if (temp &lt; last) &#123;
+            return cache;
+        &#125;
+
+        cache = result;
+        last = temp;
+        return result;
+    &#125;
+&#125;)
+</code></pre>
+<p>}</p>
+<p>function wait(param) {<br>    return new Promise((resolve) &#x3D;&gt; {<br>        if (‘number’ &#x3D;&#x3D;&#x3D; typeof param) {<br>            setTimeout(resolve, param);<br>        } else if (‘function’ &#x3D;&#x3D;&#x3D; param) {<br>            const timer &#x3D; setInterval(() &#x3D;&gt; {<br>                if (param()) {<br>                    clearInterval(timer);<br>                    resolve();<br>                }<br>            }, 100);<br>        } else {<br>            resolve();<br>        }<br>    });<br>}</p>
+<p>function mergeMap(fn) {<br>    let id &#x3D; 0;<br>    let ids &#x3D; new Set();</p>
+<pre><code>return new Proxy(fn, &#123;
+    async apply (_, this, args) &#123;
+       const task = Reflect.apply(_, this, args);
+       const temp = id;
+       id++;
+       ids.add(temp);
+       await wait(() =&gt; !ids.has(temp - 1));
+       ids.delete(temp);
+       return await task;
+    &#125;
+&#125;);
+</code></pre>
+<p>}</p>
+<p>function concatMap(fn) {<br>    let id &#x3D; 0;<br>    let ids &#x3D; new Set();</p>
+<pre><code>return new Proxy(fn, &#123;
+    async apply (_, this, args) &#123;
+       const temp = id;
+       id++;
+       ids.add(temp);
+       await wait(() =&gt; !ids.has(temp - 1));
+       const task = Reflect.apply(_, this, args);
+       ids.delete(temp);
+       return await task;
+    &#125;
+&#125;);
+</code></pre>
+<p>}<br>&#96;&#96;</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://nlovesye.github.io/interview-notes/2023/08/18/%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0call%E3%80%81apply%E3%80%81bind/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/interview-notes/favicon.png">
+      <meta itemprop="name" content="ns">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="前端面试笔记">
+      <meta itemprop="description" content="前端面试笔记">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 前端面试笔记">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/interview-notes/2023/08/18/%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0call%E3%80%81apply%E3%80%81bind/" class="post-title-link" itemprop="url">手动实现call、apply、bind</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-08-18 13:03:04 / 修改时间：15:52:30" itemprop="dateCreated datePublished" datetime="2023-08-18T13:03:04+08:00">2023-08-18</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="手动实现call、apply、bind"><a href="#手动实现call、apply、bind" class="headerlink" title="手动实现call、apply、bind"></a>手动实现call、apply、bind</h1><p>&#96;&#96;<br>  Function.prototype.myCall &#x3D; function myCall(context, …args) {<br>      context &#x3D; context || window;<br>      const symbol &#x3D; Symbol();<br>      context[symbol] &#x3D; this;<br>      const result &#x3D; context<a href="...args">symbol</a>;<br>      delete context[symbol];<br>      return result;<br>  }</p>
+<p>  Function.prototype.myApply &#x3D; function myApply(context, args) {<br>      context &#x3D; context || window;<br>      const symbol &#x3D; Symbol();<br>      context[symbol] &#x3D; this;<br>      const result &#x3D; context<a href="...args">symbol</a>;<br>      delete context[symbol];<br>      return result;<br>  }</p>
+<p>  Function.prototype.myBind &#x3D; function myBind(context, …args) {<br>      context &#x3D; context || window;<br>      context.fn &#x3D; this;</p>
+<pre><code>  return function bd () &#123;
+      if (this instanceof newFn) &#123;
+          return new context.fn(...args, ...argument);
+      &#125;
+      return context.fn(...args, ...argument);
+  &#125;
+</code></pre>
+<p>  }<br>&#96;&#96;</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://nlovesye.github.io/interview-notes/2023/08/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/interview-notes/favicon.png">
+      <meta itemprop="name" content="ns">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="前端面试笔记">
+      <meta itemprop="description" content="前端面试笔记">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 前端面试笔记">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/interview-notes/2023/08/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="post-title-link" itemprop="url">设计模式</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-08-18 13:03:04 / 修改时间：15:52:37" itemprop="dateCreated datePublished" datetime="2023-08-18T13:03:04+08:00">2023-08-18</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="装饰器模式"><a href="#装饰器模式" class="headerlink" title="装饰器模式"></a>装饰器模式</h2><p>不改变对象自身的基础上，在程序运行时动态地添加方法</p>
+<h2 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h2><p>多种不同的需求，复用同一个对象，简化对象实例化</p>
+<h2 id="观察者模式"><a href="#观察者模式" class="headerlink" title="观察者模式"></a>观察者模式</h2><p>订阅发布方的消息，发布方有变化向所有的订阅者发送通知</p>
+<h2 id="发布订阅模式"><a href="#发布订阅模式" class="headerlink" title="发布订阅模式"></a>发布订阅模式</h2><p>订阅方和发布方解耦，订阅方只订阅自己感兴趣的类型消息，不用直接关联发布方，发布方也是根据类型通知，不用直接关联订阅方</p>
+<h2 id="适配器模式"><a href="#适配器模式" class="headerlink" title="适配器模式"></a>适配器模式</h2><p>处理一些转换适配使用，比如插头转换适配器</p>
+<h2 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h2><p>只有单个实例</p>
+<h2 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h2><p>类似经纪人，提供方不用直接对接使用方，经纪人会先处理需求然后根据提供方的能力做出相对应的反应</p>
+<h2 id="策略模式"><a href="#策略模式" class="headerlink" title="策略模式"></a>策略模式</h2><p>策略类封装具体的算法并负责具体计算过程，环境类接收客户请求并将请求委托给某一个具体的策略类</p>
+<h2 id="中介者模式"><a href="#中介者模式" class="headerlink" title="中介者模式"></a>中介者模式</h2><p>将对象与对象解耦，其他所有相关的对象都通过中介者进行通信，有一个对象变化，只通知中介者就可以，不用互相引用</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://nlovesye.github.io/interview-notes/2023/08/18/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BB%8E%E8%BE%93%E5%85%A5url%E5%88%B0%E9%A1%B5%E9%9D%A2%E6%98%BE%E7%A4%BA%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/interview-notes/favicon.png">
+      <meta itemprop="name" content="ns">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="前端面试笔记">
+      <meta itemprop="description" content="前端面试笔记">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 前端面试笔记">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/interview-notes/2023/08/18/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BB%8E%E8%BE%93%E5%85%A5url%E5%88%B0%E9%A1%B5%E9%9D%A2%E6%98%BE%E7%A4%BA%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/" class="post-title-link" itemprop="url">浏览器从输入url到页面显示发生了什么</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-08-18 13:03:04 / 修改时间：15:52:58" itemprop="dateCreated datePublished" datetime="2023-08-18T13:03:04+08:00">2023-08-18</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>1.浏览器输入网址<br>protocol协议:&#x2F;&#x2F;hostname主机名：端口号&#x2F;pathname路径?search参数</p>
+<p>2.浏览器dns解析域名获取实际ip地址</p>
+<p>3.与服务器建立tcp连接</p>
+<p>4.客户端发送请求</p>
+<p>5.服务器响应请求</p>
+<p>6.断开连接</p>
+<p>7.浏览器解析渲染页面</p>
+<hr>
+<p>·浏览器解析js脚本执行，可能有dom操作，ajax发起http网络请求等</p>
+<p>·浏览器发起网络请求，获取html中的资源图片音视频等，websocket，ajax等，通常是获取数据</p>
+<p>·服务器响应ajax请求</p>
+<p>·浏览器处理事件循环等异步逻辑</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://nlovesye.github.io/interview-notes/2023/08/18/%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/interview-notes/favicon.png">
+      <meta itemprop="name" content="ns">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="前端面试笔记">
+      <meta itemprop="description" content="前端面试笔记">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 前端面试笔记">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/interview-notes/2023/08/18/%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81/" class="post-title-link" itemprop="url">防抖和节流</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-08-18 13:03:04 / 修改时间：18:05:48" itemprop="dateCreated datePublished" datetime="2023-08-18T13:03:04+08:00">2023-08-18</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="节流："><a href="#节流：" class="headerlink" title="节流："></a>节流：</h2><p>一定时间内只首次触发生效</p>
+<p><code>function throttle (fn, timeout) &#123;     let timer = null;     return function (...args) &#123;         if (timer) &#123;             return;         &#125;         const _this = this;         timer = setTimeout(function () &#123;             fn.apply(_this, args);             timer = null;         &#125;, timeout);     &#125; &#125;</code></p>
+<h2 id="防抖："><a href="#防抖：" class="headerlink" title="防抖："></a>防抖：</h2><p>一定时间内只最后一次触发生效</p>
+<p><code>function debounce (fn, timeout) &#123;     let timer = null;     return function (...args) &#123;         if (timer) &#123;             clearTimeout(timer);         &#125;         const _this = this;         timer = setTimeout(function () &#123;             fn.apply(_this, args);         &#125;, timeout);     &#125; &#125;</code></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">ns</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/interview-notes/js/comments.js"></script><script src="/interview-notes/js/utils.js"></script><script src="/interview-notes/js/motion.js"></script><script src="/interview-notes/js/next-boot.js"></script>
+
+  
+
+
+
+
+  <script src="/interview-notes/js/third-party/pace.js"></script>
+
+
+  
+
+
+
+
+
 </body>
 </html>
