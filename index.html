@@ -76,6 +76,53 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-闭包" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/interview-notes/2023/08/18/%E9%97%AD%E5%8C%85/" class="article-date">
+  <time class="dt-published" datetime="2023-08-18T13:59:48.748Z" itemprop="datePublished">2023-08-18</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/interview-notes/categories/JavaScript/">JavaScript</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/interview-notes/2023/08/18/%E9%97%AD%E5%8C%85/">闭包</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="概念："><a href="#概念：" class="headerlink" title="概念："></a>概念：</h2><p>能够访问外部函数作用域中变量的函数</p>
+<h2 id="作用："><a href="#作用：" class="headerlink" title="作用："></a>作用：</h2><p>保护函数的私有变量不受外部干扰，形成不销毁的栈内存<br>保存，把一些函数内的值保存下来，实现方法和属性的私有化</p>
+<p>使用场景：<br>1.自执行函数<br>2.函数作为参数，return返回一个函数<br>3.循环赋值<br>4.使用回调函数就是在使用闭包<br>5.节流防抖<br>6.柯里化实现</p>
+<h2 id="需要注意："><a href="#需要注意：" class="headerlink" title="需要注意："></a>需要注意：</h2><p>容易导致内存泄漏，因为闭包会包含其他的函数作用域，比其他函数更占内存，过度使用会导致内存占用过多。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> data = [];</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">  data[i] = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(i);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">data[<span class="number">0</span>]();</span><br><span class="line">data[<span class="number">1</span>]();</span><br><span class="line">data[<span class="number">2</span>]()</span><br><span class="line"><span class="comment">/* 输出</span></span><br><span class="line"><span class="comment">    3</span></span><br><span class="line"><span class="comment">    3</span></span><br><span class="line"><span class="comment">    3</span></span><br><span class="line"><span class="comment">/</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">var data = [];</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">for (var i = 0; i &lt; 3; i++) &#123;</span></span><br><span class="line"><span class="comment">    (function(j)&#123;</span></span><br><span class="line"><span class="comment">      setTimeout( data[j] = function () &#123;</span></span><br><span class="line"><span class="comment">        console.log(j);</span></span><br><span class="line"><span class="comment">      &#125;, 0)</span></span><br><span class="line"><span class="comment">    &#125;)(i)</span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">data[0]();</span></span><br><span class="line"><span class="comment">data[1]();</span></span><br><span class="line"><span class="comment">data[2]()</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">var data = [];</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">for (let i = 0; i &lt; 3; i++) &#123;</span></span><br><span class="line"><span class="comment">  data[i] = function () &#123;</span></span><br><span class="line"><span class="comment">    console.log(i);</span></span><br><span class="line"><span class="comment">  &#125;;</span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">data[0]();</span></span><br><span class="line"><span class="comment">data[1]();</span></span><br><span class="line"><span class="comment">data[2]()</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">var result = [];</span></span><br><span class="line"><span class="comment">var a = 3;</span></span><br><span class="line"><span class="comment">var total = 0;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">function foo(a) &#123;</span></span><br><span class="line"><span class="comment">    for (var i = 0; i &lt; 3; i++) &#123;</span></span><br><span class="line"><span class="comment">        result[i] = function () &#123;</span></span><br><span class="line"><span class="comment">            total += i * a;</span></span><br><span class="line"><span class="comment">            console.log(total);</span></span><br><span class="line"><span class="comment">        &#125;</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">foo(1);</span></span><br><span class="line"><span class="comment">result[0]();  // 3</span></span><br><span class="line"><span class="comment">result[1]();  // 6</span></span><br><span class="line"><span class="comment">result[2]();  // 9</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E9%97%AD%E5%8C%85/" data-id="cllgnqex10008czovguay2me3" data-title="闭包" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-this相关" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/interview-notes/2023/08/18/this%E7%9B%B8%E5%85%B3/" class="article-date">
@@ -110,7 +157,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/this%E7%9B%B8%E5%85%B3/" data-id="cllgjt3620001ffohgeatf20r" data-title="this相关" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/this%E7%9B%B8%E5%85%B3/" data-id="cllgnqewo0001czov2g455u93" data-title="this相关" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -152,7 +199,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E5%87%BD%E6%95%B0%E6%9F%AF%E9%87%8C%E5%8C%96/" data-id="cllgjt3650002ffohbuuv8klf" data-title="函数柯里化" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E5%87%BD%E6%95%B0%E6%9F%AF%E9%87%8C%E5%8C%96/" data-id="cllgnqews0002czovd5c0do4p" data-title="函数柯里化" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -197,7 +244,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" data-id="cllgjt3670003ffohaev0a58e" data-title="前端性能优化" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" data-id="cllgnqewv0003czov0i0u4guh" data-title="前端性能优化" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -231,59 +278,11 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>&#96;&#96;<br>function switchMap(fn) {<br>    let id &#x3D; 0;<br>    let last&#x3D; 0;<br>    let cache;</p>
-<pre><code>return new Proxy(fn, &#123;
-    async apply (_, this, args) &#123;
-        const temp = id;
-        id++;
-    
-        const result = await Reflect.apply(_, this, args);
-       
-        if (temp &lt; last) &#123;
-            return cache;
-        &#125;
-
-        cache = result;
-        last = temp;
-        return result;
-    &#125;
-&#125;)
-</code></pre>
-<p>}</p>
-<p>function wait(param) {<br>    return new Promise((resolve) &#x3D;&gt; {<br>        if (‘number’ &#x3D;&#x3D;&#x3D; typeof param) {<br>            setTimeout(resolve, param);<br>        } else if (‘function’ &#x3D;&#x3D;&#x3D; param) {<br>            const timer &#x3D; setInterval(() &#x3D;&gt; {<br>                if (param()) {<br>                    clearInterval(timer);<br>                    resolve();<br>                }<br>            }, 100);<br>        } else {<br>            resolve();<br>        }<br>    });<br>}</p>
-<p>function mergeMap(fn) {<br>    let id &#x3D; 0;<br>    let ids &#x3D; new Set();</p>
-<pre><code>return new Proxy(fn, &#123;
-    async apply (_, this, args) &#123;
-       const task = Reflect.apply(_, this, args);
-       const temp = id;
-       id++;
-       ids.add(temp);
-       await wait(() =&gt; !ids.has(temp - 1));
-       ids.delete(temp);
-       return await task;
-    &#125;
-&#125;);
-</code></pre>
-<p>}</p>
-<p>function concatMap(fn) {<br>    let id &#x3D; 0;<br>    let ids &#x3D; new Set();</p>
-<pre><code>return new Proxy(fn, &#123;
-    async apply (_, this, args) &#123;
-       const temp = id;
-       id++;
-       ids.add(temp);
-       await wait(() =&gt; !ids.has(temp - 1));
-       const task = Reflect.apply(_, this, args);
-       ids.delete(temp);
-       return await task;
-    &#125;
-&#125;);
-</code></pre>
-<p>}<br>&#96;&#96;</p>
-
+        <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">switchMap</span>(<span class="params">fn</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> id = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">let</span> last= <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">let</span> cache;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Proxy</span>(fn, &#123;</span><br><span class="line">        <span class="keyword">async</span> apply (_, <span class="variable language_">this</span>, args) &#123;</span><br><span class="line">            <span class="keyword">const</span> temp = id;</span><br><span class="line">            id++;</span><br><span class="line">        </span><br><span class="line">            <span class="keyword">const</span> result = <span class="keyword">await</span> <span class="title class_">Reflect</span>.<span class="title function_">apply</span>(_, <span class="variable language_">this</span>, args);</span><br><span class="line">           </span><br><span class="line">            <span class="keyword">if</span> (temp &lt; last) &#123;</span><br><span class="line">                <span class="keyword">return</span> cache;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            cache = result;</span><br><span class="line">            last = temp;</span><br><span class="line">            <span class="keyword">return</span> result;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">switchMap</span>(<span class="params">fn</span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> id = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">let</span> last = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">let</span> cache;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">async</span> <span class="keyword">function</span> (<span class="params">...args</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> temp = id;</span><br><span class="line">    id++;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">const</span> result = <span class="keyword">await</span> fn.<span class="title function_">apply</span>(<span class="variable language_">this</span>, args);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (temp &lt; last) &#123;</span><br><span class="line">      <span class="keyword">return</span> cache</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    cache = result;</span><br><span class="line">    last = temp;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">wait</span>(<span class="params">param</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="string">&#x27;number&#x27;</span> === <span class="keyword">typeof</span> param) &#123;</span><br><span class="line">            <span class="built_in">setTimeout</span>(resolve, param);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">&#x27;function&#x27;</span> === param) &#123;</span><br><span class="line">            <span class="keyword">const</span> timer = <span class="built_in">setInterval</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (<span class="title function_">param</span>()) &#123;</span><br><span class="line">                    <span class="built_in">clearInterval</span>(timer);</span><br><span class="line">                    <span class="title function_">resolve</span>();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;, <span class="number">100</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="title function_">resolve</span>();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">mergeMap</span>(<span class="params">fn</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> id = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">let</span> ids = <span class="keyword">new</span> <span class="title class_">Set</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Proxy</span>(fn, &#123;</span><br><span class="line">        <span class="keyword">async</span> apply (_, <span class="variable language_">this</span>, args) &#123;</span><br><span class="line">           <span class="keyword">const</span> task = <span class="title class_">Reflect</span>.<span class="title function_">apply</span>(_, <span class="variable language_">this</span>, args);</span><br><span class="line">           <span class="keyword">const</span> temp = id;</span><br><span class="line">           id++;</span><br><span class="line">           ids.<span class="title function_">add</span>(temp);</span><br><span class="line">           <span class="keyword">await</span> <span class="title function_">wait</span>(<span class="function">() =&gt;</span> !ids.<span class="title function_">has</span>(temp - <span class="number">1</span>));</span><br><span class="line">           ids.<span class="title function_">delete</span>(temp);</span><br><span class="line">           <span class="keyword">return</span> <span class="keyword">await</span> task;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">concatMap</span>(<span class="params">fn</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> id = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">let</span> ids = <span class="keyword">new</span> <span class="title class_">Set</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Proxy</span>(fn, &#123;</span><br><span class="line">        <span class="keyword">async</span> apply (_, <span class="variable language_">this</span>, args) &#123;</span><br><span class="line">           <span class="keyword">const</span> temp = id;</span><br><span class="line">           id++;</span><br><span class="line">           ids.<span class="title function_">add</span>(temp);</span><br><span class="line">           <span class="keyword">await</span> <span class="title function_">wait</span>(<span class="function">() =&gt;</span> !ids.<span class="title function_">has</span>(temp - <span class="number">1</span>));</span><br><span class="line">           <span class="keyword">const</span> task = <span class="title class_">Reflect</span>.<span class="title function_">apply</span>(_, <span class="variable language_">this</span>, args);</span><br><span class="line">           ids.<span class="title function_">delete</span>(temp);</span><br><span class="line">           <span class="keyword">return</span> <span class="keyword">await</span> task;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E5%BC%82%E6%AD%A5%E5%A4%84%E7%90%86%E9%A1%BA%E5%BA%8F%E9%97%AE%E9%A2%98/" data-id="cllgjt3680004ffoh2f1b9akf" data-title="异步处理顺序问题" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E5%BC%82%E6%AD%A5%E5%A4%84%E7%90%86%E9%A1%BA%E5%BA%8F%E9%97%AE%E9%A2%98/" data-id="cllgnqeww0004czov9v837gxr" data-title="异步处理顺序问题" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -332,7 +331,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0call%E3%80%81apply%E3%80%81bind/" data-id="cllgjt3690005ffoh0s5zcvle" data-title="手动实现call、apply、bind" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0call%E3%80%81apply%E3%80%81bind/" data-id="cllgnqewx0005czovcsc40go5" data-title="手动实现call、apply、bind" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -382,7 +381,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BB%8E%E8%BE%93%E5%85%A5url%E5%88%B0%E9%A1%B5%E9%9D%A2%E6%98%BE%E7%A4%BA%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/" data-id="cllgjt36a0006ffoh9kmxa9rm" data-title="浏览器从输入url到页面显示发生了什么" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BB%8E%E8%BE%93%E5%85%A5url%E5%88%B0%E9%A1%B5%E9%9D%A2%E6%98%BE%E7%A4%BA%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/" data-id="cllgnqewz0006czov28j6dk2t" data-title="浏览器从输入url到页面显示发生了什么" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -429,7 +428,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" data-id="cllgjt36a0007ffoh9vayfu2o" data-title="设计模式" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" data-id="cllgnqex00007czoveg4z1qee" data-title="设计模式" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -471,54 +470,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81/" data-id="cllgjt36c0009ffoh421ddl7y" data-title="防抖和节流" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-闭包" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/interview-notes/2023/08/18/%E9%97%AD%E5%8C%85/" class="article-date">
-  <time class="dt-published" datetime="2023-08-18T12:09:57.427Z" itemprop="datePublished">2023-08-18</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/interview-notes/categories/JavaScript/">JavaScript</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/interview-notes/2023/08/18/%E9%97%AD%E5%8C%85/">闭包</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h2 id="概念："><a href="#概念：" class="headerlink" title="概念："></a>概念：</h2><p>能够访问外部函数作用域中变量的函数</p>
-<h2 id="作用："><a href="#作用：" class="headerlink" title="作用："></a>作用：</h2><p>保护函数的私有变量不受外部干扰，形成不销毁的栈内存<br>保存，把一些函数内的值保存下来，实现方法和属性的私有化</p>
-<p>使用场景：<br>1.自执行函数<br>2.函数作为参数，return返回一个函数<br>3.循环赋值<br>4.使用回调函数就是在使用闭包<br>5.节流防抖<br>6.柯里化实现</p>
-<h2 id="需要注意："><a href="#需要注意：" class="headerlink" title="需要注意："></a>需要注意：</h2><p>容易导致内存泄漏，因为闭包会包含其他的函数作用域，比其他函数更占内存，过度使用会导致内存占用过多。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> data = [];</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">  data[i] = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(i);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">data[<span class="number">0</span>]();</span><br><span class="line">data[<span class="number">1</span>]();</span><br><span class="line">data[<span class="number">2</span>]()</span><br><span class="line"><span class="comment">/* 输出</span></span><br><span class="line"><span class="comment">    3</span></span><br><span class="line"><span class="comment">    3</span></span><br><span class="line"><span class="comment">    3</span></span><br><span class="line"><span class="comment">/</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">var data = [];</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">for (var i = 0; i &lt; 3; i++) &#123;</span></span><br><span class="line"><span class="comment">    (function(j)&#123;</span></span><br><span class="line"><span class="comment">      setTimeout( data[j] = function () &#123;</span></span><br><span class="line"><span class="comment">        console.log(j);</span></span><br><span class="line"><span class="comment">      &#125;, 0)</span></span><br><span class="line"><span class="comment">    &#125;)(i)</span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">data[0]();</span></span><br><span class="line"><span class="comment">data[1]();</span></span><br><span class="line"><span class="comment">data[2]()</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">var data = [];</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">for (let i = 0; i &lt; 3; i++) &#123;</span></span><br><span class="line"><span class="comment">  data[i] = function () &#123;</span></span><br><span class="line"><span class="comment">    console.log(i);</span></span><br><span class="line"><span class="comment">  &#125;;</span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">data[0]();</span></span><br><span class="line"><span class="comment">data[1]();</span></span><br><span class="line"><span class="comment">data[2]()</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">var result = [];</span></span><br><span class="line"><span class="comment">var a = 3;</span></span><br><span class="line"><span class="comment">var total = 0;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">function foo(a) &#123;</span></span><br><span class="line"><span class="comment">    for (var i = 0; i &lt; 3; i++) &#123;</span></span><br><span class="line"><span class="comment">        result[i] = function () &#123;</span></span><br><span class="line"><span class="comment">            total += i * a;</span></span><br><span class="line"><span class="comment">            console.log(total);</span></span><br><span class="line"><span class="comment">        &#125;</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">foo(1);</span></span><br><span class="line"><span class="comment">result[0]();  // 3</span></span><br><span class="line"><span class="comment">result[1]();  // 6</span></span><br><span class="line"><span class="comment">result[2]();  // 9</span></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E9%97%AD%E5%8C%85/" data-id="cllgjt36b0008ffoheuobcbek" data-title="闭包" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81/" data-id="cllgnqex20009czov3urd8iu4" data-title="防抖和节流" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -568,6 +520,10 @@
       <ul>
         
           <li>
+            <a href="/interview-notes/2023/08/18/%E9%97%AD%E5%8C%85/">闭包</a>
+          </li>
+        
+          <li>
             <a href="/interview-notes/2023/08/18/this%E7%9B%B8%E5%85%B3/">this相关</a>
           </li>
         
@@ -581,10 +537,6 @@
         
           <li>
             <a href="/interview-notes/2023/08/18/%E5%BC%82%E6%AD%A5%E5%A4%84%E7%90%86%E9%A1%BA%E5%BA%8F%E9%97%AE%E9%A2%98/">异步处理顺序问题</a>
-          </li>
-        
-          <li>
-            <a href="/interview-notes/2023/08/18/%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0call%E3%80%81apply%E3%80%81bind/">手动实现call、apply、bind</a>
           </li>
         
       </ul>
