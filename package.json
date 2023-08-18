@@ -1,40 +1,31 @@
 {
-  "name": "frame-vue",
-  "version": "0.1.0",
+  "name": "ns-blog",
+  "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "vue-cli-service serve",
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
-    "test:e2e": "vue-cli-service test:e2e",
-    "test:unit": "vue-cli-service test:unit"
+    "build": "hexo generate",
+    "clean": "hexo clean",
+    "hexo-deploy": "hexo deploy",
+    "server": "hexo server",
+    "deploy": "run-s build clean hexo-deploy"
+  },
+  "hexo": {
+    "version": "6.3.0"
   },
   "dependencies": {
-    "axios": "^0.18.0",
-    "iview": "^3.3.2",
-    "register-service-worker": "^1.6.2",
-    "vue": "^2.6.6",
-    "vue-router": "^3.0.1",
-    "vuex": "^3.0.1"
+    "hexo": "^6.3.0",
+    "hexo-deployer-git": "^4.0.0",
+    "hexo-generator-archive": "^2.0.0",
+    "hexo-generator-category": "^2.0.0",
+    "hexo-generator-index": "^3.0.0",
+    "hexo-generator-tag": "^2.0.0",
+    "hexo-renderer-ejs": "^2.0.0",
+    "hexo-renderer-marked": "^6.0.0",
+    "hexo-renderer-stylus": "^2.1.0",
+    "hexo-server": "^3.0.0",
+    "hexo-theme-landscape": "^1.0.0"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.5.0",
-    "@vue/cli-plugin-e2e-nightwatch": "^3.5.0",
-    "@vue/cli-plugin-eslint": "^3.5.0",
-    "@vue/cli-plugin-pwa": "^3.5.0",
-    "@vue/cli-plugin-unit-jest": "^3.5.0",
-    "@vue/cli-service": "^3.5.0",
-    "@vue/eslint-config-standard": "^4.0.0",
-    "@vue/test-utils": "1.0.0-beta.29",
-    "babel-core": "7.0.0-bridge.0",
-    "babel-eslint": "^10.0.1",
-    "babel-jest": "^23.6.0",
-    "babel-plugin-import": "^1.11.0",
-    "eslint": "^5.8.0",
-    "eslint-plugin-vue": "^5.0.0",
-    "less": "^2.7.3",
-    "less-loader": "^4.1.0",
-    "vue-template-compiler": "^2.5.21"
+    "npm-run-all": "^4.1.5"
   }
 }
