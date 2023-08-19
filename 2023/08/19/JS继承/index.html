@@ -4,19 +4,19 @@
   <meta charset="utf-8">
   
   
-  <title>防抖和节流 | 前端面试笔记</title>
+  <title>JS继承 | 前端面试笔记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="节流：一定时间内只首次触发生效 function throttle (fn, timeout) &amp;#123;     let timer &#x3D; null;     return function (...args) &amp;#123;         if (timer) &amp;#123;             return;         &amp;#125;         const _this &#x3D; thi">
+  <meta name="description" content="前端面试笔记">
 <meta property="og:type" content="article">
-<meta property="og:title" content="防抖和节流">
-<meta property="og:url" content="https://nlovesye.github.io/interview-notes/2023/08/18/%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81/index.html">
+<meta property="og:title" content="JS继承">
+<meta property="og:url" content="https://nlovesye.github.io/interview-notes/2023/08/19/JS%E7%BB%A7%E6%89%BF/index.html">
 <meta property="og:site_name" content="前端面试笔记">
-<meta property="og:description" content="节流：一定时间内只首次触发生效 function throttle (fn, timeout) &amp;#123;     let timer &#x3D; null;     return function (...args) &amp;#123;         if (timer) &amp;#123;             return;         &amp;#125;         const _this &#x3D; thi">
+<meta property="og:description" content="前端面试笔记">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-08-18T13:03:04.000Z">
+<meta property="article:published_time" content="2023-08-19T09:12:21.000Z">
 <meta property="article:modified_time" content="2023-08-19T01:13:12.183Z">
 <meta property="article:author" content="ns">
-<meta property="article:tag" content="前端 面试 笔记">
+<meta property="article:tag" content="JavaScript">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="/interview-notes/atom.xml" title="前端面试笔记" type="application/atom+xml">
@@ -76,10 +76,10 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-防抖和节流" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-JS继承" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/interview-notes/2023/08/18/%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81/" class="article-date">
-  <time class="dt-published" datetime="2023-08-18T13:03:04.000Z" itemprop="datePublished">2023-08-18</time>
+    <a href="/interview-notes/2023/08/19/JS%E7%BB%A7%E6%89%BF/" class="article-date">
+  <time class="dt-published" datetime="2023-08-19T09:12:21.000Z" itemprop="datePublished">2023-08-19</time>
 </a>
     
   </div>
@@ -90,7 +90,7 @@
         
   
     <h1 class="p-name article-title" itemprop="headline name">
-      防抖和节流
+      JS继承
     </h1>
   
 
@@ -98,33 +98,27 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h2 id="节流："><a href="#节流：" class="headerlink" title="节流："></a>节流：</h2><p>一定时间内只首次触发生效</p>
-<p><code>function throttle (fn, timeout) &#123;     let timer = null;     return function (...args) &#123;         if (timer) &#123;             return;         &#125;         const _this = this;         timer = setTimeout(function () &#123;             fn.apply(_this, args);             timer = null;         &#125;, timeout);     &#125; &#125;</code></p>
-<h2 id="防抖："><a href="#防抖：" class="headerlink" title="防抖："></a>防抖：</h2><p>一定时间内只最后一次触发生效</p>
-<p><code>function debounce (fn, timeout) &#123;     let timer = null;     return function (...args) &#123;         if (timer) &#123;             clearTimeout(timer);         &#125;         const _this = this;         timer = setTimeout(function () &#123;             fn.apply(_this, args);         &#125;, timeout);     &#125; &#125;</code></p>
-
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81/" data-id="cllhbsefr000idxothkjyc14s" data-title="防抖和节流" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/19/JS%E7%BB%A7%E6%89%BF/" data-id="cllhbsefa0003dxotekwn3ob7" data-title="JS继承" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/interview-notes/tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+
     </footer>
   </div>
   
     
 <nav id="article-nav">
   
-    <a href="/interview-notes/2023/08/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">前一篇</strong>
-      <div class="article-nav-title">
-        
-          设计模式
-        
-      </div>
-    </a>
   
+    <a href="/interview-notes/2023/08/19/%E5%8E%9F%E5%9E%8B%E9%93%BE/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">原型链</div>
+    </a>
   
 </nav>
 

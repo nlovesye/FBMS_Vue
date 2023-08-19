@@ -9,12 +9,12 @@
   <meta name="description" content="概念：能够访问外部函数作用域中变量的函数 作用：保护函数的私有变量不受外部干扰，形成不销毁的栈内存保存，把一些函数内的值保存下来，实现方法和属性的私有化 使用场景：1.自执行函数2.函数作为参数，return返回一个函数3.循环赋值4.使用回调函数就是在使用闭包5.节流防抖6.柯里化实现 需要注意：容易导致内存泄漏，因为闭包会包含其他的函数作用域，比其他函数更占内存，过度使用会导致内存占用过多。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="闭包">
-<meta property="og:url" content="https://nlovesye.github.io/interview-notes/2023/08/18/%E9%97%AD%E5%8C%85/index.html">
+<meta property="og:url" content="https://nlovesye.github.io/interview-notes/2023/08/19/%E9%97%AD%E5%8C%85/index.html">
 <meta property="og:site_name" content="前端面试笔记">
 <meta property="og:description" content="概念：能够访问外部函数作用域中变量的函数 作用：保护函数的私有变量不受外部干扰，形成不销毁的栈内存保存，把一些函数内的值保存下来，实现方法和属性的私有化 使用场景：1.自执行函数2.函数作为参数，return返回一个函数3.循环赋值4.使用回调函数就是在使用闭包5.节流防抖6.柯里化实现 需要注意：容易导致内存泄漏，因为闭包会包含其他的函数作用域，比其他函数更占内存，过度使用会导致内存占用过多。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-08-18T13:59:48.748Z">
-<meta property="article:modified_time" content="2023-08-18T13:59:48.748Z">
+<meta property="article:published_time" content="2023-08-19T01:13:12.183Z">
+<meta property="article:modified_time" content="2023-08-19T01:13:12.183Z">
 <meta property="article:author" content="ns">
 <meta property="article:tag" content="前端 面试 笔记">
 <meta name="twitter:card" content="summary">
@@ -78,8 +78,8 @@
       <div class="outer">
         <section id="main"><article id="post-闭包" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/interview-notes/2023/08/18/%E9%97%AD%E5%8C%85/" class="article-date">
-  <time class="dt-published" datetime="2023-08-18T13:59:48.748Z" itemprop="datePublished">2023-08-18</time>
+    <a href="/interview-notes/2023/08/19/%E9%97%AD%E5%8C%85/" class="article-date">
+  <time class="dt-published" datetime="2023-08-19T01:13:12.183Z" itemprop="datePublished">2023-08-19</time>
 </a>
     
   <div class="article-category">
@@ -111,7 +111,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E9%97%AD%E5%8C%85/" data-id="cllgnqex10008czovguay2me3" data-title="闭包" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/19/%E9%97%AD%E5%8C%85/" data-id="cllhbsefq000hdxotbxnyb1vh" data-title="闭包" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -121,10 +121,19 @@
     
 <nav id="article-nav">
   
+    <a href="/interview-notes/2023/08/19/%E5%8E%9F%E5%9E%8B%E9%93%BE/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          原型链
+        
+      </div>
+    </a>
   
-    <a href="/interview-notes/2023/08/18/this%E7%9B%B8%E5%85%B3/" id="article-nav-older" class="article-nav-link-wrap">
+  
+    <a href="/interview-notes/2023/08/18/js%E5%BC%82%E6%AD%A5%E6%97%B6%E5%BA%8F%E9%97%AE%E9%A2%98/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">后一篇</strong>
-      <div class="article-nav-title">this相关</div>
+      <div class="article-nav-title">异步处理顺序问题</div>
     </a>
   
 </nav>
@@ -148,9 +157,23 @@
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/interview-notes/tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+    </div>
+  </div>
+
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/interview-notes/tags/JavaScript/" style="font-size: 10px;">JavaScript</a>
+    </div>
+  </div>
+
   
     
   <div class="widget-wrap">
@@ -169,23 +192,23 @@
       <ul>
         
           <li>
-            <a href="/interview-notes/2023/08/18/%E9%97%AD%E5%8C%85/">闭包</a>
+            <a href="/interview-notes/2023/08/19/JS%E7%BB%A7%E6%89%BF/">JS继承</a>
+          </li>
+        
+          <li>
+            <a href="/interview-notes/2023/08/19/%E5%8E%9F%E5%9E%8B%E9%93%BE/">原型链</a>
+          </li>
+        
+          <li>
+            <a href="/interview-notes/2023/08/19/%E9%97%AD%E5%8C%85/">闭包</a>
+          </li>
+        
+          <li>
+            <a href="/interview-notes/2023/08/18/js%E5%BC%82%E6%AD%A5%E6%97%B6%E5%BA%8F%E9%97%AE%E9%A2%98/">异步处理顺序问题</a>
           </li>
         
           <li>
             <a href="/interview-notes/2023/08/18/this%E7%9B%B8%E5%85%B3/">this相关</a>
-          </li>
-        
-          <li>
-            <a href="/interview-notes/2023/08/18/%E5%87%BD%E6%95%B0%E6%9F%AF%E9%87%8C%E5%8C%96/">函数柯里化</a>
-          </li>
-        
-          <li>
-            <a href="/interview-notes/2023/08/18/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">前端性能优化</a>
-          </li>
-        
-          <li>
-            <a href="/interview-notes/2023/08/18/%E5%BC%82%E6%AD%A5%E5%A4%84%E7%90%86%E9%A1%BA%E5%BA%8F%E9%97%AE%E9%A2%98/">异步处理顺序问题</a>
           </li>
         
       </ul>
