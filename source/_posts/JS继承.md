@@ -28,7 +28,7 @@ const subInstance = new SubType();
 console.log(subInstance.getSuperProperty()); // 'super'
 ```
 
-**构造函数继承**
+**借用构造函数继承**
 借用构造函数，使用父类的构造函数来增强子类实例，相当于复制父类的实例给子类（不使用原型）
 缺点：只能继承父类的实例属性/方法，无法继承父类的原型属性/方法。无法实现复用，每个子类都包含父类实例函数的副本，影响性能。
 
@@ -152,3 +152,32 @@ SubType.prototype.sayName = function () {
   return this.name;
 }
 ```
+
+**混入方式继承多个对象**
+
+``` JS
+function SuperType () {
+  this.name = 'super1'
+}
+function SuperType2 () {
+  this.name = 'super2'
+}
+
+function SubType () {
+  SuperType.call(this);
+  SuperType2.call(this);
+}
+SubType.prototype = Object.create(SuperType.prototype);
+Object.assign(SubType.prototype, SuperType2.prototype);
+SubType.prototype.constructor = SubType;
+```
+
+**ES6 extends 关键字继承**
+
+**函数声明和类声明的区别**
+函数声明会提升，类声明不会提升
+
+**ES5继承和ES6继承的区别**
+es5继承实质上是先创建子类实例对象，然后再将父类方法添加到子类this对象上（Parent.call(this)）
+
+es6实质上是先创建父类的实例对象this，然后再用子类的构造函数修改this。因为子类没有自己的this对象，所以必须先调用父类的super()方法，否则新建实例会报错。
