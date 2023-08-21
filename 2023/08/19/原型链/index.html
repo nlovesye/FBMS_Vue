@@ -6,15 +6,15 @@
   
   <title>原型链 | 前端面试笔记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="构造函数、原型对象、实例的关系：每个构造函数都有一个原型对象，原型对象包含一个指向构造函数的指针，而实例都包含一个指向原型对象的内部指针。 原型链：根据构造函数、原型对象、实例的关系，实例指向原型对象，原型对象指向构造函数的原型对象，层层递进直到构造函数的默认原型Object的实例，形成的指向链条称之为原型链 123456789101112131415161718&#x2F;&#x2F; 原型继承function S">
+  <meta name="description" content="构造函数、原型对象、实例的关系：每个构造函数都有一个原型对象，原型对象包含一个指向构造函数的指针，而实例都包含一个指向原型对象的内部指针。 原型链：根据构造函数、原型对象、实例的关系，实例指向原型对象，原型对象指向构造函数的原型对象，层层递进直到构造函数的默认原型Object的原型，形成的指向链条称之为原型链 123456789101112131415161718&#x2F;&#x2F; 原型链继承function">
 <meta property="og:type" content="article">
 <meta property="og:title" content="原型链">
 <meta property="og:url" content="https://nlovesye.github.io/interview-notes/2023/08/19/%E5%8E%9F%E5%9E%8B%E9%93%BE/index.html">
 <meta property="og:site_name" content="前端面试笔记">
-<meta property="og:description" content="构造函数、原型对象、实例的关系：每个构造函数都有一个原型对象，原型对象包含一个指向构造函数的指针，而实例都包含一个指向原型对象的内部指针。 原型链：根据构造函数、原型对象、实例的关系，实例指向原型对象，原型对象指向构造函数的原型对象，层层递进直到构造函数的默认原型Object的实例，形成的指向链条称之为原型链 123456789101112131415161718&#x2F;&#x2F; 原型继承function S">
+<meta property="og:description" content="构造函数、原型对象、实例的关系：每个构造函数都有一个原型对象，原型对象包含一个指向构造函数的指针，而实例都包含一个指向原型对象的内部指针。 原型链：根据构造函数、原型对象、实例的关系，实例指向原型对象，原型对象指向构造函数的原型对象，层层递进直到构造函数的默认原型Object的原型，形成的指向链条称之为原型链 123456789101112131415161718&#x2F;&#x2F; 原型链继承function">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-08-19T08:16:03.000Z">
-<meta property="article:modified_time" content="2023-08-19T01:13:12.183Z">
+<meta property="article:modified_time" content="2023-08-21T02:42:17.817Z">
 <meta property="article:author" content="ns">
 <meta property="article:tag" content="JavaScript">
 <meta name="twitter:card" content="summary">
@@ -99,13 +99,13 @@
     <div class="e-content article-entry" itemprop="articleBody">
       
         <p>构造函数、原型对象、实例的关系：<strong>每个构造函数都有一个原型对象，原型对象包含一个指向构造函数的指针，而实例都包含一个指向原型对象的内部指针。</strong></p>
-<p>原型链：<strong>根据构造函数、原型对象、实例的关系，实例指向原型对象，原型对象指向构造函数的原型对象，层层递进直到构造函数的默认原型Object的实例，形成的指向链条称之为原型链</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 原型继承</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">SuperType</span> () &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">superProperty</span> = <span class="string">&#x27;super&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="title class_">SuperType</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">getSuperProperty</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">superProperty</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">SubType</span> () &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">subProperty</span> = <span class="string">&#x27;sub&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title class_">SubType</span>.<span class="property"><span class="keyword">prototype</span></span> = <span class="keyword">new</span> <span class="title class_">SuperType</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> subInstance = <span class="keyword">new</span> <span class="title class_">SubType</span>();</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(subInstance.<span class="title function_">getSuperProperty</span>()); <span class="comment">// &#x27;super&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>原型链：<strong>根据构造函数、原型对象、实例的关系，实例指向原型对象，原型对象指向构造函数的原型对象，层层递进直到构造函数的默认原型Object的原型，形成的指向链条称之为原型链</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 原型链继承</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">SuperType</span> () &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">superProperty</span> = <span class="string">&#x27;super&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="title class_">SuperType</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">getSuperProperty</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">superProperty</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">SubType</span> () &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">subProperty</span> = <span class="string">&#x27;sub&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title class_">SubType</span>.<span class="property"><span class="keyword">prototype</span></span> = <span class="keyword">new</span> <span class="title class_">SuperType</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> subInstance = <span class="keyword">new</span> <span class="title class_">SubType</span>();</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(subInstance.<span class="title function_">getSuperProperty</span>()); <span class="comment">// &#x27;super&#x27;</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/19/%E5%8E%9F%E5%9E%8B%E9%93%BE/" data-id="cllhbsefl000bdxotgqh56ipr" data-title="原型链" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/19/%E5%8E%9F%E5%9E%8B%E9%93%BE/" data-id="cllk9unsk000bcyorb91u65sp" data-title="原型链" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -127,9 +127,9 @@
     </a>
   
   
-    <a href="/interview-notes/2023/08/19/%E9%97%AD%E5%8C%85/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/interview-notes/2023/08/18/js%E5%BC%82%E6%AD%A5%E6%97%B6%E5%BA%8F%E9%97%AE%E9%A2%98/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">后一篇</strong>
-      <div class="article-nav-title">闭包</div>
+      <div class="article-nav-title">异步处理顺序问题</div>
     </a>
   
 </nav>
@@ -188,15 +188,15 @@
       <ul>
         
           <li>
+            <a href="/interview-notes/2023/08/21/%E9%97%AD%E5%8C%85/">闭包</a>
+          </li>
+        
+          <li>
             <a href="/interview-notes/2023/08/19/JS%E7%BB%A7%E6%89%BF/">JS继承</a>
           </li>
         
           <li>
             <a href="/interview-notes/2023/08/19/%E5%8E%9F%E5%9E%8B%E9%93%BE/">原型链</a>
-          </li>
-        
-          <li>
-            <a href="/interview-notes/2023/08/19/%E9%97%AD%E5%8C%85/">闭包</a>
           </li>
         
           <li>
