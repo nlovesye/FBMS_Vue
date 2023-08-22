@@ -76,10 +76,66 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-JS事件循环" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/interview-notes/2023/08/22/JS%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/" class="article-date">
+  <time class="dt-published" datetime="2023-08-22T17:19:37.000Z" itemprop="datePublished">2023-08-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/interview-notes/2023/08/22/JS%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/">JS事件循环</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>参考：<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Event_loop">mdn</a></p>
+<p>并发模型与事件循环：<strong>JavaScript有一个基于事件循环的并发模型，事件循环负责执行代码、收集和处理事件以及执行队列中的子任务。</strong></p>
+<h3 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h3><p>函数调用形成了一个由若干帧组成的栈。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">foo</span> (b) &#123;</span><br><span class="line">  <span class="keyword">const</span> a = <span class="number">10</span>;</span><br><span class="line">  <span class="keyword">return</span> a + b + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">bar</span> (x) &#123;</span><br><span class="line">  <span class="keyword">const</span> y = <span class="number">3</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="title function_">foo</span>(x * y);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">bar</span>(<span class="number">7</span>)); <span class="comment">// 32</span></span><br></pre></td></tr></table></figure>
+
+<p>当调用bar时，第一个帧被创建并压入栈中，帧中包含了bar的参数和局部变量。当bar调用foo时候，第二个帧被创建并压入栈中，放在第一个帧之上，帧中包含foo的参数和局部变量。当foo执行完毕然后返回时，第二个帧就被弹出栈（此时栈中剩下bar函数的调用帧）。当bar也执行完毕然后返回时，第一个帧也被弹出，栈就被清空了。</p>
+<h3 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h3><p>对象分配在堆中，堆是一个用来表示一大块（通常是非结构化的）内存区域的计算机术语。</p>
+<h3 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h3><p>一个JavaScript运行时包含了一个待处理消息的消息队列。每一个消息都关联着一个用以处理该消息的回调函数。</p>
+<p>在事件循环期间的某个时刻，运行时会从最先进入队列的消息开始处理队列中的消息。被处理的消息会被移出队列，并作为输入参数来调用与之关联的函数。正如前面提到的，调用一个函数会为其创建一个新的的栈帧。</p>
+<p>函数的处理会一直进行到执行栈再次为空为止；然后事件循环将会处理队列中的下一个消息（如果还有的话）。</p>
+<h3 id="JavaScript任务分为两种，同步任务和异步任务"><a href="#JavaScript任务分为两种，同步任务和异步任务" class="headerlink" title="JavaScript任务分为两种，同步任务和异步任务"></a>JavaScript任务分为两种，同步任务和异步任务</h3><ul>
+<li>同步任务：在主线程上排队执行的任务，只有上一个任务执行完毕后，才能执行下一个任务。</li>
+<li>异步任务：不进入主线程，而是放在任务队列，若有多个异步任务，则需要在任务队列中排队等待。</li>
+</ul>
+<p><strong>JavaScript在执行代码时，会将同步的代码按照顺序排在执行栈中，然后依次执行里面的函数。当遇到异步任务时，就将其放入任务队列中，等待当前执行栈所有同步代码执行完成之后，就会从异步任务队列中取出已完成的异步任务的回调并将其放入执行栈中继续执行，如此循环往复，直到执行完所有任务</strong><br><strong>在事件驱动的模式下，至少包含了一个执行循环来检测任务队列中是否有新任务。通过不断循环，去取出异步任务的回调来执行，这个过程就是<a href="/interview-notes/2023/08/22/JS%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF">事件循环</a>，每一次循环就是一个事件周期。</strong></p>
+<p>根据任务种类不同，任务分为宏任务队列和微任务队列<br>宏任务：<strong>script（整体代码）、setTimeout、setInterval、I&#x2F;O、UI交互事件、setIsetImmediasetImmediate（Node.js环境）</strong><br>微任务：<strong>Promise、MutationObserver、process.nextTick（Node.js环境）</strong><br>执行情况：<br>1.JavaScript引擎首先从宏任务队列中取出第一个任务<br>2.执行完毕后，再将微任务中的所有任务取出，按照顺序分别全部执行，如果在这一步产生新的微任务，也需要执行。也就是说在执行微任务的过程中产生新的微任务并不会推到下一个循环中执行，而是在当前循环中继续执行<br>3.然后再从宏任务队列中取下一个，执行完毕后，再次讲微任务队列中的全部取出，循环往复，知道两个任务队列中的任务都取完<br><strong>也就是说，一次Eventloop循环会处理一个宏任务和所有这次循环中产生的微任务</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/22/JS%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/" data-id="cllm5gng80003dpol6qu0fmvy" data-title="JS事件循环" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/interview-notes/tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-闭包" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/interview-notes/2023/08/21/%E9%97%AD%E5%8C%85/" class="article-date">
-  <time class="dt-published" datetime="2023-08-21T04:49:50.972Z" itemprop="datePublished">2023-08-21</time>
+    <a href="/interview-notes/2023/08/22/%E9%97%AD%E5%8C%85/" class="article-date">
+  <time class="dt-published" datetime="2023-08-22T10:14:58.217Z" itemprop="datePublished">2023-08-22</time>
 </a>
     
   <div class="article-category">
@@ -94,7 +150,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/interview-notes/2023/08/21/%E9%97%AD%E5%8C%85/">闭包</a>
+      <a class="p-name article-title" href="/interview-notes/2023/08/22/%E9%97%AD%E5%8C%85/">闭包</a>
     </h1>
   
 
@@ -111,7 +167,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/21/%E9%97%AD%E5%8C%85/" data-id="cllkeesrt000hetop1mwf5bw4" data-title="闭包" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/22/%E9%97%AD%E5%8C%85/" data-id="cllm5gngp000kdpol6bhfgbzd" data-title="闭包" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -174,7 +230,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/19/JS%E7%BB%A7%E6%89%BF/" data-id="cllkeesr10003etoph6vi3e2f" data-title="JS继承" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/19/JS%E7%BB%A7%E6%89%BF/" data-id="cllm5gnga0004dpolfuupc451" data-title="JS继承" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -217,7 +273,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/19/%E5%8E%9F%E5%9E%8B%E9%93%BE/" data-id="cllkeesrn000betop557o4jbm" data-title="原型链" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/19/%E5%8E%9F%E5%9E%8B%E9%93%BE/" data-id="cllm5gngk000cdpol4v2qarla" data-title="原型链" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -267,7 +323,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/js%E5%BC%82%E6%AD%A5%E6%97%B6%E5%BA%8F%E9%97%AE%E9%A2%98/" data-id="cllkeesr30004etopgcey2joi" data-title="js异步时序问题" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/js%E5%BC%82%E6%AD%A5%E6%97%B6%E5%BA%8F%E9%97%AE%E9%A2%98/" data-id="cllm5gnge0006dpolb46bdxo6" data-title="js异步时序问题" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -315,7 +371,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/this%E7%9B%B8%E5%85%B3/" data-id="cllkeesr70006etop4okcb8lm" data-title="this相关" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/this%E7%9B%B8%E5%85%B3/" data-id="cllm5gngf0007dpol1qeve63f" data-title="this相关" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -357,7 +413,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E5%87%BD%E6%95%B0%E6%9F%AF%E9%87%8C%E5%8C%96/" data-id="cllkeesr80007etopefc936ry" data-title="函数柯里化" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E5%87%BD%E6%95%B0%E6%9F%AF%E9%87%8C%E5%8C%96/" data-id="cllm5gngg0008dpolehbd5s1s" data-title="函数柯里化" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -402,7 +458,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" data-id="cllkeesr90008etopd7wo5uhf" data-title="前端性能优化" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" data-id="cllm5gngj000bdpole3nic06v" data-title="前端性能优化" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -451,7 +507,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0call%E3%80%81apply%E3%80%81bind/" data-id="cllkeesrp000cetop6bdib6oa" data-title="手动实现call、apply、bind" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0call%E3%80%81apply%E3%80%81bind/" data-id="cllm5gngl000fdpol89q542i7" data-title="手动实现call、apply、bind" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -501,54 +557,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BB%8E%E8%BE%93%E5%85%A5url%E5%88%B0%E9%A1%B5%E9%9D%A2%E6%98%BE%E7%A4%BA%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/" data-id="cllkeesrq000eetopdz4m2xov" data-title="浏览器从输入url到页面显示发生了什么" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-设计模式" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/interview-notes/2023/08/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="article-date">
-  <time class="dt-published" datetime="2023-08-18T13:03:04.000Z" itemprop="datePublished">2023-08-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/interview-notes/2023/08/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h2 id="装饰器模式"><a href="#装饰器模式" class="headerlink" title="装饰器模式"></a>装饰器模式</h2><p>不改变对象自身的基础上，在程序运行时动态地添加方法</p>
-<h2 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h2><p>多种不同的需求，复用同一个对象，简化对象实例化</p>
-<h2 id="观察者模式"><a href="#观察者模式" class="headerlink" title="观察者模式"></a>观察者模式</h2><p>订阅发布方的消息，发布方有变化向所有的订阅者发送通知</p>
-<h2 id="发布订阅模式"><a href="#发布订阅模式" class="headerlink" title="发布订阅模式"></a>发布订阅模式</h2><p>订阅方和发布方解耦，订阅方只订阅自己感兴趣的类型消息，不用直接关联发布方，发布方也是根据类型通知，不用直接关联订阅方</p>
-<h2 id="适配器模式"><a href="#适配器模式" class="headerlink" title="适配器模式"></a>适配器模式</h2><p>处理一些转换适配使用，比如插头转换适配器</p>
-<h2 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h2><p>只有单个实例</p>
-<h2 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h2><p>类似经纪人，提供方不用直接对接使用方，经纪人会先处理需求然后根据提供方的能力做出相对应的反应</p>
-<h2 id="策略模式"><a href="#策略模式" class="headerlink" title="策略模式"></a>策略模式</h2><p>策略类封装具体的算法并负责具体计算过程，环境类接收客户请求并将请求委托给某一个具体的策略类</p>
-<h2 id="中介者模式"><a href="#中介者模式" class="headerlink" title="中介者模式"></a>中介者模式</h2><p>将对象与对象解耦，其他所有相关的对象都通过中介者进行通信，有一个对象变化，只通知中介者就可以，不用互相引用</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" data-id="cllkeesrs000getop8jq1bij4" data-title="设计模式" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BB%8E%E8%BE%93%E5%85%A5url%E5%88%B0%E9%A1%B5%E9%9D%A2%E6%98%BE%E7%A4%BA%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/" data-id="cllm5gngn000hdpol9vadfx5j" data-title="浏览器从输入url到页面显示发生了什么" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -617,7 +626,11 @@
       <ul>
         
           <li>
-            <a href="/interview-notes/2023/08/21/%E9%97%AD%E5%8C%85/">闭包</a>
+            <a href="/interview-notes/2023/08/22/JS%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/">JS事件循环</a>
+          </li>
+        
+          <li>
+            <a href="/interview-notes/2023/08/22/%E9%97%AD%E5%8C%85/">闭包</a>
           </li>
         
           <li>
@@ -630,10 +643,6 @@
         
           <li>
             <a href="/interview-notes/2023/08/18/js%E5%BC%82%E6%AD%A5%E6%97%B6%E5%BA%8F%E9%97%AE%E9%A2%98/">js异步时序问题</a>
-          </li>
-        
-          <li>
-            <a href="/interview-notes/2023/08/18/this%E7%9B%B8%E5%85%B3/">this相关</a>
           </li>
         
       </ul>

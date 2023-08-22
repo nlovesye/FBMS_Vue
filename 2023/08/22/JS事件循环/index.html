@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>JS事件循环 | 前端面试笔记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="参考：mdn 并发模型与事件循环：JavaScript有一个基于事件循环的并发模型，事件循环负责执行代码、收集和处理事件以及执行队列中的子任务。 栈函数调用形成了一个由若干帧组成的栈。 1234567891011function foo (b) &amp;#123;  const a &#x3D; 10;  return a + b + 1;&amp;#125;function bar (x) &amp;#123;  const">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS事件循环">
+<meta property="og:url" content="https://nlovesye.github.io/interview-notes/2023/08/22/JS%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/index.html">
+<meta property="og:site_name" content="前端面试笔记">
+<meta property="og:description" content="参考：mdn 并发模型与事件循环：JavaScript有一个基于事件循环的并发模型，事件循环负责执行代码、收集和处理事件以及执行队列中的子任务。 栈函数调用形成了一个由若干帧组成的栈。 1234567891011function foo (b) &amp;#123;  const a &#x3D; 10;  return a + b + 1;&amp;#125;function bar (x) &amp;#123;  const">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-08-22T17:19:37.000Z">
+<meta property="article:modified_time" content="2023-08-22T10:14:58.217Z">
+<meta property="article:author" content="ns">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/interview-notes/atom.xml" title="前端面试笔记" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/interview-notes/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/interview-notes/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/interview-notes/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/interview-notes/" id="logo">前端面试笔记</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/interview-notes/">Home</a>
+        
+          <a class="main-nav-link" href="/interview-notes/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/interview-notes/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://nlovesye.github.io/interview-notes"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-JS事件循环" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/interview-notes/2023/08/22/JS%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/" class="article-date">
+  <time class="dt-published" datetime="2023-08-22T17:19:37.000Z" itemprop="datePublished">2023-08-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      JS事件循环
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>参考：<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Event_loop">mdn</a></p>
+<p>并发模型与事件循环：<strong>JavaScript有一个基于事件循环的并发模型，事件循环负责执行代码、收集和处理事件以及执行队列中的子任务。</strong></p>
+<h3 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h3><p>函数调用形成了一个由若干帧组成的栈。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">foo</span> (b) &#123;</span><br><span class="line">  <span class="keyword">const</span> a = <span class="number">10</span>;</span><br><span class="line">  <span class="keyword">return</span> a + b + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">bar</span> (x) &#123;</span><br><span class="line">  <span class="keyword">const</span> y = <span class="number">3</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="title function_">foo</span>(x * y);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">bar</span>(<span class="number">7</span>)); <span class="comment">// 32</span></span><br></pre></td></tr></table></figure>
+
+<p>当调用bar时，第一个帧被创建并压入栈中，帧中包含了bar的参数和局部变量。当bar调用foo时候，第二个帧被创建并压入栈中，放在第一个帧之上，帧中包含foo的参数和局部变量。当foo执行完毕然后返回时，第二个帧就被弹出栈（此时栈中剩下bar函数的调用帧）。当bar也执行完毕然后返回时，第一个帧也被弹出，栈就被清空了。</p>
+<h3 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h3><p>对象分配在堆中，堆是一个用来表示一大块（通常是非结构化的）内存区域的计算机术语。</p>
+<h3 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h3><p>一个JavaScript运行时包含了一个待处理消息的消息队列。每一个消息都关联着一个用以处理该消息的回调函数。</p>
+<p>在事件循环期间的某个时刻，运行时会从最先进入队列的消息开始处理队列中的消息。被处理的消息会被移出队列，并作为输入参数来调用与之关联的函数。正如前面提到的，调用一个函数会为其创建一个新的的栈帧。</p>
+<p>函数的处理会一直进行到执行栈再次为空为止；然后事件循环将会处理队列中的下一个消息（如果还有的话）。</p>
+<h3 id="JavaScript任务分为两种，同步任务和异步任务"><a href="#JavaScript任务分为两种，同步任务和异步任务" class="headerlink" title="JavaScript任务分为两种，同步任务和异步任务"></a>JavaScript任务分为两种，同步任务和异步任务</h3><ul>
+<li>同步任务：在主线程上排队执行的任务，只有上一个任务执行完毕后，才能执行下一个任务。</li>
+<li>异步任务：不进入主线程，而是放在任务队列，若有多个异步任务，则需要在任务队列中排队等待。</li>
+</ul>
+<p><strong>JavaScript在执行代码时，会将同步的代码按照顺序排在执行栈中，然后依次执行里面的函数。当遇到异步任务时，就将其放入任务队列中，等待当前执行栈所有同步代码执行完成之后，就会从异步任务队列中取出已完成的异步任务的回调并将其放入执行栈中继续执行，如此循环往复，直到执行完所有任务</strong><br><strong>在事件驱动的模式下，至少包含了一个执行循环来检测任务队列中是否有新任务。通过不断循环，去取出异步任务的回调来执行，这个过程就是<a href="/interview-notes/2023/08/22/JS%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF">事件循环</a>，每一次循环就是一个事件周期。</strong></p>
+<p>根据任务种类不同，任务分为宏任务队列和微任务队列<br>宏任务：<strong>script（整体代码）、setTimeout、setInterval、I&#x2F;O、UI交互事件、setIsetImmediasetImmediate（Node.js环境）</strong><br>微任务：<strong>Promise、MutationObserver、process.nextTick（Node.js环境）</strong><br>执行情况：<br>1.JavaScript引擎首先从宏任务队列中取出第一个任务<br>2.执行完毕后，再将微任务中的所有任务取出，按照顺序分别全部执行，如果在这一步产生新的微任务，也需要执行。也就是说在执行微任务的过程中产生新的微任务并不会推到下一个循环中执行，而是在当前循环中继续执行<br>3.然后再从宏任务队列中取下一个，执行完毕后，再次讲微任务队列中的全部取出，循环往复，知道两个任务队列中的任务都取完<br><strong>也就是说，一次Eventloop循环会处理一个宏任务和所有这次循环中产生的微任务</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/22/JS%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/" data-id="cllm5gng80003dpol6qu0fmvy" data-title="JS事件循环" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/interview-notes/tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/interview-notes/2023/08/22/%E9%97%AD%E5%8C%85/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">闭包</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/interview-notes/categories/JavaScript/">JavaScript</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/interview-notes/tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/interview-notes/tags/JavaScript/" style="font-size: 10px;">JavaScript</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/interview-notes/archives/2023/08/">八月 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/interview-notes/2023/08/22/JS%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/">JS事件循环</a>
+          </li>
+        
+          <li>
+            <a href="/interview-notes/2023/08/22/%E9%97%AD%E5%8C%85/">闭包</a>
+          </li>
+        
+          <li>
+            <a href="/interview-notes/2023/08/19/JS%E7%BB%A7%E6%89%BF/">JS继承</a>
+          </li>
+        
+          <li>
+            <a href="/interview-notes/2023/08/19/%E5%8E%9F%E5%9E%8B%E9%93%BE/">原型链</a>
+          </li>
+        
+          <li>
+            <a href="/interview-notes/2023/08/18/js%E5%BC%82%E6%AD%A5%E6%97%B6%E5%BA%8F%E9%97%AE%E9%A2%98/">js异步时序问题</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 ns<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/interview-notes/" class="mobile-nav-link">Home</a>
+  
+    <a href="/interview-notes/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/interview-notes/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/interview-notes/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/interview-notes/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
