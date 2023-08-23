@@ -76,6 +76,55 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-前端性能优化" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/interview-notes/2023/08/18/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="article-date">
+  <time class="dt-published" datetime="2023-08-18T13:03:04.000Z" itemprop="datePublished">2023-08-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/interview-notes/2023/08/18/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">前端性能优化</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>1.网络优化<br>·dns预解析-link标签ref设置为dns-prefetch，提前获取域名对应的ip地址<br>·使用缓存-减轻服务器压力，快速得到数据<br>·使用cdn-用户与服务器物理距离对响应时间也有影响<br>·压缩响应<br>·使用多个域名-浏览器会有同域名限制并发下载数的情况，保持在2-4个域名内避免dns查询损耗<br>·避免图片src为空</p>
+<p>2.页面渲染优化<br>webkit渲染引擎流程：<br>    ·处理html并构建dom树<br>    ·处理css并构建css规则树（cssom）<br>    ·dom树和css规则树合成一棵渲染树 render tree<br>    ·根据渲染树，计算每个节点位置<br>    ·调用gpu绘制，合成图层，显示在屏幕上<br>·避免css阻塞-css影响renderTree的构建，应该尽早尽快将css资源加载（放在head标签里、启用cdn实现加载速度优化）<br>·降低css选择器复杂度-浏览器读取选择器遵循的原则是从选择器的右边到左边<br>    1.减少嵌套，最多不超过三层，后代选择器开销较大<br>    2.避免使用通配符，对用到的元素进行匹配即可<br>    3.利用继承，避免重复匹配定义<br>    4.正确使用类选择器和id选择器<br>    6.避免使用css表达式<br>·避免js阻塞-js可以修改cssom和dom，因此js会阻塞页面的解析和渲染，并且会等待css资源的加载，也就会抢走渲染引擎的控制权。给js资源添加defer或者async，延迟js脚本的执行<br>·使用外链式js和css<br>·使用字体图标代替图片图标-图片会增加网络请求次数，拖慢页面加载时间<br>·首屏加载优化-使用骨架屏或者动画优化体验，资源按需加载，首页不需要的资源延迟加载<br>·减少重排（回流）和重绘<br>增加多个节点使用documentFragment：不是真实dom的部分，不会引起重绘和回流<br>用 translate?代替 top ，因为 top 会触发回流，但是translate不会。所以translate会比top节省了一个layout的时间<br>使用 visibility 替换 display: none ，因为前者只会引起重绘，后者会引发回流（改变了布局）；opacity?代替 visiability，visiability会触发重绘（paint），但opacity不会。<br>把 DOM 离线后修改，比如：先把 DOM 给 display:none (有一次 Reflow)，然后你修改 100 次，然后再把它显示出来<br>不要把 DOM 结点的属性值放在一个循环里当成循环里的变量</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">javascript复制代码<span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">1000</span>; i++) &#123;</span><br><span class="line">  <span class="comment">// 获取 offsetTop 会导致回流，因为需要去获取正确的值</span></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;.test&#x27;</span>).<span class="property">style</span>.<span class="property">offsetTop</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>尽量少用table布局，table布局的话，每次有单元格布局改变，都会进行整个tabel回流重绘；<br>最好别频繁去操作DOM节点，最好把需要操作的样式，提前写成class，之后需要修改。只需要修改一次，需要修改的时候，直接修改className，做成一次性更新多条css DOM属性，一次回流重绘总比多次回流重绘要付出的成本低得多；<br>动画实现的速度的选择，动画速度越快，回流次数越多，也可以选择使用 requestAnimationFrame<br>每次访问DOM的偏移量属性的时候，例如获取一个元素的scrollTop、scrollLeft、scrollWidth、offsetTop、offsetLeft、offsetWidth、offsetHeight之类的属性，浏览器为了保证值的正确也会回流取得最新的值，所以如果你要多次操作，最取完做个缓存。更加不要for循环中访问DOM偏移量属性，而且使用的时候，最好定义一个变量，把要需要的值赋值进去，进行值缓存，把回流重绘的次数减少；<br>将频繁运行的动画变为图层，图层能够阻止该节点回流影响别的元素。比如对于 video 标签，浏览器会自动将该节点变为图层。</p>
+<p>3.js优化<br>·使用事件委托<br>·节流和防抖<br>尽量不要使用js动画-css3和canvas动画比js动画性能好<br>·多线程-开启webworker进行复杂计算<br>·计算结果缓存-减少运算次数</p>
+<p>4.图片优化<br>·雪碧图-减少http请求次数<br>·图片懒加载<br>·使用css3代替图片<br>·图片压缩<br>·使用webp格式图片<br>·使用渐进式jpeg</p>
+<p>5.webpack打包优化<br>·缩小loader匹配范围<br>·resolve.modules-默认在项目根目录下的node_modules里面去找，如果没找到会往上层目录的node_modules里面找，以此类推，如果确定第三方模块都按照在项目根目录下，可以显式指定<br>    resolve: { modules: [path.resolve(__dirname, “.&#x2F;node_modules”)] }<br>·resolve.extensions-后缀尝试列表尽量小，导入语句尽量带上后缀<br>·抽离css-借助mini-css-extract-plugin：本插件会将css提取到单独文件，为每个包含css的js文件创建一个css文件，并支持css和sourcemaps的按需加载<br>·代码压缩-js、css、html文件代码、文件大小、图片<br>·tree shaking去除死代码-依赖于esmodule的静态语法分析，usedExports（标记某些函数是否被使用，之后通过terser进行优化）和sideEffects（跳过整个模块&#x2F;文件，直接查看该文件是否有副作用）<br>·css tree shaking-可以安装purgeCss插件<br>·babel-plugin-transform-runtime减少ES6转化ES5冗余<br>·代码分离-将代码分离到不同bundle中，之后可以按需加载或者并行加载这些文件<br>·多线程打包提升打包速度</p>
+<p>6.react优化<br>·map循环展示添加key<br>·路由懒加载<br>·第三方插件按需引入<br>·使用memo、pureComponent等避免不必要的渲染<br>·合理使用useMemo、memo、useCallback</p>
+<p>7.vue优化<br>·v-for添加key<br>·路由懒加载<br>·第三方插件按需引入<br>·合理使用computed和watch<br>·v-for的同时避免使用v-if<br>·destory时销毁事件：比如addEventListener添加的事件、setTimeout、setInterval等</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" data-id="cllnit8kg000hdqop1rqibxc0" data-title="前端性能优化" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/interview-notes/tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-手动实现call、apply、bind" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/interview-notes/2023/08/18/%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0call%E3%80%81apply%E3%80%81bind/" class="article-date">
@@ -103,10 +152,12 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0call%E3%80%81apply%E3%80%81bind/" data-id="clln1zsay000kf4oy2min5z48" data-title="手动实现call、apply、bind" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0call%E3%80%81apply%E3%80%81bind/" data-id="cllnit8kp000ldqopd4lu6ybn" data-title="手动实现call、apply、bind" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/interview-notes/tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+
     </footer>
   </div>
   
@@ -153,7 +204,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BB%8E%E8%BE%93%E5%85%A5url%E5%88%B0%E9%A1%B5%E9%9D%A2%E6%98%BE%E7%A4%BA%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/" data-id="clln1zsaz000mf4oy5kesa5sf" data-title="浏览器从输入url到页面显示发生了什么" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BB%8E%E8%BE%93%E5%85%A5url%E5%88%B0%E9%A1%B5%E9%9D%A2%E6%98%BE%E7%A4%BA%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/" data-id="cllnit8kq000odqopgqpw5sgs" data-title="浏览器从输入url到页面显示发生了什么" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -200,7 +251,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" data-id="clln1zsaz000nf4oy5spl8s6e" data-title="设计模式" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" data-id="cllnit8kq000qdqop0m1b63e1" data-title="设计模式" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -242,7 +293,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81/" data-id="clln1zsb1000pf4oy8iztbduw" data-title="防抖和节流" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81/" data-id="cllnit8ks000udqop69e416sv" data-title="防抖和节流" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -279,7 +330,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/interview-notes/tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/interview-notes/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/interview-notes/tags/JavaScript-http-%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">JavaScript,http,浏览器</a></li></ul>
     </div>
   </div>
 
@@ -289,7 +340,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/interview-notes/tags/JavaScript/" style="font-size: 10px;">JavaScript</a>
+      <a href="/interview-notes/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/interview-notes/tags/JavaScript-http-%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 10px;">JavaScript,http,浏览器</a>
     </div>
   </div>
 
@@ -311,6 +362,14 @@
       <ul>
         
           <li>
+            <a href="/interview-notes/2023/08/23/CORS%E8%B7%A8%E5%9F%9F/">CORS跨域</a>
+          </li>
+        
+          <li>
+            <a href="/interview-notes/2023/08/23/%E9%97%AD%E5%8C%85/">闭包</a>
+          </li>
+        
+          <li>
             <a href="/interview-notes/2023/08/23/JS%E5%88%A4%E6%96%AD%E7%B1%BB%E5%9E%8B/">JS判断类型</a>
           </li>
         
@@ -319,15 +378,7 @@
           </li>
         
           <li>
-            <a href="/interview-notes/2023/08/23/%E9%97%AD%E5%8C%85/">闭包</a>
-          </li>
-        
-          <li>
             <a href="/interview-notes/2023/08/22/JS%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/">JS事件循环</a>
-          </li>
-        
-          <li>
-            <a href="/interview-notes/2023/08/19/JS%E7%BB%A7%E6%89%BF/">JS继承</a>
           </li>
         
       </ul>
