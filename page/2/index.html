@@ -98,22 +98,12 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h1 id="手动实现call、apply、bind"><a href="#手动实现call、apply、bind" class="headerlink" title="手动实现call、apply、bind"></a>手动实现call、apply、bind</h1><p>&#96;&#96;<br>  Function.prototype.myCall &#x3D; function myCall(context, …args) {<br>      context &#x3D; context || window;<br>      const symbol &#x3D; Symbol();<br>      context[symbol] &#x3D; this;<br>      const result &#x3D; context<a href="...args">symbol</a>;<br>      delete context[symbol];<br>      return result;<br>  }</p>
-<p>  Function.prototype.myApply &#x3D; function myApply(context, args) {<br>      context &#x3D; context || window;<br>      const symbol &#x3D; Symbol();<br>      context[symbol] &#x3D; this;<br>      const result &#x3D; context<a href="...args">symbol</a>;<br>      delete context[symbol];<br>      return result;<br>  }</p>
-<p>  Function.prototype.myBind &#x3D; function myBind(context, …args) {<br>      context &#x3D; context || window;<br>      context.fn &#x3D; this;</p>
-<pre><code>  return function bd () &#123;
-      if (this instanceof newFn) &#123;
-          return new context.fn(...args, ...argument);
-      &#125;
-      return context.fn(...args, ...argument);
-  &#125;
-</code></pre>
-<p>  }<br>&#96;&#96;</p>
+        <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Function</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">myCall</span> = <span class="keyword">function</span> <span class="title function_">myCall</span>(<span class="params">context, ...args</span>) &#123;</span><br><span class="line">    context = context || <span class="variable language_">window</span>;</span><br><span class="line">    <span class="keyword">const</span> symbol = <span class="title class_">Symbol</span>();</span><br><span class="line">    context[symbol] = <span class="variable language_">this</span>;</span><br><span class="line">    <span class="keyword">const</span> result = context[symbol](...args);</span><br><span class="line">    <span class="keyword">delete</span> context[symbol];</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title class_">Function</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">myApply</span> = <span class="keyword">function</span> <span class="title function_">myApply</span>(<span class="params">context, args</span>) &#123;</span><br><span class="line">    context = context || <span class="variable language_">window</span>;</span><br><span class="line">    <span class="keyword">const</span> symbol = <span class="title class_">Symbol</span>();</span><br><span class="line">    context[symbol] = <span class="variable language_">this</span>;</span><br><span class="line">    <span class="keyword">const</span> result = context[symbol](...args);</span><br><span class="line">    <span class="keyword">delete</span> context[symbol];</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title class_">Function</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">myBind</span> = <span class="keyword">function</span> <span class="title function_">myBind</span>(<span class="params">context, ...args</span>) &#123;</span><br><span class="line">    context = context || <span class="variable language_">window</span>;</span><br><span class="line">    context.<span class="property">fn</span> = <span class="variable language_">this</span>;</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">function</span> <span class="title function_">bd</span> () &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="variable language_">this</span> <span class="keyword">instanceof</span> newFn) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> context.<span class="title function_">fn</span>(...args, ...argument);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> context.<span class="title function_">fn</span>(...args, ...argument);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0call%E3%80%81apply%E3%80%81bind/" data-id="clln0yer7000kfnoq7l345fsx" data-title="手动实现call、apply、bind" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0call%E3%80%81apply%E3%80%81bind/" data-id="clln1zsay000kf4oy2min5z48" data-title="手动实现call、apply、bind" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -163,7 +153,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BB%8E%E8%BE%93%E5%85%A5url%E5%88%B0%E9%A1%B5%E9%9D%A2%E6%98%BE%E7%A4%BA%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/" data-id="clln0yer8000mfnoqhfm480kw" data-title="浏览器从输入url到页面显示发生了什么" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BB%8E%E8%BE%93%E5%85%A5url%E5%88%B0%E9%A1%B5%E9%9D%A2%E6%98%BE%E7%A4%BA%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/" data-id="clln1zsaz000mf4oy5kesa5sf" data-title="浏览器从输入url到页面显示发生了什么" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -210,7 +200,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" data-id="clln0yer8000nfnoqhjwqdans" data-title="设计模式" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" data-id="clln1zsaz000nf4oy5spl8s6e" data-title="设计模式" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -252,7 +242,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81/" data-id="clln0yera000pfnoq03t9affs" data-title="防抖和节流" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81/" data-id="clln1zsb1000pf4oy8iztbduw" data-title="防抖和节流" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
