@@ -4,9 +4,7 @@ date: 2023-08-18 13:03:04
 tags:
 ---
 
-# 手动实现call、apply、bind
-
-``
+``` JS
   Function.prototype.myCall = function myCall(context, ...args) {
       context = context || window;
       const symbol = Symbol();
@@ -36,4 +34,4 @@ tags:
           return context.fn(...args, ...argument);
       }
   }
-``
+```
