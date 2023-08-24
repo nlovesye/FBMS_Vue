@@ -36,6 +36,10 @@
 
   
   
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.1.7/css/fork-awesome.min.css">
+
+  
 <meta name="generator" content="Hexo 6.3.0"></head>
 
 <body>
@@ -61,6 +65,10 @@
       </nav>
       <nav id="sub-nav">
         
+          
+            <a class="nav-icon" target="_blank" rel="noopener" href="https://github.com/nlovesye"><span class="fa fa-github"></span></a>
+          
+        
         
           <a class="nav-icon" href="/interview-notes/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
         
@@ -75,6 +83,114 @@
 
       <div class="outer">
         <section id="main">
+  
+    <article id="post-JS继承" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/interview-notes/2023/08/19/JS%E7%BB%A7%E6%89%BF/" class="article-date">
+  <time class="dt-published" datetime="2023-08-19T09:12:21.000Z" itemprop="datePublished">2023-08-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/interview-notes/2023/08/19/JS%E7%BB%A7%E6%89%BF/">JS继承</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><strong>原型链继承</strong><br>重写原型对象，代之以一个新类型的实例<br>缺点：无法传参继承父类的构造函数成员属性，多个实例对引用类型的操作会相互影响</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">SuperType</span> () &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">superProperty</span> = <span class="string">&#x27;super&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="title class_">SuperType</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">getSuperProperty</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">superProperty</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">SubType</span> () &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">subProperty</span> = <span class="string">&#x27;sub&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 关键步骤，创建一个新类型实例，并将该实例赋值给prototype</span></span><br><span class="line"><span class="title class_">SubType</span>.<span class="property"><span class="keyword">prototype</span></span> = <span class="keyword">new</span> <span class="title class_">SuperType</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> subInstance = <span class="keyword">new</span> <span class="title class_">SubType</span>();</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(subInstance.<span class="title function_">getSuperProperty</span>()); <span class="comment">// &#x27;super&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>借用构造函数继承</strong><br>借用构造函数，使用父类的构造函数来增强子类实例，相当于复制父类的实例给子类（不使用原型）<br>缺点：只能继承父类的实例属性&#x2F;方法，无法继承父类的原型属性&#x2F;方法。无法实现复用，每个子类都包含父类实例函数的副本，影响性能。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">SuperType</span> () &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">colors</span> = [<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title class_">SuperType</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">getSuperColors</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">colors</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">SubType</span> () &#123;</span><br><span class="line">  <span class="comment">// 借用构造函数，可传参</span></span><br><span class="line">  <span class="title class_">SuperType</span>.<span class="title function_">call</span>(<span class="variable language_">this</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ins1 = <span class="keyword">new</span> <span class="title class_">SubType</span>();</span><br><span class="line">ins1.<span class="property">colors</span>.<span class="title function_">push</span>(<span class="string">&quot;black&quot;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(ins1.<span class="property">colors</span>); <span class="comment">// [&#x27;red&#x27;, &#x27;blue&#x27;, &#x27;black&#x27;]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ins2 = <span class="keyword">new</span> <span class="title class_">SubType</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(ins2.<span class="property">colors</span>); <span class="comment">// [&#x27;red&#x27;, &#x27;blue&#x27;]</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>组合继承</strong><br>将原型链继承和构造函数继承组合使用的继承方式</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">SuperType</span> () &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">colors</span> = [<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title class_">SuperType</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">getSuperColors</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">colors</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">SubType</span> () &#123;</span><br><span class="line">  <span class="comment">// 构造函数继承</span></span><br><span class="line">  <span class="title class_">SuperType</span>.<span class="title function_">call</span>(<span class="variable language_">this</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 原型链继承</span></span><br><span class="line"><span class="title class_">SubType</span>.<span class="property"><span class="keyword">prototype</span></span> = <span class="keyword">new</span> <span class="title class_">SuperType</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ins1 = <span class="keyword">new</span> <span class="title class_">SubType</span>();</span><br><span class="line">ins1.<span class="property">colors</span>.<span class="title function_">push</span>(<span class="string">&quot;black&quot;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(ins1.<span class="title function_">getSuperColors</span>()); <span class="comment">// [&#x27;red&#x27;, &#x27;blue&#x27;, &#x27;black&#x27;]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ins2 = <span class="keyword">new</span> <span class="title class_">SubType</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(ins2.<span class="title function_">getSuperColors</span>()); <span class="comment">// [&#x27;red&#x27;, &#x27;blue&#x27;]</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>原型式继承</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">object</span> (o) &#123;</span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">F</span> () &#123;&#125;</span><br><span class="line">  F.<span class="property"><span class="keyword">prototype</span></span> = o;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="title function_">F</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&quot;hello&quot;</span>,</span><br><span class="line">  <span class="attr">friends</span>: [<span class="string">&quot;heihei&quot;</span>, <span class="string">&quot;huanghuang&quot;</span>]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> anotherPerson = <span class="title function_">object</span>(person); <span class="comment">// var anotherPerson = Object.create(person);</span></span><br><span class="line">anotherPerson.<span class="property">name</span> = <span class="string">&quot;nihao&quot;</span>;</span><br><span class="line">anotherPerson.<span class="property">friends</span>.<span class="title function_">push</span>(<span class="string">&quot;honghong&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> yetAnotherPerson = <span class="title function_">object</span>(person); <span class="comment">// var yetAnotherPerson = Object.create(person);</span></span><br><span class="line">yetAnotherPerson.<span class="property">name</span> = <span class="string">&quot;hi&quot;</span>;</span><br><span class="line">yetAnotherPerson.<span class="property">friends</span>.<span class="title function_">push</span>(<span class="string">&quot;baibai&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(person.<span class="property">friends</span>); <span class="comment">// [&#x27;heihei&#x27;,&#x27;huanghuang&#x27;,&#x27;honghong&#x27;,&#x27;baibai&#x27;]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 在不传入第二个参数的情况下，其行为与 object 相同</span></span><br><span class="line"><span class="title class_">Object</span>.<span class="title function_">create</span>(o)</span><br></pre></td></tr></table></figure>
+
+<p><strong>寄生式继承</strong><br>和构造函数继承模式类似，由于不能做到函数复用而降低效率</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">createAnotherPerson</span> (origin) &#123;</span><br><span class="line">  <span class="keyword">var</span> clone = <span class="title function_">object</span>(origin); <span class="comment">// 通过调用函数创建一个新对象</span></span><br><span class="line">  clone.<span class="property">sayYes</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123; <span class="comment">// 以某种方式增强这个对象</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;yes&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> clone; <span class="comment">// 返回这个对象</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>寄生组合式继承</strong><br>只调用了一次父类构造函数，避免在子类prototype上创建不必要的、多余的属性</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 原型寄生式继承</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">inheritPrototype</span> (subType, superType) &#123;</span><br><span class="line">  <span class="keyword">var</span> prototype = <span class="title class_">Object</span>.<span class="title function_">create</span>(superType.<span class="property"><span class="keyword">prototype</span></span>);</span><br><span class="line">  prototype.<span class="property">constructor</span> = subType;</span><br><span class="line">  subType.<span class="property"><span class="keyword">prototype</span></span> = prototype;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">SuperType</span> () &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">colors</span> = [<span class="string">&#x27;red&#x27;</span>];</span><br><span class="line">&#125;</span><br><span class="line"><span class="title class_">SuperType</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">sayColor</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">colors</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">SubType</span> () &#123;</span><br><span class="line">  <span class="comment">// 构造函数继承</span></span><br><span class="line">  <span class="title class_">SuperType</span>.<span class="title function_">call</span>(<span class="variable language_">this</span>);</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">name</span> = <span class="string">&#x27;subType&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 原型寄生式继承</span></span><br><span class="line"><span class="title function_">inheritPrototype</span>(<span class="title class_">SubType</span>, <span class="title class_">SuperType</span>);</span><br><span class="line"><span class="title class_">SubType</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">sayName</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">name</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>混入方式继承多个对象</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">SuperType</span> () &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">name</span> = <span class="string">&#x27;super1&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">SuperType2</span> () &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">name</span> = <span class="string">&#x27;super2&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">SubType</span> () &#123;</span><br><span class="line">  <span class="title class_">SuperType</span>.<span class="title function_">call</span>(<span class="variable language_">this</span>);</span><br><span class="line">  <span class="title class_">SuperType2</span>.<span class="title function_">call</span>(<span class="variable language_">this</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="title class_">SubType</span>.<span class="property"><span class="keyword">prototype</span></span> = <span class="title class_">Object</span>.<span class="title function_">create</span>(<span class="title class_">SuperType</span>.<span class="property"><span class="keyword">prototype</span></span>);</span><br><span class="line"><span class="title class_">Object</span>.<span class="title function_">assign</span>(<span class="title class_">SubType</span>.<span class="property"><span class="keyword">prototype</span></span>, <span class="title class_">SuperType2</span>.<span class="property"><span class="keyword">prototype</span></span>);</span><br><span class="line"><span class="title class_">SubType</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">constructor</span> = <span class="title class_">SubType</span>;</span><br></pre></td></tr></table></figure>
+
+<p><strong>ES6 extends 关键字继承</strong></p>
+<p><strong>函数声明和类声明的区别</strong><br>函数声明会提升，类声明不会提升</p>
+<p><strong>ES5继承和ES6继承的区别</strong><br>es5继承实质上是先创建子类实例对象，然后再将父类方法添加到子类this对象上（Parent.call(this)）</p>
+<p>es6实质上是先创建父类的实例对象this，然后再用子类的构造函数修改this。因为子类没有自己的this对象，所以必须先调用父类的super()方法，否则新建实例会报错。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/19/JS%E7%BB%A7%E6%89%BF/" data-id="cllov5igy0007d0nb23n4dm0d" data-title="JS继承" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/interview-notes/tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-原型链" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/interview-notes/2023/08/19/%E5%8E%9F%E5%9E%8B%E9%93%BE/" class="article-date">
+  <time class="dt-published" datetime="2023-08-19T08:16:03.000Z" itemprop="datePublished">2023-08-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/interview-notes/2023/08/19/%E5%8E%9F%E5%9E%8B%E9%93%BE/">原型链</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>构造函数、原型对象、实例的关系：<strong>每个构造函数都有一个原型对象，原型对象包含一个指向构造函数的指针，而实例都包含一个指向原型对象的内部指针。</strong></p>
+<p>原型链：<strong>根据构造函数、原型对象、实例的关系，实例指向原型对象，原型对象指向构造函数的原型对象，层层递进直到构造函数的默认原型Object的原型，形成的指向链条称之为原型链</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 原型链继承</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">SuperType</span> () &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">superProperty</span> = <span class="string">&#x27;super&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="title class_">SuperType</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">getSuperProperty</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">superProperty</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">SubType</span> () &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">subProperty</span> = <span class="string">&#x27;sub&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title class_">SubType</span>.<span class="property"><span class="keyword">prototype</span></span> = <span class="keyword">new</span> <span class="title class_">SuperType</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> subInstance = <span class="keyword">new</span> <span class="title class_">SubType</span>();</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(subInstance.<span class="title function_">getSuperProperty</span>()); <span class="comment">// &#x27;super&#x27;</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/19/%E5%8E%9F%E5%9E%8B%E9%93%BE/" data-id="cllov5ih8000rd0nbhqmifpn5" data-title="原型链" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/interview-notes/tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
   
     <article id="post-js异步时序问题" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
@@ -112,7 +228,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/js%E5%BC%82%E6%AD%A5%E6%97%B6%E5%BA%8F%E9%97%AE%E9%A2%98/" data-id="clloi1j07000bfzoo14sb4bdm" data-title="js异步时序问题" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/js%E5%BC%82%E6%AD%A5%E6%97%B6%E5%BA%8F%E9%97%AE%E9%A2%98/" data-id="cllov5ih1000cd0nb6fdd94k6" data-title="js异步时序问题" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -160,7 +276,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/this%E7%9B%B8%E5%85%B3/" data-id="clloi1j09000ffzoof2rdgvvs" data-title="this相关" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/this%E7%9B%B8%E5%85%B3/" data-id="cllov5ih3000hd0nb9vn4cgfi" data-title="this相关" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -202,7 +318,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E5%87%BD%E6%95%B0%E6%9F%AF%E9%87%8C%E5%8C%96/" data-id="clloi1j0a000hfzoo3v1pe7m7" data-title="函数柯里化" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E5%87%BD%E6%95%B0%E6%9F%AF%E9%87%8C%E5%8C%96/" data-id="cllov5ih6000md0nb526595v3" data-title="函数柯里化" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -249,7 +365,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" data-id="clloi1j0c000jfzoof7dth14d" data-title="前端性能优化" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" data-id="cllov5ih7000pd0nbg08p2uqs" data-title="前端性能优化" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -290,7 +406,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0call%E3%80%81apply%E3%80%81bind/" data-id="clloi1j0f000ofzoo3334d02s" data-title="手动实现call、apply、bind" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0call%E3%80%81apply%E3%80%81bind/" data-id="cllov5ih9000ud0nbgmdw5fd7" data-title="手动实现call、apply、bind" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -342,7 +458,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BB%8E%E8%BE%93%E5%85%A5url%E5%88%B0%E9%A1%B5%E9%9D%A2%E6%98%BE%E7%A4%BA%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/" data-id="clloi1j0g000qfzoohawjhvz8" data-title="浏览器从输入url到页面显示发生了什么" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BB%8E%E8%BE%93%E5%85%A5url%E5%88%B0%E9%A1%B5%E9%9D%A2%E6%98%BE%E7%A4%BA%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/" data-id="cllov5iha000wd0nbg4vp6f8b" data-title="浏览器从输入url到页面显示发生了什么" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -389,7 +505,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" data-id="clloi1j0j000xfzooh8pl65nb" data-title="设计模式" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" data-id="cllov5ihd0014d0nb6uuagbmi" data-title="设计模式" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -431,7 +547,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81/" data-id="clloi1j0l0011fzoo7d0u421m" data-title="防抖和节流" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81/" data-id="cllov5ihe0018d0nbc3g71glq" data-title="防抖和节流" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -468,7 +584,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/interview-notes/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/interview-notes/tags/http/" rel="tag">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/interview-notes/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/interview-notes/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/interview-notes/tags/React/" rel="tag">React</a></li><li class="tag-list-item"><a class="tag-list-link" href="/interview-notes/tags/Vue/" rel="tag">Vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/interview-notes/tags/http/" rel="tag">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/interview-notes/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器</a></li></ul>
     </div>
   </div>
 
@@ -478,7 +594,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/interview-notes/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/interview-notes/tags/http/" style="font-size: 10px;">http</a> <a href="/interview-notes/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 15px;">浏览器</a>
+      <a href="/interview-notes/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/interview-notes/tags/React/" style="font-size: 10px;">React</a> <a href="/interview-notes/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/interview-notes/tags/http/" style="font-size: 13.33px;">http</a> <a href="/interview-notes/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 16.67px;">浏览器</a>
     </div>
   </div>
 
@@ -500,6 +616,14 @@
       <ul>
         
           <li>
+            <a href="/interview-notes/2023/08/24/forin%E5%92%8Cforof/">forin和forof</a>
+          </li>
+        
+          <li>
+            <a href="/interview-notes/2023/08/24/vue3%E5%92%8Creact%E5%8C%BA%E5%88%AB/">vue3和react区别</a>
+          </li>
+        
+          <li>
             <a href="/interview-notes/2023/08/24/cookies-sessionStorage-localStorage%E5%8C%BA%E5%88%AB/">cookies,sessionStorage,localStorage区别</a>
           </li>
         
@@ -509,14 +633,6 @@
         
           <li>
             <a href="/interview-notes/2023/08/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6/">浏览器缓存机制</a>
-          </li>
-        
-          <li>
-            <a href="/interview-notes/2023/08/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E8%B7%A8%E5%9F%9F/">浏览器跨域</a>
-          </li>
-        
-          <li>
-            <a href="/interview-notes/2023/08/23/CORS%E8%B7%A8%E5%9F%9F/">CORS跨域</a>
           </li>
         
       </ul>
@@ -531,6 +647,9 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
+      
+        <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a></br>
+All website licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></br>
       
       &copy; 2023 ns<br>
       Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
