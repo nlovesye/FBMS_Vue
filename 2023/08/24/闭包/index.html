@@ -9,12 +9,12 @@
   <meta name="description" content="概念：能够访问外部函数作用域中变量的函数 作用：保护函数的私有变量不受外部干扰，形成不销毁的栈内存保存，把一些函数内的值保存下来，实现方法和属性的私有化 使用场景：1.自执行函数2.函数作为参数，return返回一个函数3.循环赋值4.使用回调函数就是在使用闭包5.节流防抖6.柯里化实现 需要注意：容易导致内存泄漏，因为闭包会包含其他的函数作用域，比其他函数更占内存，过度使用会导致内存占用过多。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="闭包">
-<meta property="og:url" content="https://nlovesye.github.io/interview-notes/2023/08/23/%E9%97%AD%E5%8C%85/index.html">
+<meta property="og:url" content="https://nlovesye.github.io/interview-notes/2023/08/24/%E9%97%AD%E5%8C%85/index.html">
 <meta property="og:site_name" content="前端面试笔记">
 <meta property="og:description" content="概念：能够访问外部函数作用域中变量的函数 作用：保护函数的私有变量不受外部干扰，形成不销毁的栈内存保存，把一些函数内的值保存下来，实现方法和属性的私有化 使用场景：1.自执行函数2.函数作为参数，return返回一个函数3.循环赋值4.使用回调函数就是在使用闭包5.节流防抖6.柯里化实现 需要注意：容易导致内存泄漏，因为闭包会包含其他的函数作用域，比其他函数更占内存，过度使用会导致内存占用过多。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-08-23T09:59:04.532Z">
-<meta property="article:modified_time" content="2023-08-23T09:59:04.532Z">
+<meta property="article:published_time" content="2023-08-24T01:42:39.430Z">
+<meta property="article:modified_time" content="2023-08-24T01:42:39.430Z">
 <meta property="article:author" content="ns">
 <meta property="article:tag" content="JavaScript">
 <meta name="twitter:card" content="summary">
@@ -78,8 +78,8 @@
       <div class="outer">
         <section id="main"><article id="post-闭包" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/interview-notes/2023/08/23/%E9%97%AD%E5%8C%85/" class="article-date">
-  <time class="dt-published" datetime="2023-08-23T09:59:04.532Z" itemprop="datePublished">2023-08-23</time>
+    <a href="/interview-notes/2023/08/24/%E9%97%AD%E5%8C%85/" class="article-date">
+  <time class="dt-published" datetime="2023-08-24T01:42:39.430Z" itemprop="datePublished">2023-08-24</time>
 </a>
     
   <div class="article-category">
@@ -111,7 +111,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/23/%E9%97%AD%E5%8C%85/" data-id="cllnkc1el000udmp2gr7ke8o0" data-title="闭包" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/24/%E9%97%AD%E5%8C%85/" data-id="clloi1j0k000zfzooexr256yx" data-title="闭包" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -123,19 +123,19 @@
     
 <nav id="article-nav">
   
-    <a href="/interview-notes/2023/08/23/CORS%E8%B7%A8%E5%9F%9F/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/interview-notes/2023/08/24/cookies-sessionStorage-localStorage%E5%8C%BA%E5%88%AB/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">前一篇</strong>
       <div class="article-nav-title">
         
-          CORS跨域
+          cookies,sessionStorage,localStorage区别
         
       </div>
     </a>
   
   
-    <a href="/interview-notes/2023/08/23/JS%E5%88%A4%E6%96%AD%E7%B1%BB%E5%9E%8B/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/interview-notes/2023/08/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">后一篇</strong>
-      <div class="article-nav-title">JS判断类型</div>
+      <div class="article-nav-title">浏览器缓存机制</div>
     </a>
   
 </nav>
@@ -172,7 +172,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/interview-notes/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/interview-notes/tags/http/" style="font-size: 10px;">http</a> <a href="/interview-notes/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 10px;">浏览器</a>
+      <a href="/interview-notes/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/interview-notes/tags/http/" style="font-size: 10px;">http</a> <a href="/interview-notes/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 15px;">浏览器</a>
     </div>
   </div>
 
@@ -194,23 +194,23 @@
       <ul>
         
           <li>
+            <a href="/interview-notes/2023/08/24/cookies-sessionStorage-localStorage%E5%8C%BA%E5%88%AB/">cookies,sessionStorage,localStorage区别</a>
+          </li>
+        
+          <li>
+            <a href="/interview-notes/2023/08/24/%E9%97%AD%E5%8C%85/">闭包</a>
+          </li>
+        
+          <li>
+            <a href="/interview-notes/2023/08/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6/">浏览器缓存机制</a>
+          </li>
+        
+          <li>
             <a href="/interview-notes/2023/08/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E8%B7%A8%E5%9F%9F/">浏览器跨域</a>
           </li>
         
           <li>
             <a href="/interview-notes/2023/08/23/CORS%E8%B7%A8%E5%9F%9F/">CORS跨域</a>
-          </li>
-        
-          <li>
-            <a href="/interview-notes/2023/08/23/%E9%97%AD%E5%8C%85/">闭包</a>
-          </li>
-        
-          <li>
-            <a href="/interview-notes/2023/08/23/JS%E5%88%A4%E6%96%AD%E7%B1%BB%E5%9E%8B/">JS判断类型</a>
-          </li>
-        
-          <li>
-            <a href="/interview-notes/2023/08/23/new%E8%B0%83%E7%94%A8%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/">new调用构造函数发生了什么</a>
           </li>
         
       </ul>
