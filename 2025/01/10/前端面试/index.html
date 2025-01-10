@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>前端面试笔记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="前端面试HTTP是什么 支持客户&#x2F;服务器模式 简单快速 灵活，允许传输任意类型的数据对象，由 Content-Type 标记 无连接: 每次连接只处理一个请求。服务器处理完并收到客户应答后即断开连接，节省传输时间 无状态: 无法根据之前的状态进行本次的请求处理  HTTP响应常见状态码 1xx 指示信息，请求已接收，继续处理 2xx 成功，请求已被成功接收、理解、接受 204 客户端发送">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端面试笔记">
+<meta property="og:url" content="https://nlovesye.github.io/interview-notes/2025/01/10/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95/index.html">
+<meta property="og:site_name" content="前端面试笔记">
+<meta property="og:description" content="前端面试HTTP是什么 支持客户&#x2F;服务器模式 简单快速 灵活，允许传输任意类型的数据对象，由 Content-Type 标记 无连接: 每次连接只处理一个请求。服务器处理完并收到客户应答后即断开连接，节省传输时间 无状态: 无法根据之前的状态进行本次的请求处理  HTTP响应常见状态码 1xx 指示信息，请求已接收，继续处理 2xx 成功，请求已被成功接收、理解、接受 204 客户端发送">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-01-10T06:35:03.981Z">
+<meta property="article:modified_time" content="2025-01-10T06:35:03.981Z">
+<meta property="article:author" content="ns">
+<meta property="article:tag" content="前端 面试 笔记">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/interview-notes/atom.xml" title="前端面试笔记" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/interview-notes/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/interview-notes/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/interview-notes/fancybox/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.1.7/css/fork-awesome.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/interview-notes/" id="logo">前端面试笔记</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/interview-notes/">Home</a>
+        
+          <a class="main-nav-link" href="/interview-notes/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          
+            <a class="nav-icon" target="_blank" rel="noopener" href="https://github.com/nlovesye"><span class="fa fa-github"></span></a>
+          
+        
+        
+          <a class="nav-icon" href="/interview-notes/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://nlovesye.github.io/interview-notes"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-前端面试" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/interview-notes/2025/01/10/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95/" class="article-date">
+  <time class="dt-published" datetime="2025-01-10T06:35:03.981Z" itemprop="datePublished">2025-01-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="前端面试"><a href="#前端面试" class="headerlink" title="前端面试"></a>前端面试</h1><h2 id="HTTP是什么"><a href="#HTTP是什么" class="headerlink" title="HTTP是什么"></a>HTTP是什么</h2><ul>
+<li>支持客户&#x2F;服务器模式</li>
+<li>简单快速</li>
+<li>灵活，允许传输任意类型的数据对象，由 Content-Type 标记</li>
+<li>无连接: 每次连接只处理一个请求。服务器处理完并收到客户应答后即断开连接，节省传输时间</li>
+<li>无状态: 无法根据之前的状态进行本次的请求处理</li>
+</ul>
+<h2 id="HTTP响应常见状态码"><a href="#HTTP响应常见状态码" class="headerlink" title="HTTP响应常见状态码"></a>HTTP响应常见状态码</h2><ul>
+<li><strong>1xx</strong> 指示信息，请求已接收，继续处理</li>
+<li><strong>2xx</strong> 成功，请求已被成功接收、理解、接受<ul>
+<li><strong>204</strong> 客户端发送的请求已经在服务端正常处理了，但是没有返回内容。一般情况在只需要从客户端往服务端发送信息而服务器不需要往客户端发送内容时使用</li>
+</ul>
+</li>
+<li><strong>3xx</strong> 重定向，要完成请求必须进行更进一步的操作<ul>
+<li><strong>301</strong> 永久重定向，收藏夹中可以看到网址变化，下次访问就是新地址。不再使用旧域名时使用</li>
+<li><strong>302</strong> 临时重定向，收藏夹中显示的还是旧地址，下次访问还是原地址。活动页时登录到首页自动重定向；未登录访问需要登录访问页时，重定向到登录页；访问404重定向到首页</li>
+<li><strong>304</strong> 资源未被修改，已经被请求过一次了，可直接使用本地缓存中的</li>
+<li><strong>307</strong> 临时重定向，302把post变成get了，307不会</li>
+</ul>
+</li>
+<li><strong>4xx</strong> 客户端错误<ul>
+<li><strong>400</strong> 请求报文存在语法错误，需要修改请求的内容后再次发送请求</li>
+<li><strong>403</strong> 没有权限</li>
+<li><strong>404</strong> 资源未找到</li>
+</ul>
+</li>
+<li><strong>5xx</strong> 服务器端错误<ul>
+<li><strong>500</strong> 服务器错误</li>
+<li><strong>504</strong> 网关超时</li>
+</ul>
+</li>
+</ul>
+<h2 id="https是什么，和http的区别"><a href="#https是什么，和http的区别" class="headerlink" title="https是什么，和http的区别"></a>https是什么，和http的区别</h2><blockquote>
+<p>http是以明文传递信息，不安全，https让http运行在ssl&#x2F;tls协议上，加密数据传输，即https&#x3D;http+ssl&#x2F;tls</p>
+</blockquote>
+<ul>
+<li>https是http协议的安全版本，使用ssl&#x2F;tls协议进行加密处理，相对更安全</li>
+<li>连接方式不同，使用的端口不一样，http是80，https是443</li>
+<li>https由于需要设计加密以及多次握手，性能方面不如http</li>
+<li>https需要ssl，ssl证书一般要钱</li>
+</ul>
+<h2 id="浏览器从输入url到页面呈现中间发生了什么"><a href="#浏览器从输入url到页面呈现中间发生了什么" class="headerlink" title="浏览器从输入url到页面呈现中间发生了什么"></a>浏览器从输入url到页面呈现中间发生了什么</h2><ol>
+<li>url解析 url编码<ul>
+<li>encodeURI、decodeURI：对中文、空格等编码解码，适合给URL本身编码</li>
+<li>encodeURIComponent、decodeURIComponent：对中文、空格 : &#x2F;等编码解码，编码范围更广，适合给参数编码。</li>
+<li>escape unescape 主要用于客户端不同页面之间的数据传输的时候，信息的编码解码（如：cookie）</li>
+</ul>
+</li>
+<li>检查缓存（强制缓存）</li>
+<li>DNS解析<blockquote>
+<p>根据浏览器识别出来的url中的域名，到dns服务器上查找服务器外网ip</p>
+</blockquote>
+<ul>
+<li>本地dns递归查询（浏览器缓存-&gt;本地hosts文件-&gt;本地dns解析器缓存-&gt;本地dns服务器）-&gt; 本地dns服务器和根域及子域迭代查询（客户端-&gt;本地dns服务器-&gt;根域名服务器-&gt;顶级域名服务器-&gt;权威域名服务器）</li>
+</ul>
+</li>
+<li>建立TCP连接，三次握手<br>  a. 建立连接，客户端发送连接请求报文等待服务器确认<br>  b. 服务器端收到确认同时发送客户端进入接收状态<br>  c. 客户端收到服务器消息，向服务端发送ack报文，发送完毕后客户端和服务端都进入ESTAB_LISHED状态，完成三次握手</li>
+<li>发送http请求</li>
+<li>服务器收到请求并处理后返回请求的资源</li>
+<li>关闭TCP连接，四次挥手</li>
+<li>浏览器解析渲染页面<ul>
+<li>将html解析生成dom树<ol>
+<li>html解析生成dom树，深度优先遍历dom，优先解析当前节点的所有子节点，再解析下一个兄弟节点</li>
+<li>遇到script标签暂停dom解析，直到脚本加载、解析、执行完毕，再继续dom解析</li>
+<li>遇到请求外部资源时，异步进行请求不会阻塞dom解析，但如果是js文件，同样会阻塞</li>
+</ol>
+</li>
+<li>将css解析生成css规则树<ol>
+<li>解析生成css规则树时不会影响js文件的加载，但会影响执行，js代码执行前必须保证css规则树已经生成完毕</li>
+<li>浏览器在css规则树生成之前不会进行渲染</li>
+</ol>
+</li>
+<li>结合dom树和css规则树生成渲染树<ol>
+<li>dom树和css规则树全部准备好之后，浏览器开始生成渲染树</li>
+</ol>
+</li>
+<li>根据渲染树计算每个节点信息（布局）<ol>
+<li>根据每个节点信息，计算出每个节点位置和尺寸</li>
+</ol>
+</li>
+<li>根据计算后的信息绘制页面<ol>
+<li>绘制阶段</li>
+<li>重绘，颜色或者背景色变动等不影响布局的属性变动</li>
+<li>回流&#x2F;重排，尺寸发生了变化或会影响布局需要重新计算渲染树重新渲染</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="浏览器缓存"><a href="#浏览器缓存" class="headerlink" title="浏览器缓存"></a>浏览器缓存</h2><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903593275817998#heading-1">参考</a></p>
+<p>强制缓存优先于协商缓存进行，若强制缓存(Expires和Cache-Control)生效则直接使用缓存，若不生效则进行协商缓存(Last-Modified &#x2F; If-Modified-Since和Etag &#x2F; If-None-Match)，协商缓存由服务器决定是否使用缓存，若协商缓存失效，那么代表该请求的缓存失效，重新获取请求结果，再存入浏览器缓存中；生效则返回304，继续使用缓存。</p>
+<p>Cache-Control，在HTTP&#x2F;1.1中，Cache-Control是最重要的规则，主要用于控制网页缓存，主要取值为：</p>
+<ul>
+<li>public：所有内容都将被缓存（客户端和代理服务器都可缓存）</li>
+<li>private：所有内容只有客户端可以缓存，Cache-Control的默认取值</li>
+<li>no-cache：客户端缓存内容，但是是否使用缓存则需要经过协商缓存来验证决定</li>
+<li>no-store：所有内容都不会被缓存，即不使用强制缓存，也不使用协商缓存</li>
+<li>max-age&#x3D;xxx (xxx is numeric)：缓存内容将在xxx秒后失效</li>
+</ul>
+<h2 id="浏览器本地存储"><a href="#浏览器本地存储" class="headerlink" title="浏览器本地存储"></a>浏览器本地存储</h2><ul>
+<li><p>cookie（一般不超过4kb）</p>
+<ul>
+<li>通常由服务端生成，在浏览器和服务器来回传递，通常用于标识客户端，让无状态http协议能记住状态信息</li>
+<li>key:value，还有几个用于控制cookie有效期，安全性，使用范围的可选属性组成</li>
+<li>每次请求都会被发送，不使用https信息容易被窃取导致安全风险</li>
+<li>通过设置过期时间删除cookie</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">document</span>.<span class="property">cookie</span> = <span class="string">&#x27;key=value&#x27;</span>;  </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>sessionStorage（一般为5m）</p>
+<ul>
+<li>当前源会话数据存储，页面关闭消失</li>
+</ul>
+</li>
+<li><p>localStorage（一般为5m）</p>
+<ul>
+<li>本地持久化存储，可以跨浏览器会话访问</li>
+</ul>
+</li>
+<li><p>indexDB（取决于用户设备容量和浏览器限额设置）</p>
+<ul>
+<li>存储大量结构化数据</li>
+</ul>
+</li>
+</ul>
+<h2 id="前端SEO优化"><a href="#前端SEO优化" class="headerlink" title="前端SEO优化"></a>前端SEO优化</h2><ul>
+<li>合理的 title description keywords</li>
+<li>语义化的html代码，符合w3c规范</li>
+<li>重要内容html代码放在最前</li>
+<li>重要内容不要用js输出</li>
+<li>少用iframe</li>
+<li>非装饰性图片必须加alt</li>
+<li>提高网站响应速度</li>
+</ul>
+<h2 id="事件循环"><a href="#事件循环" class="headerlink" title="事件循环"></a>事件循环</h2><blockquote>
+<p>在浏览器的Event Loop中是有多个任务队列的，每个任务队列的执行时机是不一样的</p>
+</blockquote>
+<ol>
+<li>从task任务队列中取第一个task（比如setTimeout、setIntervel的回调，也可以将同一轮循环中的所有同步代码看作是一个宏任务），执行它。</li>
+<li>执行微任务队列里的所有微任务。</li>
+<li>浏览器判断是否更新渲染屏幕，如果需要重新绘制，则执行步骤4-13，如果不需要重新绘制，则流程回到步骤1，这样不断循环。</li>
+<li>触发resize、scroll事件，建立媒体查询（执行一个任务中如果生成了微任务，则执行完任务该后就会执行所有的微任务，然后再执行下一个任务）。</li>
+<li>建立css动画（执行一个任务中如果生成了微任务，则执行完该任务后就会执行所有的微任务，然后再执行下一个任务）。</li>
+<li>执行requestAnimationFrame回调（执行一个任务中如果生成了微任务，则执行完该任务后就会执行所有的微任务，然后再执行下一个任务）。</li>
+<li>执行 IntersectionObserver 回调（执行一个任务中如果生成了微任务，则执行完该任务后就会执行所有的微任务，然后再执行下一个任务）。</li>
+<li>更新渲染屏幕。</li>
+<li>浏览器判断当前帧是否还有空闲时间，如果有空闲时间，则执行步骤10-12。</li>
+<li>从 requestIdleCallback回调函数队列中取第一个，执行它。</li>
+<li>执行微任务队列里的所有微任务。</li>
+<li>流程回到步骤9，直到requestIdleCallback回调函数队列清空或当前帧没有空闲时间。</li>
+<li>流程回到步骤1，这样不断循环。</li>
+</ol>
+<h2 id="js继承"><a href="#js继承" class="headerlink" title="js继承"></a>js继承</h2><ul>
+<li><p>借用构造函数继承</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Parent</span>(<span class="params"></span>) &#123;&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Child</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="title class_">Parent</span>.<span class="title function_">call</span>(<span class="variable language_">this</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>原型链继承</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Parent</span>(<span class="params"></span>) &#123;&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Child</span>(<span class="params"></span>) &#123;&#125;</span><br><span class="line"><span class="title class_">Child</span>.<span class="property"><span class="keyword">prototype</span></span> = <span class="keyword">new</span> <span class="title class_">Parent</span>()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>组合继承</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Parent</span>(<span class="params"></span>) &#123;&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Child</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="title class_">Parent</span>.<span class="title function_">call</span>(<span class="variable language_">this</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="title class_">Child</span>.<span class="property"><span class="keyword">prototype</span></span> = <span class="keyword">new</span> <span class="title class_">Parent</span>()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>原型式继承</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">createObject</span>(<span class="params">obj</span>) &#123;</span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">F</span>(<span class="params"></span>) &#123;&#125;</span><br><span class="line">  F.<span class="property"><span class="keyword">prototype</span></span> = obj</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="title function_">F</span>()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>寄生式继承</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">createAnother</span>(<span class="params">obj</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> clone = <span class="title function_">createObject</span>(obj);</span><br><span class="line">  clone.<span class="property">newMethod</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123;&#125;</span><br><span class="line">  <span class="keyword">return</span> clone;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>寄生组合式继承</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Parent</span>(<span class="params"></span>) &#123;&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Child</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="title class_">Parent</span>.<span class="title function_">call</span>(<span class="variable language_">this</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> prototype = <span class="title function_">createObject</span>(<span class="title class_">Parent</span>.<span class="property"><span class="keyword">prototype</span></span>);</span><br><span class="line">prototype.<span class="property">constructor</span> = <span class="title class_">Child</span>;</span><br><span class="line"><span class="title class_">Child</span>.<span class="property"><span class="keyword">prototype</span></span> = prototype</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="js-常用设计模式"><a href="#js-常用设计模式" class="headerlink" title="js 常用设计模式"></a>js 常用设计模式</h2><ul>
+<li><p>构造函数模式</p>
+</li>
+<li><p>工厂模式</p>
+<blockquote>
+<p>多种不同的需求，复用同一个对象，简化对象实例化</p>
+</blockquote>
+</li>
+<li><p>发布订阅模式</p>
+<blockquote>
+<p>订阅方和发布方解耦，订阅方只订阅自己感兴趣的类型消息，不用直接关联发布方，发布方也是根据类型通知，不用直接关联订阅方</p>
+</blockquote>
+</li>
+<li><p>单例模式</p>
+</li>
+<li><p>装饰器模式</p>
+</li>
+<li><p>代理模式</p>
+</li>
+<li><p>适配器模式</p>
+</li>
+<li><p>策略模式</p>
+</li>
+<li><p>中介者模式</p>
+</li>
+</ul>
+<h2 id="js-内存泄漏"><a href="#js-内存泄漏" class="headerlink" title="js 内存泄漏"></a>js 内存泄漏</h2><ul>
+<li>全局变量引用</li>
+<li>闭包</li>
+<li>dom元素事件监听对dom元素引用，未正确移除事件处理函数</li>
+<li>定时器</li>
+</ul>
+<h2 id="前端性能优化"><a href="#前端性能优化" class="headerlink" title="前端性能优化"></a>前端性能优化</h2><ul>
+<li><p>html+css+图片</p>
+<ul>
+<li>减少dom数量和dom嵌套深度</li>
+<li>压缩html、css代码体积，合并css文件减少http请求次数和大小</li>
+<li>减少css选择器复杂程度</li>
+<li>将css放在head里尽早加载，因为会影响rendertree的构建</li>
+<li>动画使用css3过渡，减少动画复杂度，css动画替代js动画</li>
+<li>避免使用css表达式在</li>
+<li>避免图片空src，空src仍然会向服务器发起一个http请求</li>
+<li>图片压缩优化</li>
+<li>首屏加载使用骨架屏或动画，资源按需加载，首页不需要的资源延迟加载</li>
+<li>优化静态资源，使用字体图标、雪碧图、webp格式图片、svg图标等</li>
+<li>使用渐进式jpeg图片</li>
+</ul>
+</li>
+<li><p>js</p>
+<ul>
+<li>减少直接dom操作次数</li>
+<li>避免使用with、eval，避免引擎难以优化</li>
+<li>异步和延迟加载js文件避免阻塞页面渲染</li>
+<li>将js文件放到页面底部避免阻塞页面渲染</li>
+<li>事件委托减少事件绑定次数</li>
+<li>合理使用缓存，减少计算次数或重复请求数据</li>
+<li>使用WebWorker进行复杂计算</li>
+</ul>
+</li>
+<li><p>代码实现</p>
+<ul>
+<li>节流&#x2F;防抖</li>
+<li>图片懒加载</li>
+<li>列表分页&#x2F;滚动列表虚拟滚动</li>
+</ul>
+</li>
+<li><p>构建打包优化（webpack&#x2F;vite）</p>
+<ul>
+<li>代码分割，减小单个文件体积</li>
+<li>按需加载&#x2F;懒加载，在使用的时候加载代码</li>
+<li>压缩代码</li>
+<li>tree shaking删除未被引用的代码</li>
+<li>gzip压缩</li>
+<li>静态资源cdn加载</li>
+<li>webpack缩小loader匹配范围，js&#x2F;css&#x2F;html代码压缩，文件大小压缩，图片webp压缩等</li>
+<li>多线程打包提升打包速度</li>
+</ul>
+</li>
+<li><p>网络优化</p>
+<ul>
+<li>减少http请求</li>
+<li>nginx gzip静态资源压缩</li>
+<li>http缓存</li>
+<li>cdn减少访问延迟</li>
+<li>dns预解析，link标签ref属性设置dns-prefetch提前获取域名对应ip地址</li>
+<li>合理使用多个域名降低并发压力</li>
+</ul>
+</li>
+</ul>
+<h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><ul>
+<li>栈</li>
+<li>队列</li>
+<li>链表</li>
+<li>树</li>
+<li>AVL树</li>
+<li>Trie</li>
+<li>堆</li>
+</ul>
+<h2 id="DFS（深度遍历优先）和BFS（广度遍历优先）"><a href="#DFS（深度遍历优先）和BFS（广度遍历优先）" class="headerlink" title="DFS（深度遍历优先）和BFS（广度遍历优先）"></a>DFS（深度遍历优先）和BFS（广度遍历优先）</h2><h2 id="Vue3-diff算法"><a href="#Vue3-diff算法" class="headerlink" title="Vue3 diff算法"></a>Vue3 diff算法</h2><ul>
+<li>分层同级比较，不跨层比较</li>
+<li>静态标记，对会发生变化的地方标记，下次更新直接找有标记的做diff比对</li>
+<li>不带key的新虚拟dom树</li>
+</ul>
+<ol>
+<li>从前往后遍历新旧虚拟dom树，将旧的vdom更新为新的vdom</li>
+<li>比较新旧虚拟dom树长度，处理新增&#x2F;删除节点</li>
+</ol>
+<ul>
+<li>带key的新虚拟dom树</li>
+</ul>
+<ol>
+<li>从前往后遍历对比新旧vdom树寻找可复用节点记录索引，遇到不可复用跳出循环</li>
+<li>从后往前遍历对比新旧vdom树寻找可复用节点分别记录新旧vdom索引，遇到不可复用跳出循环</li>
+<li>根据前两次遍历索引情况识别出两侧与中间的新增与删除的节点</li>
+<li>处理未识别的节点</li>
+</ol>
+<h2 id="Vue3-从定义一个变量到修改变量页面更新发生了什么"><a href="#Vue3-从定义一个变量到修改变量页面更新发生了什么" class="headerlink" title="Vue3 从定义一个变量到修改变量页面更新发生了什么"></a>Vue3 从定义一个变量到修改变量页面更新发生了什么</h2><ol>
+<li>使用ref定义一个变量，使用Proxy对象监听这个变量</li>
+<li>在页面模板中使用这个变量时，会建立变量与视图之间的依赖关系</li>
+<li>修改变量值后，利用Proxy对象实现的监听触发依赖更新</li>
+<li>通过虚拟DOM比对算法，只更新变化的部分</li>
+</ol>
+<h2 id="Vue3-依赖收集和派发更新"><a href="#Vue3-依赖收集和派发更新" class="headerlink" title="Vue3 依赖收集和派发更新"></a>Vue3 依赖收集和派发更新</h2><ul>
+<li><p>两个顶级变量 targetMap(WeakMap) 和 activeEffect</p>
+</li>
+<li><p>track 和 trigger 方法</p>
+<ol>
+<li>track会去找变量是否被追踪，将 activeEffect 塞入 targetMap<br>targetMap: 属性名称 -&gt; Map()<br>Map: 属性名称 -&gt; Set()</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">track</span>(<span class="params">target, key</span>) &#123;</span><br><span class="line">   <span class="comment">// 首先找 obj 是否有被追踪</span></span><br><span class="line">  <span class="keyword">let</span> depsMap = targetMap.<span class="title function_">get</span>(target);</span><br><span class="line">  <span class="keyword">if</span> (!depsMap) &#123;</span><br><span class="line">    <span class="comment">// 如果没有被追踪，那么添加一个</span></span><br><span class="line">        targetMap.<span class="title function_">set</span>(target, (depsMap = <span class="keyword">new</span> <span class="title class_">Map</span>()));</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 然后寻找 obj.x 是否被追踪</span></span><br><span class="line">  <span class="keyword">let</span> dep = depsMap.<span class="title function_">get</span>(key);</span><br><span class="line">    <span class="keyword">if</span> (!dep) &#123;</span><br><span class="line">    <span class="comment">// 如果没有被追踪，那么添加一个</span></span><br><span class="line">    depsMap.<span class="title function_">set</span>(key, (dep = <span class="keyword">new</span> <span class="title class_">Set</span>()));</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 如果没有添加 activeEffect 那么添加一个</span></span><br><span class="line">  <span class="keyword">if</span> (!dep.<span class="title function_">has</span>(activeEffect)) &#123;</span><br><span class="line">        dep.<span class="title function_">add</span>(activeEffect);</span><br><span class="line">    activeEffect.<span class="property">deps</span>.<span class="title function_">push</span>(dep);</span><br><span class="line">        <span class="keyword">if</span> (activeEffect.<span class="property">options</span>.<span class="property">onTrack</span>) &#123;</span><br><span class="line">            activeEffect.<span class="property">options</span>.<span class="title function_">onTrack</span>(&#123;</span><br><span class="line">                <span class="attr">effect</span>: activeEffect,</span><br><span class="line">                target,</span><br><span class="line">                type,</span><br><span class="line">                key</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>trigger只会去 targetMap中寻找对应的变量的追踪任务，找到了就去重然后执行任务</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">trigger</span>(<span class="params">target, key</span>) &#123;</span><br><span class="line">  <span class="comment">// 寻找追踪项</span></span><br><span class="line">  <span class="keyword">const</span> depsMap = targetMap.<span class="title function_">get</span>(target);</span><br><span class="line">  <span class="comment">// 没找到就什么都不干</span></span><br><span class="line">  <span class="keyword">if</span> (!depsMap) <span class="keyword">return</span>;</span><br><span class="line">  <span class="comment">// 去重</span></span><br><span class="line">  <span class="keyword">const</span> effects = <span class="keyword">new</span> <span class="title class_">Set</span>()</span><br><span class="line">  depsMap.<span class="title function_">get</span>(key).<span class="title function_">forEach</span>(<span class="function"><span class="params">e</span> =&gt;</span> effects.<span class="title function_">add</span>(e))</span><br><span class="line">  <span class="comment">// 执行</span></span><br><span class="line">  effects.<span class="title function_">forEach</span>(<span class="function"><span class="params">e</span> =&gt;</span> <span class="title function_">e</span>())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="React-Fiber-机制-架构"><a href="#React-Fiber-机制-架构" class="headerlink" title="React Fiber 机制&#x2F;架构"></a>React Fiber 机制&#x2F;架构</h2><blockquote>
+<ul>
+<li>Fiber架构 &#x3D; Fiber节点 + Fiber调度算法</li>
+<li>JavaScript引擎和页面渲染引擎两个线程是互斥的，当其中一个线程执行时，另一个线程只能挂起等待</li>
+<li>在 React 中，Fiber 就是 React 16 实现的一套新的更新机制，让 React 的更新过程变得可控，避免了之前采用递归需要一气呵成影响性能的做法</li>
+</ul>
+</blockquote>
+<ul>
+<li>每个元素都会有一个fiber对象对应。这些fiber对象之间相互关联，构成了fiber tree。</li>
+<li>react fiber的更新过程是碎片化的，一次更新会分为n个任务片。每个片执行完成后就会把控制权交给调度器。</li>
+<li>调度器会查看浏览器是否有级别更高的任务（比如：alert，onclick，等），如果有执行这个高级别任务，如果没有继续执行fiber更新。这个功能是基于requestIdleCallback实现的。</li>
+</ul>
+<h2 id="React-diff算法"><a href="#React-diff算法" class="headerlink" title="React diff算法"></a>React diff算法</h2><blockquote>
+<p>虚拟dom react 中叫Fiber, diff算法react 中叫协调（Reconciliation）</p>
+</blockquote>
+<ul>
+<li>分层同级比较，不跨层比较</li>
+</ul>
+<h2 id="vite和webpack区别"><a href="#vite和webpack区别" class="headerlink" title="vite和webpack区别"></a>vite和webpack区别</h2><blockquote>
+<p><strong>是否进行bundle</strong></p>
+</blockquote>
+<ul>
+<li>webpack使用nodejs从入口开始构建依赖图，将所需模块组合成bundle文件</li>
+<li>vite无需进行bundle操作，依赖关系通过浏览器对esm规范的支持来解析，将模块区分为依赖（node_modules）和源码（项目代码）<ul>
+<li>依赖使用esbuild构建，esbuild使用go编写，比nodejs快</li>
+<li>源码在浏览器请求时按需转换以原生esm方式提供源码，让浏览器接管打包程序的部分工作</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><strong>首屏&#x2F;懒加载性能</strong></p>
+</blockquote>
+<ul>
+<li>webpack经过了bundle，不存在这个问题</li>
+<li>vite比较慢，处理时需要做额外工作<ul>
+<li>未对源文件合并，大量http请求</li>
+<li>动态加载的文件需要对源文件进行转换操作</li>
+<li>预构建和二次构建也会阻塞首屏请求</li>
+<li>缓存存在，第一次预构建之后，再次reload时候性能有较大提升</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><strong>服务启动速度</strong></p>
+</blockquote>
+<ul>
+<li>webpack需要建立依赖关系bundle，速度相对较慢</li>
+<li>vite分为依赖和源码两类，进行预构建，速度快很多<ul>
+<li>依赖初次esbuild预构建完成后会生成.vite文件，后期无需再次进行依赖预构建</li>
+<li>源码在浏览器请求时按需esm方式提供，首屏&#x2F;懒加载方面相比webpack存在一定差异</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><strong>热更新速度</strong></p>
+</blockquote>
+<ul>
+<li>webpack修改文件后需要重新构建，实践中即使是动态模块热重载（HMR）更新速度也会随着应用规模增长显著下降</li>
+<li>vite中HMR狮子原生esm上执行，修改文件只需要精确使已编辑模块与其最近的HMR边界之间的链实效，使HMR更新不受应用大小影响，始终快速；同时利用http头加速整个页面重新加载</li>
+</ul>
+<blockquote>
+<p><strong>生产环境打包</strong></p>
+</blockquote>
+<ul>
+<li>webpack一致性较好</li>
+<li>vite目前用rollup，暂时esbuild在代码分割和css处理方面仍在持续开发中</li>
+</ul>
+<h2 id="Webpack-loader和plugins区别"><a href="#Webpack-loader和plugins区别" class="headerlink" title="Webpack loader和plugins区别"></a>Webpack loader和plugins区别</h2><ol>
+<li>loader类似转换器，让webpack能处理非js文件并将其转换为有效的模块</li>
+<li>plugins可以执行构建打包优化、压缩文件、生成html、资源管理、诸如环境变量等</li>
+<li>loader运行在打包文件之前，plugins在整个编译周期</li>
+</ol>
+<h2 id="React和Vue区别"><a href="#React和Vue区别" class="headerlink" title="React和Vue区别"></a>React和Vue区别</h2><ul>
+<li>组件化方式<ul>
+<li>react推荐做法 jsx+inlinestyle，即all in javascript</li>
+<li>vue推荐template单文件组件格式，即html、css、js写在同一个文件，也支持jsx写法</li>
+</ul>
+</li>
+<li>dom更新策略不同<ul>
+<li>react自顶向下全diff</li>
+<li>vue跟踪每一个组件依赖关系，不需要重新渲染整个组件树</li>
+<li>diff算法不同</li>
+</ul>
+</li>
+<li>数据驱动视图方式<ul>
+<li>react，通过setstate实现数据驱动视图，</li>
+<li>vue，m（model，数据部分）v（view，视图部分）vm（viewmodel，连接视图与数据的中间件）</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://nlovesye.github.io/interview-notes/2025/01/10/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95/" data-id="cm5qduolp000rgjqefc32ck4i" data-title="" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/interview-notes/2025/01/10/%E9%97%AD%E5%8C%85/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          闭包
+        
+      </div>
+    </a>
+  
+  
+    <a href="/interview-notes/2023/08/24/forin%E5%92%8Cforof/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">forin和forof</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/interview-notes/categories/JavaScript/">JavaScript</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/interview-notes/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/interview-notes/tags/React/" rel="tag">React</a></li><li class="tag-list-item"><a class="tag-list-link" href="/interview-notes/tags/Vue/" rel="tag">Vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/interview-notes/tags/http/" rel="tag">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/interview-notes/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/interview-notes/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/interview-notes/tags/React/" style="font-size: 10px;">React</a> <a href="/interview-notes/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/interview-notes/tags/http/" style="font-size: 13.33px;">http</a> <a href="/interview-notes/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 16.67px;">浏览器</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/interview-notes/archives/2025/01/">一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/interview-notes/archives/2023/08/">八月 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/interview-notes/2025/01/10/%E9%97%AD%E5%8C%85/">闭包</a>
+          </li>
+        
+          <li>
+            <a href="/interview-notes/2025/01/10/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/interview-notes/2023/08/24/forin%E5%92%8Cforof/">forin和forof</a>
+          </li>
+        
+          <li>
+            <a href="/interview-notes/2023/08/24/vue3%E5%92%8Creact%E5%8C%BA%E5%88%AB/">vue3和react区别</a>
+          </li>
+        
+          <li>
+            <a href="/interview-notes/2023/08/24/cookies-sessionStorage-localStorage%E5%8C%BA%E5%88%AB/">cookies,sessionStorage,localStorage区别</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+        <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a></br>
+All website licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></br>
+      
+      &copy; 2025 ns<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/interview-notes/" class="mobile-nav-link">Home</a>
+  
+    <a href="/interview-notes/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/interview-notes/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/interview-notes/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/interview-notes/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

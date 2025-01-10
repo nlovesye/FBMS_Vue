@@ -40,7 +40,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.1.7/css/fork-awesome.min.css">
 
   
-<meta name="generator" content="Hexo 7.0.0"></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 <body>
   <div id="container">
@@ -83,6 +83,62 @@
 
       <div class="outer">
         <section id="main">
+  
+    <article id="post-JS事件循环" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/interview-notes/2023/08/22/JS%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/" class="article-date">
+  <time class="dt-published" datetime="2023-08-22T17:19:37.000Z" itemprop="datePublished">2023-08-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/interview-notes/2023/08/22/JS%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/">JS事件循环</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>参考：<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Event_loop">mdn</a></p>
+<p>并发模型与事件循环：<strong>JavaScript有一个基于事件循环的并发模型，事件循环负责执行代码、收集和处理事件以及执行队列中的子任务。</strong></p>
+<h3 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h3><p>函数调用形成了一个由若干帧组成的栈。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">foo</span> (b) &#123;</span><br><span class="line">  <span class="keyword">const</span> a = <span class="number">10</span>;</span><br><span class="line">  <span class="keyword">return</span> a + b + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">bar</span> (x) &#123;</span><br><span class="line">  <span class="keyword">const</span> y = <span class="number">3</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="title function_">foo</span>(x * y);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">bar</span>(<span class="number">7</span>)); <span class="comment">// 32</span></span><br></pre></td></tr></table></figure>
+
+<p>当调用bar时，第一个帧被创建并压入栈中，帧中包含了bar的参数和局部变量。当bar调用foo时候，第二个帧被创建并压入栈中，放在第一个帧之上，帧中包含foo的参数和局部变量。当foo执行完毕然后返回时，第二个帧就被弹出栈（此时栈中剩下bar函数的调用帧）。当bar也执行完毕然后返回时，第一个帧也被弹出，栈就被清空了。</p>
+<h3 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h3><p>对象分配在堆中，堆是一个用来表示一大块（通常是非结构化的）内存区域的计算机术语。</p>
+<h3 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h3><p>一个JavaScript运行时包含了一个待处理消息的消息队列。每一个消息都关联着一个用以处理该消息的回调函数。</p>
+<p>在事件循环期间的某个时刻，运行时会从最先进入队列的消息开始处理队列中的消息。被处理的消息会被移出队列，并作为输入参数来调用与之关联的函数。正如前面提到的，调用一个函数会为其创建一个新的的栈帧。</p>
+<p>函数的处理会一直进行到执行栈再次为空为止；然后事件循环将会处理队列中的下一个消息（如果还有的话）。</p>
+<h3 id="JavaScript任务分为两种，同步任务和异步任务"><a href="#JavaScript任务分为两种，同步任务和异步任务" class="headerlink" title="JavaScript任务分为两种，同步任务和异步任务"></a>JavaScript任务分为两种，同步任务和异步任务</h3><ul>
+<li>同步任务：在主线程上排队执行的任务，只有上一个任务执行完毕后，才能执行下一个任务。</li>
+<li>异步任务：不进入主线程，而是放在任务队列，若有多个异步任务，则需要在任务队列中排队等待。</li>
+</ul>
+<p><strong>JavaScript在执行代码时，会将同步的代码按照顺序排在执行栈中，然后依次执行里面的函数。当遇到异步任务时，就将其放入任务队列中，等待当前执行栈所有同步代码执行完成之后，就会从异步任务队列中取出已完成的异步任务的回调并将其放入执行栈中继续执行，如此循环往复，直到执行完所有任务</strong><br><strong>在事件驱动的模式下，至少包含了一个执行循环来检测任务队列中是否有新任务。通过不断循环，去取出异步任务的回调来执行，这个过程就是<a href="/interview-notes/2023/08/22/JS%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF">事件循环</a>，每一次循环就是一个事件周期。</strong></p>
+<p>根据任务种类不同，任务分为宏任务队列和微任务队列<br>宏任务：<strong>script（整体代码）、setTimeout、setInterval、I&#x2F;O、UI交互事件、setIsetImmediasetImmediate（Node.js环境）</strong><br>微任务：<strong>Promise、MutationObserver、process.nextTick（Node.js环境）</strong><br>执行情况：<br>1.JavaScript引擎首先从宏任务队列中取出第一个任务<br>2.执行完毕后，再将微任务中的所有任务取出，按照顺序分别全部执行，如果在这一步产生新的微任务，也需要执行。也就是说在执行微任务的过程中产生新的微任务并不会推到下一个循环中执行，而是在当前循环中继续执行<br>3.然后再从宏任务队列中取下一个，执行完毕后，再次讲微任务队列中的全部取出，循环往复，知道两个任务队列中的任务都取完<br><strong>也就是说，一次Eventloop循环会处理一个宏任务和所有这次循环中产生的微任务</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/22/JS%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/" data-id="cm5qduole0004gjqeeoo4eoy0" data-title="JS事件循环" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/interview-notes/tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
   
     <article id="post-JS继承" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
@@ -135,7 +191,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/19/JS%E7%BB%A7%E6%89%BF/" data-id="clofhibxb0007hqn5bw4ob8r7" data-title="JS继承" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/19/JS%E7%BB%A7%E6%89%BF/" data-id="cm5qduolg0007gjqe2zzg8xl4" data-title="JS继承" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -178,7 +234,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/19/%E5%8E%9F%E5%9E%8B%E9%93%BE/" data-id="clofhibxp000rhqn58u8sgnir" data-title="原型链" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/19/%E5%8E%9F%E5%9E%8B%E9%93%BE/" data-id="cm5qduolq000ugjqego50h59b" data-title="原型链" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -228,7 +284,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/js%E5%BC%82%E6%AD%A5%E6%97%B6%E5%BA%8F%E9%97%AE%E9%A2%98/" data-id="clofhibxf000chqn54g3y4fbc" data-title="js异步时序问题" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/js%E5%BC%82%E6%AD%A5%E6%97%B6%E5%BA%8F%E9%97%AE%E9%A2%98/" data-id="cm5qduoli000cgjqeeh7v48oh" data-title="js异步时序问题" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -276,7 +332,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/this%E7%9B%B8%E5%85%B3/" data-id="clofhibxi000hhqn5grgf6pmm" data-title="this相关" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/this%E7%9B%B8%E5%85%B3/" data-id="cm5qduolk000hgjqe4ave87rj" data-title="this相关" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -310,15 +366,12 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>&#96;&#96;<br>function curry(fn, len &#x3D; fn.length) {<br>    return _curry(fn, len)<br>}</p>
-<p>function _curry(fn, len, …arg) {<br>    return function (…params) {<br>        let _arg &#x3D; […arg, …params]<br>        if (_arg.length &gt;&#x3D; len) {<br>            return fn.apply(this, _arg)<br>        } else {<br>            return _curry.call(this, fn, len, …_arg)<br>        }<br>    }<br>}</p>
-<p>let fn &#x3D; curry(function (a, b, c, d, e) {<br>    console.log(a + b + c + d + e)<br>})</p>
-<p>fn(1, 2, 3, 4, 5)  &#x2F;&#x2F; 15<br>fn(1, 2)(3, 4, 5)<br>fn(1, 2)(3)(4)(5)<br>fn(1)(2)(3)(4)(5)<br>&#96;&#96;</p>
+        <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">curry</span>(<span class="params">fn, len = fn.length</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="title function_">_curry</span>(fn, len)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">_curry</span>(<span class="params">fn, len, ...arg</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">function</span> (<span class="params">...params</span>) &#123;</span><br><span class="line">        <span class="keyword">let</span> _arg = [...arg, ...params]</span><br><span class="line">        <span class="keyword">if</span> (_arg.<span class="property">length</span> &gt;= len) &#123;</span><br><span class="line">            <span class="keyword">return</span> fn.<span class="title function_">apply</span>(<span class="variable language_">this</span>, _arg)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> _curry.<span class="title function_">call</span>(<span class="variable language_">this</span>, fn, len, ..._arg)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> fn = <span class="title function_">curry</span>(<span class="keyword">function</span> (<span class="params">a, b, c, d, e</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(a + b + c + d + e)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="title function_">fn</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>)  <span class="comment">// 15</span></span><br><span class="line"><span class="title function_">fn</span>(<span class="number">1</span>, <span class="number">2</span>)(<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>)</span><br><span class="line"><span class="title function_">fn</span>(<span class="number">1</span>, <span class="number">2</span>)(<span class="number">3</span>)(<span class="number">4</span>)(<span class="number">5</span>)</span><br><span class="line"><span class="title function_">fn</span>(<span class="number">1</span>)(<span class="number">2</span>)(<span class="number">3</span>)(<span class="number">4</span>)(<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E5%87%BD%E6%95%B0%E6%9F%AF%E9%87%8C%E5%8C%96/" data-id="clofhibxm000mhqn550u15yig" data-title="函数柯里化" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E5%87%BD%E6%95%B0%E6%9F%AF%E9%87%8C%E5%8C%96/" data-id="cm5qduoln000mgjqedrie9tli" data-title="函数柯里化" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -365,7 +418,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" data-id="clofhibxo000phqn550mi0pdh" data-title="前端性能优化" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" data-id="cm5qduolo000pgjqe3hvcf7cp" data-title="前端性能优化" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -406,7 +459,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0call%E3%80%81apply%E3%80%81bind/" data-id="clofhibxr000uhqn5fi5thmg8" data-title="手动实现call、apply、bind" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0call%E3%80%81apply%E3%80%81bind/" data-id="cm5qduolr000wgjqehw2r99tp" data-title="手动实现call、apply、bind" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -458,7 +511,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BB%8E%E8%BE%93%E5%85%A5url%E5%88%B0%E9%A1%B5%E9%9D%A2%E6%98%BE%E7%A4%BA%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/" data-id="clofhibxs000whqn57p2l8bgu" data-title="浏览器从输入url到页面显示发生了什么" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BB%8E%E8%BE%93%E5%85%A5url%E5%88%B0%E9%A1%B5%E9%9D%A2%E6%98%BE%E7%A4%BA%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/" data-id="cm5qduols000zgjqebhjx13s7" data-title="浏览器从输入url到页面显示发生了什么" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -505,49 +558,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" data-id="clofhibxv0014hqn57wvaadyh" data-title="设计模式" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-防抖和节流" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/interview-notes/2023/08/18/%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81/" class="article-date">
-  <time class="dt-published" datetime="2023-08-18T13:03:04.000Z" itemprop="datePublished">2023-08-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/interview-notes/2023/08/18/%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81/">防抖和节流</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h2 id="节流："><a href="#节流：" class="headerlink" title="节流："></a>节流：</h2><p>一定时间内只首次触发生效</p>
-<p><code>function throttle (fn, timeout) &#123;     let timer = null;     return function (...args) &#123;         if (timer) &#123;             return;         &#125;         const _this = this;         timer = setTimeout(function () &#123;             fn.apply(_this, args);             timer = null;         &#125;, timeout);     &#125; &#125;</code></p>
-<h2 id="防抖："><a href="#防抖：" class="headerlink" title="防抖："></a>防抖：</h2><p>一定时间内只最后一次触发生效</p>
-<p><code>function debounce (fn, timeout) &#123;     let timer = null;     return function (...args) &#123;         if (timer) &#123;             clearTimeout(timer);         &#125;         const _this = this;         timer = setTimeout(function () &#123;             fn.apply(_this, args);         &#125;, timeout);     &#125; &#125;</code></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81/" data-id="clofhibxx0018hqn55ilr669i" data-title="防抖和节流" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" data-id="cm5qduolu0016gjqecz7v71rx" data-title="设计模式" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -563,7 +574,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/interview-notes/">&laquo; 上一页</a><a class="page-number" href="/interview-notes/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/interview-notes/">&laquo; 上一页</a><a class="page-number" href="/interview-notes/">1</a><span class="page-number current">2</span><a class="page-number" href="/interview-notes/page/3/">3</a><a class="extend next" rel="next" href="/interview-notes/page/3/">下一页 &raquo;</a>
   </nav>
 
 </section>
@@ -603,7 +614,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/interview-notes/archives/2023/11/">十一月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/interview-notes/archives/2023/08/">八月 2023</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/interview-notes/archives/2025/01/">一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/interview-notes/archives/2023/08/">八月 2023</a></li></ul>
     </div>
   </div>
 
@@ -616,7 +627,11 @@
       <ul>
         
           <li>
-            <a href="/interview-notes/2023/11/01/%E9%97%AD%E5%8C%85/">闭包</a>
+            <a href="/interview-notes/2025/01/10/%E9%97%AD%E5%8C%85/">闭包</a>
+          </li>
+        
+          <li>
+            <a href="/interview-notes/2025/01/10/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95/">(no title)</a>
           </li>
         
           <li>
@@ -629,10 +644,6 @@
         
           <li>
             <a href="/interview-notes/2023/08/24/cookies-sessionStorage-localStorage%E5%8C%BA%E5%88%AB/">cookies,sessionStorage,localStorage区别</a>
-          </li>
-        
-          <li>
-            <a href="/interview-notes/2023/08/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6/">浏览器缓存机制</a>
           </li>
         
       </ul>
@@ -651,7 +662,7 @@
         <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a></br>
 All website licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></br>
       
-      &copy; 2023 ns<br>
+      &copy; 2025 ns<br>
       Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>

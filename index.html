@@ -40,7 +40,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.1.7/css/fork-awesome.min.css">
 
   
-<meta name="generator" content="Hexo 7.0.0"></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 <body>
   <div id="container">
@@ -86,8 +86,8 @@
   
     <article id="post-闭包" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/interview-notes/2023/11/01/%E9%97%AD%E5%8C%85/" class="article-date">
-  <time class="dt-published" datetime="2023-11-01T08:16:51.571Z" itemprop="datePublished">2023-11-01</time>
+    <a href="/interview-notes/2025/01/10/%E9%97%AD%E5%8C%85/" class="article-date">
+  <time class="dt-published" datetime="2025-01-10T06:35:03.982Z" itemprop="datePublished">2025-01-10</time>
 </a>
     
   <div class="article-category">
@@ -102,7 +102,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/interview-notes/2023/11/01/%E9%97%AD%E5%8C%85/">闭包</a>
+      <a class="p-name article-title" href="/interview-notes/2025/01/10/%E9%97%AD%E5%8C%85/">闭包</a>
     </h1>
   
 
@@ -110,21 +110,446 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h2 id="概念："><a href="#概念：" class="headerlink" title="概念："></a>概念：</h2><p>能够访问外部函数作用域中变量的函数</p>
-<h2 id="作用："><a href="#作用：" class="headerlink" title="作用："></a>作用：</h2><p>保护函数的私有变量不受外部干扰，形成不销毁的栈内存<br>保存，把一些函数内的值保存下来，实现方法和属性的私有化</p>
+        <h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>能够访问外部函数作用域中变量的函数</p>
+<h2 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h2><p>保护函数的私有变量不受外部干扰，形成不销毁的栈内存<br>保存，把一些函数内的值保存下来，实现方法和属性的私有化</p>
 <p>使用场景：<br>1.自执行函数<br>2.函数作为参数，return返回一个函数<br>3.循环赋值<br>4.使用回调函数就是在使用闭包<br>5.节流防抖<br>6.柯里化实现</p>
-<h2 id="需要注意："><a href="#需要注意：" class="headerlink" title="需要注意："></a>需要注意：</h2><p>容易导致内存泄漏，因为闭包会包含其他的函数作用域，比其他函数更占内存，过度使用会导致内存占用过多。</p>
+<h2 id="需要注意"><a href="#需要注意" class="headerlink" title="需要注意"></a>需要注意</h2><p>容易导致内存泄漏，因为闭包会包含其他的函数作用域，比其他函数更占内存，过度使用会导致内存占用过多。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> data = [];</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">  data[i] = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(i);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">data[<span class="number">0</span>]();</span><br><span class="line">data[<span class="number">1</span>]();</span><br><span class="line">data[<span class="number">2</span>]()</span><br><span class="line"><span class="comment">/* 输出</span></span><br><span class="line"><span class="comment">    3</span></span><br><span class="line"><span class="comment">    3</span></span><br><span class="line"><span class="comment">    3</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> data = [];</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">    (<span class="keyword">function</span>(<span class="params">j</span>)&#123;</span><br><span class="line">      <span class="built_in">setTimeout</span>( data[j] = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(j);</span><br><span class="line">      &#125;, <span class="number">0</span>)</span><br><span class="line">    &#125;)(i)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">data[<span class="number">0</span>]();</span><br><span class="line">data[<span class="number">1</span>]();</span><br><span class="line">data[<span class="number">2</span>]()</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> data = [];</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">  data[i] = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(i);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">data[<span class="number">0</span>]();</span><br><span class="line">data[<span class="number">1</span>]();</span><br><span class="line">data[<span class="number">2</span>]()</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> result = [];</span><br><span class="line"><span class="keyword">var</span> a = <span class="number">3</span>;</span><br><span class="line"><span class="keyword">var</span> total = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">foo</span>(<span class="params">a</span>) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">        result[i] = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">            total += i * a;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(total);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">foo</span>(<span class="number">1</span>);</span><br><span class="line">result[<span class="number">0</span>]();  <span class="comment">// 3</span></span><br><span class="line">result[<span class="number">1</span>]();  <span class="comment">// 6</span></span><br><span class="line">result[<span class="number">2</span>]();  <span class="comment">// 9</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/11/01/%E9%97%AD%E5%8C%85/" data-id="clofhibxw0016hqn513dpakj0" data-title="闭包" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2025/01/10/%E9%97%AD%E5%8C%85/" data-id="cm5qduolu0018gjqe0q63ak00" data-title="闭包" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/interview-notes/tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
 
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-前端面试" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/interview-notes/2025/01/10/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95/" class="article-date">
+  <time class="dt-published" datetime="2025-01-10T06:35:03.981Z" itemprop="datePublished">2025-01-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="前端面试"><a href="#前端面试" class="headerlink" title="前端面试"></a>前端面试</h1><h2 id="HTTP是什么"><a href="#HTTP是什么" class="headerlink" title="HTTP是什么"></a>HTTP是什么</h2><ul>
+<li>支持客户&#x2F;服务器模式</li>
+<li>简单快速</li>
+<li>灵活，允许传输任意类型的数据对象，由 Content-Type 标记</li>
+<li>无连接: 每次连接只处理一个请求。服务器处理完并收到客户应答后即断开连接，节省传输时间</li>
+<li>无状态: 无法根据之前的状态进行本次的请求处理</li>
+</ul>
+<h2 id="HTTP响应常见状态码"><a href="#HTTP响应常见状态码" class="headerlink" title="HTTP响应常见状态码"></a>HTTP响应常见状态码</h2><ul>
+<li><strong>1xx</strong> 指示信息，请求已接收，继续处理</li>
+<li><strong>2xx</strong> 成功，请求已被成功接收、理解、接受<ul>
+<li><strong>204</strong> 客户端发送的请求已经在服务端正常处理了，但是没有返回内容。一般情况在只需要从客户端往服务端发送信息而服务器不需要往客户端发送内容时使用</li>
+</ul>
+</li>
+<li><strong>3xx</strong> 重定向，要完成请求必须进行更进一步的操作<ul>
+<li><strong>301</strong> 永久重定向，收藏夹中可以看到网址变化，下次访问就是新地址。不再使用旧域名时使用</li>
+<li><strong>302</strong> 临时重定向，收藏夹中显示的还是旧地址，下次访问还是原地址。活动页时登录到首页自动重定向；未登录访问需要登录访问页时，重定向到登录页；访问404重定向到首页</li>
+<li><strong>304</strong> 资源未被修改，已经被请求过一次了，可直接使用本地缓存中的</li>
+<li><strong>307</strong> 临时重定向，302把post变成get了，307不会</li>
+</ul>
+</li>
+<li><strong>4xx</strong> 客户端错误<ul>
+<li><strong>400</strong> 请求报文存在语法错误，需要修改请求的内容后再次发送请求</li>
+<li><strong>403</strong> 没有权限</li>
+<li><strong>404</strong> 资源未找到</li>
+</ul>
+</li>
+<li><strong>5xx</strong> 服务器端错误<ul>
+<li><strong>500</strong> 服务器错误</li>
+<li><strong>504</strong> 网关超时</li>
+</ul>
+</li>
+</ul>
+<h2 id="https是什么，和http的区别"><a href="#https是什么，和http的区别" class="headerlink" title="https是什么，和http的区别"></a>https是什么，和http的区别</h2><blockquote>
+<p>http是以明文传递信息，不安全，https让http运行在ssl&#x2F;tls协议上，加密数据传输，即https&#x3D;http+ssl&#x2F;tls</p>
+</blockquote>
+<ul>
+<li>https是http协议的安全版本，使用ssl&#x2F;tls协议进行加密处理，相对更安全</li>
+<li>连接方式不同，使用的端口不一样，http是80，https是443</li>
+<li>https由于需要设计加密以及多次握手，性能方面不如http</li>
+<li>https需要ssl，ssl证书一般要钱</li>
+</ul>
+<h2 id="浏览器从输入url到页面呈现中间发生了什么"><a href="#浏览器从输入url到页面呈现中间发生了什么" class="headerlink" title="浏览器从输入url到页面呈现中间发生了什么"></a>浏览器从输入url到页面呈现中间发生了什么</h2><ol>
+<li>url解析 url编码<ul>
+<li>encodeURI、decodeURI：对中文、空格等编码解码，适合给URL本身编码</li>
+<li>encodeURIComponent、decodeURIComponent：对中文、空格 : &#x2F;等编码解码，编码范围更广，适合给参数编码。</li>
+<li>escape unescape 主要用于客户端不同页面之间的数据传输的时候，信息的编码解码（如：cookie）</li>
+</ul>
+</li>
+<li>检查缓存（强制缓存）</li>
+<li>DNS解析<blockquote>
+<p>根据浏览器识别出来的url中的域名，到dns服务器上查找服务器外网ip</p>
+</blockquote>
+<ul>
+<li>本地dns递归查询（浏览器缓存-&gt;本地hosts文件-&gt;本地dns解析器缓存-&gt;本地dns服务器）-&gt; 本地dns服务器和根域及子域迭代查询（客户端-&gt;本地dns服务器-&gt;根域名服务器-&gt;顶级域名服务器-&gt;权威域名服务器）</li>
+</ul>
+</li>
+<li>建立TCP连接，三次握手<br>  a. 建立连接，客户端发送连接请求报文等待服务器确认<br>  b. 服务器端收到确认同时发送客户端进入接收状态<br>  c. 客户端收到服务器消息，向服务端发送ack报文，发送完毕后客户端和服务端都进入ESTAB_LISHED状态，完成三次握手</li>
+<li>发送http请求</li>
+<li>服务器收到请求并处理后返回请求的资源</li>
+<li>关闭TCP连接，四次挥手</li>
+<li>浏览器解析渲染页面<ul>
+<li>将html解析生成dom树<ol>
+<li>html解析生成dom树，深度优先遍历dom，优先解析当前节点的所有子节点，再解析下一个兄弟节点</li>
+<li>遇到script标签暂停dom解析，直到脚本加载、解析、执行完毕，再继续dom解析</li>
+<li>遇到请求外部资源时，异步进行请求不会阻塞dom解析，但如果是js文件，同样会阻塞</li>
+</ol>
+</li>
+<li>将css解析生成css规则树<ol>
+<li>解析生成css规则树时不会影响js文件的加载，但会影响执行，js代码执行前必须保证css规则树已经生成完毕</li>
+<li>浏览器在css规则树生成之前不会进行渲染</li>
+</ol>
+</li>
+<li>结合dom树和css规则树生成渲染树<ol>
+<li>dom树和css规则树全部准备好之后，浏览器开始生成渲染树</li>
+</ol>
+</li>
+<li>根据渲染树计算每个节点信息（布局）<ol>
+<li>根据每个节点信息，计算出每个节点位置和尺寸</li>
+</ol>
+</li>
+<li>根据计算后的信息绘制页面<ol>
+<li>绘制阶段</li>
+<li>重绘，颜色或者背景色变动等不影响布局的属性变动</li>
+<li>回流&#x2F;重排，尺寸发生了变化或会影响布局需要重新计算渲染树重新渲染</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="浏览器缓存"><a href="#浏览器缓存" class="headerlink" title="浏览器缓存"></a>浏览器缓存</h2><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903593275817998#heading-1">参考</a></p>
+<p>强制缓存优先于协商缓存进行，若强制缓存(Expires和Cache-Control)生效则直接使用缓存，若不生效则进行协商缓存(Last-Modified &#x2F; If-Modified-Since和Etag &#x2F; If-None-Match)，协商缓存由服务器决定是否使用缓存，若协商缓存失效，那么代表该请求的缓存失效，重新获取请求结果，再存入浏览器缓存中；生效则返回304，继续使用缓存。</p>
+<p>Cache-Control，在HTTP&#x2F;1.1中，Cache-Control是最重要的规则，主要用于控制网页缓存，主要取值为：</p>
+<ul>
+<li>public：所有内容都将被缓存（客户端和代理服务器都可缓存）</li>
+<li>private：所有内容只有客户端可以缓存，Cache-Control的默认取值</li>
+<li>no-cache：客户端缓存内容，但是是否使用缓存则需要经过协商缓存来验证决定</li>
+<li>no-store：所有内容都不会被缓存，即不使用强制缓存，也不使用协商缓存</li>
+<li>max-age&#x3D;xxx (xxx is numeric)：缓存内容将在xxx秒后失效</li>
+</ul>
+<h2 id="浏览器本地存储"><a href="#浏览器本地存储" class="headerlink" title="浏览器本地存储"></a>浏览器本地存储</h2><ul>
+<li><p>cookie（一般不超过4kb）</p>
+<ul>
+<li>通常由服务端生成，在浏览器和服务器来回传递，通常用于标识客户端，让无状态http协议能记住状态信息</li>
+<li>key:value，还有几个用于控制cookie有效期，安全性，使用范围的可选属性组成</li>
+<li>每次请求都会被发送，不使用https信息容易被窃取导致安全风险</li>
+<li>通过设置过期时间删除cookie</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">document</span>.<span class="property">cookie</span> = <span class="string">&#x27;key=value&#x27;</span>;  </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>sessionStorage（一般为5m）</p>
+<ul>
+<li>当前源会话数据存储，页面关闭消失</li>
+</ul>
+</li>
+<li><p>localStorage（一般为5m）</p>
+<ul>
+<li>本地持久化存储，可以跨浏览器会话访问</li>
+</ul>
+</li>
+<li><p>indexDB（取决于用户设备容量和浏览器限额设置）</p>
+<ul>
+<li>存储大量结构化数据</li>
+</ul>
+</li>
+</ul>
+<h2 id="前端SEO优化"><a href="#前端SEO优化" class="headerlink" title="前端SEO优化"></a>前端SEO优化</h2><ul>
+<li>合理的 title description keywords</li>
+<li>语义化的html代码，符合w3c规范</li>
+<li>重要内容html代码放在最前</li>
+<li>重要内容不要用js输出</li>
+<li>少用iframe</li>
+<li>非装饰性图片必须加alt</li>
+<li>提高网站响应速度</li>
+</ul>
+<h2 id="事件循环"><a href="#事件循环" class="headerlink" title="事件循环"></a>事件循环</h2><blockquote>
+<p>在浏览器的Event Loop中是有多个任务队列的，每个任务队列的执行时机是不一样的</p>
+</blockquote>
+<ol>
+<li>从task任务队列中取第一个task（比如setTimeout、setIntervel的回调，也可以将同一轮循环中的所有同步代码看作是一个宏任务），执行它。</li>
+<li>执行微任务队列里的所有微任务。</li>
+<li>浏览器判断是否更新渲染屏幕，如果需要重新绘制，则执行步骤4-13，如果不需要重新绘制，则流程回到步骤1，这样不断循环。</li>
+<li>触发resize、scroll事件，建立媒体查询（执行一个任务中如果生成了微任务，则执行完任务该后就会执行所有的微任务，然后再执行下一个任务）。</li>
+<li>建立css动画（执行一个任务中如果生成了微任务，则执行完该任务后就会执行所有的微任务，然后再执行下一个任务）。</li>
+<li>执行requestAnimationFrame回调（执行一个任务中如果生成了微任务，则执行完该任务后就会执行所有的微任务，然后再执行下一个任务）。</li>
+<li>执行 IntersectionObserver 回调（执行一个任务中如果生成了微任务，则执行完该任务后就会执行所有的微任务，然后再执行下一个任务）。</li>
+<li>更新渲染屏幕。</li>
+<li>浏览器判断当前帧是否还有空闲时间，如果有空闲时间，则执行步骤10-12。</li>
+<li>从 requestIdleCallback回调函数队列中取第一个，执行它。</li>
+<li>执行微任务队列里的所有微任务。</li>
+<li>流程回到步骤9，直到requestIdleCallback回调函数队列清空或当前帧没有空闲时间。</li>
+<li>流程回到步骤1，这样不断循环。</li>
+</ol>
+<h2 id="js继承"><a href="#js继承" class="headerlink" title="js继承"></a>js继承</h2><ul>
+<li><p>借用构造函数继承</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Parent</span>(<span class="params"></span>) &#123;&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Child</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="title class_">Parent</span>.<span class="title function_">call</span>(<span class="variable language_">this</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>原型链继承</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Parent</span>(<span class="params"></span>) &#123;&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Child</span>(<span class="params"></span>) &#123;&#125;</span><br><span class="line"><span class="title class_">Child</span>.<span class="property"><span class="keyword">prototype</span></span> = <span class="keyword">new</span> <span class="title class_">Parent</span>()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>组合继承</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Parent</span>(<span class="params"></span>) &#123;&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Child</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="title class_">Parent</span>.<span class="title function_">call</span>(<span class="variable language_">this</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="title class_">Child</span>.<span class="property"><span class="keyword">prototype</span></span> = <span class="keyword">new</span> <span class="title class_">Parent</span>()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>原型式继承</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">createObject</span>(<span class="params">obj</span>) &#123;</span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">F</span>(<span class="params"></span>) &#123;&#125;</span><br><span class="line">  F.<span class="property"><span class="keyword">prototype</span></span> = obj</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="title function_">F</span>()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>寄生式继承</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">createAnother</span>(<span class="params">obj</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> clone = <span class="title function_">createObject</span>(obj);</span><br><span class="line">  clone.<span class="property">newMethod</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123;&#125;</span><br><span class="line">  <span class="keyword">return</span> clone;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>寄生组合式继承</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Parent</span>(<span class="params"></span>) &#123;&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Child</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="title class_">Parent</span>.<span class="title function_">call</span>(<span class="variable language_">this</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> prototype = <span class="title function_">createObject</span>(<span class="title class_">Parent</span>.<span class="property"><span class="keyword">prototype</span></span>);</span><br><span class="line">prototype.<span class="property">constructor</span> = <span class="title class_">Child</span>;</span><br><span class="line"><span class="title class_">Child</span>.<span class="property"><span class="keyword">prototype</span></span> = prototype</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="js-常用设计模式"><a href="#js-常用设计模式" class="headerlink" title="js 常用设计模式"></a>js 常用设计模式</h2><ul>
+<li><p>构造函数模式</p>
+</li>
+<li><p>工厂模式</p>
+<blockquote>
+<p>多种不同的需求，复用同一个对象，简化对象实例化</p>
+</blockquote>
+</li>
+<li><p>发布订阅模式</p>
+<blockquote>
+<p>订阅方和发布方解耦，订阅方只订阅自己感兴趣的类型消息，不用直接关联发布方，发布方也是根据类型通知，不用直接关联订阅方</p>
+</blockquote>
+</li>
+<li><p>单例模式</p>
+</li>
+<li><p>装饰器模式</p>
+</li>
+<li><p>代理模式</p>
+</li>
+<li><p>适配器模式</p>
+</li>
+<li><p>策略模式</p>
+</li>
+<li><p>中介者模式</p>
+</li>
+</ul>
+<h2 id="js-内存泄漏"><a href="#js-内存泄漏" class="headerlink" title="js 内存泄漏"></a>js 内存泄漏</h2><ul>
+<li>全局变量引用</li>
+<li>闭包</li>
+<li>dom元素事件监听对dom元素引用，未正确移除事件处理函数</li>
+<li>定时器</li>
+</ul>
+<h2 id="前端性能优化"><a href="#前端性能优化" class="headerlink" title="前端性能优化"></a>前端性能优化</h2><ul>
+<li><p>html+css+图片</p>
+<ul>
+<li>减少dom数量和dom嵌套深度</li>
+<li>压缩html、css代码体积，合并css文件减少http请求次数和大小</li>
+<li>减少css选择器复杂程度</li>
+<li>将css放在head里尽早加载，因为会影响rendertree的构建</li>
+<li>动画使用css3过渡，减少动画复杂度，css动画替代js动画</li>
+<li>避免使用css表达式在</li>
+<li>避免图片空src，空src仍然会向服务器发起一个http请求</li>
+<li>图片压缩优化</li>
+<li>首屏加载使用骨架屏或动画，资源按需加载，首页不需要的资源延迟加载</li>
+<li>优化静态资源，使用字体图标、雪碧图、webp格式图片、svg图标等</li>
+<li>使用渐进式jpeg图片</li>
+</ul>
+</li>
+<li><p>js</p>
+<ul>
+<li>减少直接dom操作次数</li>
+<li>避免使用with、eval，避免引擎难以优化</li>
+<li>异步和延迟加载js文件避免阻塞页面渲染</li>
+<li>将js文件放到页面底部避免阻塞页面渲染</li>
+<li>事件委托减少事件绑定次数</li>
+<li>合理使用缓存，减少计算次数或重复请求数据</li>
+<li>使用WebWorker进行复杂计算</li>
+</ul>
+</li>
+<li><p>代码实现</p>
+<ul>
+<li>节流&#x2F;防抖</li>
+<li>图片懒加载</li>
+<li>列表分页&#x2F;滚动列表虚拟滚动</li>
+</ul>
+</li>
+<li><p>构建打包优化（webpack&#x2F;vite）</p>
+<ul>
+<li>代码分割，减小单个文件体积</li>
+<li>按需加载&#x2F;懒加载，在使用的时候加载代码</li>
+<li>压缩代码</li>
+<li>tree shaking删除未被引用的代码</li>
+<li>gzip压缩</li>
+<li>静态资源cdn加载</li>
+<li>webpack缩小loader匹配范围，js&#x2F;css&#x2F;html代码压缩，文件大小压缩，图片webp压缩等</li>
+<li>多线程打包提升打包速度</li>
+</ul>
+</li>
+<li><p>网络优化</p>
+<ul>
+<li>减少http请求</li>
+<li>nginx gzip静态资源压缩</li>
+<li>http缓存</li>
+<li>cdn减少访问延迟</li>
+<li>dns预解析，link标签ref属性设置dns-prefetch提前获取域名对应ip地址</li>
+<li>合理使用多个域名降低并发压力</li>
+</ul>
+</li>
+</ul>
+<h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><ul>
+<li>栈</li>
+<li>队列</li>
+<li>链表</li>
+<li>树</li>
+<li>AVL树</li>
+<li>Trie</li>
+<li>堆</li>
+</ul>
+<h2 id="DFS（深度遍历优先）和BFS（广度遍历优先）"><a href="#DFS（深度遍历优先）和BFS（广度遍历优先）" class="headerlink" title="DFS（深度遍历优先）和BFS（广度遍历优先）"></a>DFS（深度遍历优先）和BFS（广度遍历优先）</h2><h2 id="Vue3-diff算法"><a href="#Vue3-diff算法" class="headerlink" title="Vue3 diff算法"></a>Vue3 diff算法</h2><ul>
+<li>分层同级比较，不跨层比较</li>
+<li>静态标记，对会发生变化的地方标记，下次更新直接找有标记的做diff比对</li>
+<li>不带key的新虚拟dom树</li>
+</ul>
+<ol>
+<li>从前往后遍历新旧虚拟dom树，将旧的vdom更新为新的vdom</li>
+<li>比较新旧虚拟dom树长度，处理新增&#x2F;删除节点</li>
+</ol>
+<ul>
+<li>带key的新虚拟dom树</li>
+</ul>
+<ol>
+<li>从前往后遍历对比新旧vdom树寻找可复用节点记录索引，遇到不可复用跳出循环</li>
+<li>从后往前遍历对比新旧vdom树寻找可复用节点分别记录新旧vdom索引，遇到不可复用跳出循环</li>
+<li>根据前两次遍历索引情况识别出两侧与中间的新增与删除的节点</li>
+<li>处理未识别的节点</li>
+</ol>
+<h2 id="Vue3-从定义一个变量到修改变量页面更新发生了什么"><a href="#Vue3-从定义一个变量到修改变量页面更新发生了什么" class="headerlink" title="Vue3 从定义一个变量到修改变量页面更新发生了什么"></a>Vue3 从定义一个变量到修改变量页面更新发生了什么</h2><ol>
+<li>使用ref定义一个变量，使用Proxy对象监听这个变量</li>
+<li>在页面模板中使用这个变量时，会建立变量与视图之间的依赖关系</li>
+<li>修改变量值后，利用Proxy对象实现的监听触发依赖更新</li>
+<li>通过虚拟DOM比对算法，只更新变化的部分</li>
+</ol>
+<h2 id="Vue3-依赖收集和派发更新"><a href="#Vue3-依赖收集和派发更新" class="headerlink" title="Vue3 依赖收集和派发更新"></a>Vue3 依赖收集和派发更新</h2><ul>
+<li><p>两个顶级变量 targetMap(WeakMap) 和 activeEffect</p>
+</li>
+<li><p>track 和 trigger 方法</p>
+<ol>
+<li>track会去找变量是否被追踪，将 activeEffect 塞入 targetMap<br>targetMap: 属性名称 -&gt; Map()<br>Map: 属性名称 -&gt; Set()</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">track</span>(<span class="params">target, key</span>) &#123;</span><br><span class="line">   <span class="comment">// 首先找 obj 是否有被追踪</span></span><br><span class="line">  <span class="keyword">let</span> depsMap = targetMap.<span class="title function_">get</span>(target);</span><br><span class="line">  <span class="keyword">if</span> (!depsMap) &#123;</span><br><span class="line">    <span class="comment">// 如果没有被追踪，那么添加一个</span></span><br><span class="line">        targetMap.<span class="title function_">set</span>(target, (depsMap = <span class="keyword">new</span> <span class="title class_">Map</span>()));</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 然后寻找 obj.x 是否被追踪</span></span><br><span class="line">  <span class="keyword">let</span> dep = depsMap.<span class="title function_">get</span>(key);</span><br><span class="line">    <span class="keyword">if</span> (!dep) &#123;</span><br><span class="line">    <span class="comment">// 如果没有被追踪，那么添加一个</span></span><br><span class="line">    depsMap.<span class="title function_">set</span>(key, (dep = <span class="keyword">new</span> <span class="title class_">Set</span>()));</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 如果没有添加 activeEffect 那么添加一个</span></span><br><span class="line">  <span class="keyword">if</span> (!dep.<span class="title function_">has</span>(activeEffect)) &#123;</span><br><span class="line">        dep.<span class="title function_">add</span>(activeEffect);</span><br><span class="line">    activeEffect.<span class="property">deps</span>.<span class="title function_">push</span>(dep);</span><br><span class="line">        <span class="keyword">if</span> (activeEffect.<span class="property">options</span>.<span class="property">onTrack</span>) &#123;</span><br><span class="line">            activeEffect.<span class="property">options</span>.<span class="title function_">onTrack</span>(&#123;</span><br><span class="line">                <span class="attr">effect</span>: activeEffect,</span><br><span class="line">                target,</span><br><span class="line">                type,</span><br><span class="line">                key</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>trigger只会去 targetMap中寻找对应的变量的追踪任务，找到了就去重然后执行任务</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">trigger</span>(<span class="params">target, key</span>) &#123;</span><br><span class="line">  <span class="comment">// 寻找追踪项</span></span><br><span class="line">  <span class="keyword">const</span> depsMap = targetMap.<span class="title function_">get</span>(target);</span><br><span class="line">  <span class="comment">// 没找到就什么都不干</span></span><br><span class="line">  <span class="keyword">if</span> (!depsMap) <span class="keyword">return</span>;</span><br><span class="line">  <span class="comment">// 去重</span></span><br><span class="line">  <span class="keyword">const</span> effects = <span class="keyword">new</span> <span class="title class_">Set</span>()</span><br><span class="line">  depsMap.<span class="title function_">get</span>(key).<span class="title function_">forEach</span>(<span class="function"><span class="params">e</span> =&gt;</span> effects.<span class="title function_">add</span>(e))</span><br><span class="line">  <span class="comment">// 执行</span></span><br><span class="line">  effects.<span class="title function_">forEach</span>(<span class="function"><span class="params">e</span> =&gt;</span> <span class="title function_">e</span>())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="React-Fiber-机制-架构"><a href="#React-Fiber-机制-架构" class="headerlink" title="React Fiber 机制&#x2F;架构"></a>React Fiber 机制&#x2F;架构</h2><blockquote>
+<ul>
+<li>Fiber架构 &#x3D; Fiber节点 + Fiber调度算法</li>
+<li>JavaScript引擎和页面渲染引擎两个线程是互斥的，当其中一个线程执行时，另一个线程只能挂起等待</li>
+<li>在 React 中，Fiber 就是 React 16 实现的一套新的更新机制，让 React 的更新过程变得可控，避免了之前采用递归需要一气呵成影响性能的做法</li>
+</ul>
+</blockquote>
+<ul>
+<li>每个元素都会有一个fiber对象对应。这些fiber对象之间相互关联，构成了fiber tree。</li>
+<li>react fiber的更新过程是碎片化的，一次更新会分为n个任务片。每个片执行完成后就会把控制权交给调度器。</li>
+<li>调度器会查看浏览器是否有级别更高的任务（比如：alert，onclick，等），如果有执行这个高级别任务，如果没有继续执行fiber更新。这个功能是基于requestIdleCallback实现的。</li>
+</ul>
+<h2 id="React-diff算法"><a href="#React-diff算法" class="headerlink" title="React diff算法"></a>React diff算法</h2><blockquote>
+<p>虚拟dom react 中叫Fiber, diff算法react 中叫协调（Reconciliation）</p>
+</blockquote>
+<ul>
+<li>分层同级比较，不跨层比较</li>
+</ul>
+<h2 id="vite和webpack区别"><a href="#vite和webpack区别" class="headerlink" title="vite和webpack区别"></a>vite和webpack区别</h2><blockquote>
+<p><strong>是否进行bundle</strong></p>
+</blockquote>
+<ul>
+<li>webpack使用nodejs从入口开始构建依赖图，将所需模块组合成bundle文件</li>
+<li>vite无需进行bundle操作，依赖关系通过浏览器对esm规范的支持来解析，将模块区分为依赖（node_modules）和源码（项目代码）<ul>
+<li>依赖使用esbuild构建，esbuild使用go编写，比nodejs快</li>
+<li>源码在浏览器请求时按需转换以原生esm方式提供源码，让浏览器接管打包程序的部分工作</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><strong>首屏&#x2F;懒加载性能</strong></p>
+</blockquote>
+<ul>
+<li>webpack经过了bundle，不存在这个问题</li>
+<li>vite比较慢，处理时需要做额外工作<ul>
+<li>未对源文件合并，大量http请求</li>
+<li>动态加载的文件需要对源文件进行转换操作</li>
+<li>预构建和二次构建也会阻塞首屏请求</li>
+<li>缓存存在，第一次预构建之后，再次reload时候性能有较大提升</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><strong>服务启动速度</strong></p>
+</blockquote>
+<ul>
+<li>webpack需要建立依赖关系bundle，速度相对较慢</li>
+<li>vite分为依赖和源码两类，进行预构建，速度快很多<ul>
+<li>依赖初次esbuild预构建完成后会生成.vite文件，后期无需再次进行依赖预构建</li>
+<li>源码在浏览器请求时按需esm方式提供，首屏&#x2F;懒加载方面相比webpack存在一定差异</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><strong>热更新速度</strong></p>
+</blockquote>
+<ul>
+<li>webpack修改文件后需要重新构建，实践中即使是动态模块热重载（HMR）更新速度也会随着应用规模增长显著下降</li>
+<li>vite中HMR狮子原生esm上执行，修改文件只需要精确使已编辑模块与其最近的HMR边界之间的链实效，使HMR更新不受应用大小影响，始终快速；同时利用http头加速整个页面重新加载</li>
+</ul>
+<blockquote>
+<p><strong>生产环境打包</strong></p>
+</blockquote>
+<ul>
+<li>webpack一致性较好</li>
+<li>vite目前用rollup，暂时esbuild在代码分割和css处理方面仍在持续开发中</li>
+</ul>
+<h2 id="Webpack-loader和plugins区别"><a href="#Webpack-loader和plugins区别" class="headerlink" title="Webpack loader和plugins区别"></a>Webpack loader和plugins区别</h2><ol>
+<li>loader类似转换器，让webpack能处理非js文件并将其转换为有效的模块</li>
+<li>plugins可以执行构建打包优化、压缩文件、生成html、资源管理、诸如环境变量等</li>
+<li>loader运行在打包文件之前，plugins在整个编译周期</li>
+</ol>
+<h2 id="React和Vue区别"><a href="#React和Vue区别" class="headerlink" title="React和Vue区别"></a>React和Vue区别</h2><ul>
+<li>组件化方式<ul>
+<li>react推荐做法 jsx+inlinestyle，即all in javascript</li>
+<li>vue推荐template单文件组件格式，即html、css、js写在同一个文件，也支持jsx写法</li>
+</ul>
+</li>
+<li>dom更新策略不同<ul>
+<li>react自顶向下全diff</li>
+<li>vue跟踪每一个组件依赖关系，不需要重新渲染整个组件树</li>
+<li>diff算法不同</li>
+</ul>
+</li>
+<li>数据驱动视图方式<ul>
+<li>react，通过setstate实现数据驱动视图，</li>
+<li>vue，m（model，数据部分）v（view，视图部分）vm（viewmodel，连接视图与数据的中间件）</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://nlovesye.github.io/interview-notes/2025/01/10/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95/" data-id="cm5qduolp000rgjqefc32ck4i" data-title="" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
     </footer>
   </div>
   
@@ -162,7 +587,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/24/forin%E5%92%8Cforof/" data-id="clofhibxe000bhqn51jm922yl" data-title="forin和forof" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/24/forin%E5%92%8Cforof/" data-id="cm5qduoli000bgjqe11dy1tvg" data-title="forin和forof" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -214,7 +639,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/24/vue3%E5%92%8Creact%E5%8C%BA%E5%88%AB/" data-id="clofhibxl000khqn58e9ygf98" data-title="vue3和react区别" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/24/vue3%E5%92%8Creact%E5%8C%BA%E5%88%AB/" data-id="cm5qduolm000kgjqe05w63k8f" data-title="vue3和react区别" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -261,7 +686,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/24/cookies-sessionStorage-localStorage%E5%8C%BA%E5%88%AB/" data-id="clofhibxc0008hqn5hmomb6xm" data-title="cookies,sessionStorage,localStorage区别" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/24/cookies-sessionStorage-localStorage%E5%8C%BA%E5%88%AB/" data-id="cm5qduolh0008gjqe9d4j27rg" data-title="cookies,sessionStorage,localStorage区别" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -314,7 +739,7 @@
 </ol>
 <p>  强制缓存规则 - 当浏览器向服务器发起请求时，服务器会将缓存规则放入http响应报文的http头中和请求结果一起返回给浏览器，控制强制缓存的字段分别是Expires和Cache-Control，其中Cache-Control优先级比Expires高。</p>
 <p>  Expires的值是服务器返回该请求结果缓存的到期时间，即再次发起请求时，如果客户端的时间小于Expires的值时，直接使用缓存结果。</p>
-<p>  Cache-Control主要取值为：<br>    - public：所有内容都将被缓存（客户端和代理服务器都可缓存）<br>    - private（Cache-Control的默认取值）：所有内容只有客户端可以缓存<br>    - no-cache：客户端缓存内容，但是是否使用缓存则需要经过协商缓存来验证决定<br>    - no-store：所有内容都不会被缓存，既不使用强制缓存，也不使用协商缓存<br>    - max-age&#x3D;xxx：缓存内容将在xxx秒后失效</p>
+<p>  Cache-Control主要取值为：<br>    - <strong>public</strong>：所有内容都将被缓存（客户端和代理服务器都可缓存）<br>    - <strong>private（Cache-Control的默认取值）</strong>：所有内容只有客户端可以缓存<br>    - <strong>no-cache</strong>：客户端缓存内容，但是是否使用缓存则需要经过协商缓存来验证决定<br>    - <strong>no-store</strong>：所有内容都不会被缓存，既不使用强制缓存，也不使用协商缓存<br>    - <strong>max-age&#x3D;xxx</strong>：缓存内容将在xxx秒后失效</p>
 <p>  注：在无法确定客户端时间是否与服务端的时间同步的情况下，Cache-Control相比于Expires时更好的选择，所以同时存在时，只有Cache-Control生效</p>
 <h3 id="协商缓存"><a href="#协商缓存" class="headerlink" title="协商缓存"></a>协商缓存</h3><p>  协商缓存就是在强制缓存失效后，浏览器携带缓存标识向服务器发起请求，由服务器根据缓存标识决定是否使用缓存的过程，主要有两种情况：</p>
 <ol>
@@ -322,12 +747,16 @@
 <li>协商缓存失效，返回200和请求结果</li>
 </ol>
 <p>  协商缓存的标识也是在响应报文的http头中和请求结果一起返回给浏览器的，控制协商缓存的字段分别有：Last-Modified&#x2F;If-Modified-Since和Etag&#x2F;If-None-Match，其中Etag&#x2F;If-None-Match优先级比Last-Modified&#x2F;If-Modified-Since高。</p>
-<p>  Last-Modified&#x2F;If-Modified-Since</p>
+<blockquote>
+<p><strong>Last-Modified&#x2F;If-Modified-Since</strong></p>
+</blockquote>
 <ul>
 <li>Last-Modified是服务器响应请求时，返回该资源文件在服务器最后被修改的时间。</li>
 <li>If-Modified-Since是客户端再次发起请求时，携带上次请求返回的Last-Modified值。服务器收到请求后，发现包含If-Modified-Since字段，根据该字段的值与该资源在服务器的最后被修改时间做对比，根据对比结果重新返回资源（状态码200）或者使用缓存文件（状态码304）。</li>
 </ul>
-<p>  Etag&#x2F;If-None-Match</p>
+<blockquote>
+<p><strong>Etag&#x2F;If-None-Match</strong></p>
+</blockquote>
 <ul>
 <li>Etag是服务器响应请求时，返回当前资源文件的一个唯一标识（由服务器生成）。</li>
 <li>If-None-Match是客户端再次发起请求时，携带上次请求返回的唯一标识Etag值。服务器收到请求后，发现包含If-None-Match字段，根据该字段的值与该资源在服务器的Etag值做对比，根据对比结果重新返回资源（状态码200）或者使用缓存文件（状态码304）。</li>
@@ -338,7 +767,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6/" data-id="clofhibxt000zhqn5aans2rjo" data-title="浏览器缓存机制" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6/" data-id="cm5qduols0011gjqehj5hd922" data-title="浏览器缓存机制" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -375,16 +804,19 @@
     <div class="e-content article-entry" itemprop="articleBody">
       
         <h2 id="同源策略"><a href="#同源策略" class="headerlink" title="同源策略"></a>同源策略</h2><ul>
-<li>协议相同</li>
-<li>域名相同</li>
-<li>端口相同</li>
-</ul>
-<p>  如果非同源，共有三种行为受到限制</p>
+<li><p>协议相同</p>
+</li>
+<li><p>域名相同</p>
+</li>
+<li><p>端口相同</p>
+<p>如果非同源，共有三种行为受到限制</p>
 <ol>
 <li>无法获取非同源网页的cookies、localStorage和indexDB。</li>
 <li>无法访问非同源的DOM（iframe）。</li>
 <li>无法向非同源地址发送AJAX请求或者fetch请求（可以发送，但浏览器拒绝接受响应）。</li>
 </ol>
+</li>
+</ul>
 <h2 id="ajax跨域"><a href="#ajax跨域" class="headerlink" title="ajax跨域"></a>ajax跨域</h2><ol>
 <li><a href="/interview-notes/2023/08/23/CORS%E8%B7%A8%E5%9F%9F/">cors</a></li>
 <li>jsonp(只限用于get请求)</li>
@@ -404,12 +836,15 @@
 <ol start="5">
 <li>postMessage</li>
 </ol>
-<p>  html5的api，允许两个窗口间进行跨域发送消息。</p>
+<blockquote>
+<p>html5的api，允许两个窗口间进行跨域发送消息。</p>
+</blockquote>
   <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">  <span class="comment">// 消息发送端</span></span><br><span class="line"><span class="keyword">var</span> receiver = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;receiver&#x27;</span>).<span class="property">contentWindow</span>;</span><br><span class="line"><span class="keyword">var</span> btn = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;send&#x27;</span>);</span><br><span class="line">btn.<span class="title function_">addEventlistener</span>(<span class="string">&#x27;click&#x27;</span>, <span class="keyword">function</span> (<span class="params">e</span>) &#123;</span><br><span class="line">  e.<span class="title function_">preventDefault</span>();</span><br><span class="line">  <span class="keyword">var</span> val = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;text&#x27;</span>).<span class="property">value</span>;</span><br><span class="line">  receiver.<span class="title function_">postMessage</span>(<span class="string">&#x27;hello &#x27;</span> + val, <span class="string">&quot;http://xxx.xxx.com&quot;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 消息接收端</span></span><br><span class="line"><span class="variable language_">window</span>.<span class="title function_">addEventListener</span>(<span class="string">&#x27;message&#x27;</span>, receiveMessage, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">receiveMessage</span> (e) &#123;</span><br><span class="line">  <span class="keyword">if</span> (e.<span class="property">origin</span> !== <span class="string">&quot;http://yyy.yyy.com&quot;</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E8%B7%A8%E5%9F%9F/" data-id="clofhibxu0011hqn57rmgbil9" data-title="浏览器跨域" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E8%B7%A8%E5%9F%9F/" data-id="cm5qduolt0014gjqe0jvr3cjw" data-title="浏览器跨域" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -445,12 +880,8 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p><strong>CORS即Cross Origin Resource Sharing(跨来源资源共享)</strong></p>
-<p>CORS可以分成两种：</p>
-<ol>
-<li>简单请求</li>
-</ol>
-<p>  http方法是下列之一</p>
+        <h2 id="CORS即Cross-Origin-Resource-Sharing-跨来源资源共享"><a href="#CORS即Cross-Origin-Resource-Sharing-跨来源资源共享" class="headerlink" title="CORS即Cross Origin Resource Sharing(跨来源资源共享)"></a><strong>CORS即Cross Origin Resource Sharing(跨来源资源共享)</strong></h2><p>CORS可以分成两种：</p>
+<h3 id="简单请求"><a href="#简单请求" class="headerlink" title="简单请求"></a>简单请求</h3><p>  http方法是下列之一</p>
 <pre><code>&gt; HEAD
 &gt; GET
 &gt; POST
@@ -479,10 +910,7 @@
 &gt; 当你需要访问额外的信息时，就需要在这一项当中填写并以逗号进行分隔
 </code></pre>
 <p>  cors的复杂请求令cors显得更加有用。比如需要<strong>发送PUT、DELETE等HTTP动作，或者发送Content-Type: application&#x2F;json的内容</strong></p>
-<ol start="2">
-<li>复杂请求</li>
-</ol>
-<p>  复杂请求表面上和简单请求使用上差不多，但实际上浏览器发送了不止一个请求。其中最先发送的是一种“预请求”，服务端也需要返回“预响应”作为响应。预请求实际上是对服务端的一种权限请求，只有当预请求成功返回，实际请求才开始执行。</p>
+<h3 id="复杂请求"><a href="#复杂请求" class="headerlink" title="复杂请求"></a>复杂请求</h3><p>  复杂请求表面上和简单请求使用上差不多，但实际上浏览器发送了不止一个请求。其中最先发送的是一种“预请求”，服务端也需要返回“预响应”作为响应。预请求实际上是对服务端的一种权限请求，只有当预请求成功返回，实际请求才开始执行。</p>
 <p>  <strong>预请求以OPTIONS形式发送</strong>，当中同样包含域，并且还包含了两项cors特有的内容：</p>
 <pre><code>&gt; Access-Control-Request-Method - 实际请求的种类，可以是 GET、POST之类的简单请求，也可以是PUT、DELETE等等。
 &gt; Access-Control-Request-Headers - 以逗号分隔的列表，复杂请求所使用的头部。
@@ -503,7 +931,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/23/CORS%E8%B7%A8%E5%9F%9F/" data-id="clofhibx40003hqn527q08tqq" data-title="CORS跨域" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/23/CORS%E8%B7%A8%E5%9F%9F/" data-id="cm5qduold0003gjqebqh4bw1d" data-title="CORS跨域" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -539,30 +967,28 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <ol>
-<li>typeof<br>  返回的结果：number,boolean,symbol,string,object,undefined,function</li>
-</ol>
+        <h2 id="typeof"><a href="#typeof" class="headerlink" title="typeof"></a>typeof</h2><blockquote>
+<p>返回的结果：number,boolean,symbol,string,object,undefined,function</p>
+</blockquote>
 <ul>
 <li>对于基本类型，除null外，均可返回正确的结果</li>
 <li>对于引用类型，除function外，一律返回object类型</li>
 <li>对于null，返回object类型</li>
 <li>对于function返回function类型</li>
 </ul>
-<ol start="2">
-<li><p>instanceof<br>  检测的是原型，判断A是否是B的实例，表达式为 A instanceof B，针对准确判断数组问题，es5提供了Array.isArray()方法用以确认某个对象是否是Array类型。</p>
+<h2 id="instanceof"><a href="#instanceof" class="headerlink" title="instanceof"></a>instanceof</h2><blockquote>
+<p>检测的是原型，判断A是否是B的实例，表达式为 A instanceof B，针对准确判断数组问题，es5提供了Array.isArray()方法用以确认某个对象是否是Array类型。</p>
+</blockquote>
   <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 模拟instanceof执行过程</span></span><br><span class="line"><span class="keyword">instanceof</span> (a, b) &#123;</span><br><span class="line">  <span class="keyword">const</span> left = a.<span class="property">__proto__</span>;</span><br><span class="line">  <span class="keyword">const</span> right = b.<span class="property"><span class="keyword">prototype</span></span>;</span><br><span class="line">  <span class="keyword">if</span> (left === right) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Object.prototype.toString.call</p>
-  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Object</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">toString</span>.<span class="title function_">call</span>(<span class="string">&#x27;&#x27;</span>) ;   <span class="comment">// [object String]</span></span><br><span class="line"><span class="title class_">Object</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">toString</span>.<span class="title function_">call</span>(<span class="number">1</span>) ;    <span class="comment">// [object Number]</span></span><br><span class="line"><span class="title class_">Object</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">toString</span>.<span class="title function_">call</span>(<span class="literal">true</span>) ; <span class="comment">// [object Boolean]</span></span><br><span class="line"><span class="title class_">Object</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">toString</span>.<span class="title function_">call</span>(<span class="title class_">Symbol</span>()); <span class="comment">//[object Symbol]</span></span><br><span class="line"><span class="title class_">Object</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">toString</span>.<span class="title function_">call</span>(<span class="literal">undefined</span>) ; <span class="comment">// [object Undefined]</span></span><br><span class="line"><span class="title class_">Object</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">toString</span>.<span class="title function_">call</span>(<span class="literal">null</span>) ; <span class="comment">// [object Null]</span></span><br><span class="line"><span class="title class_">Object</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">toString</span>.<span class="title function_">call</span>(<span class="keyword">new</span> <span class="title class_">Function</span>()) ; <span class="comment">// [object Function]</span></span><br><span class="line"><span class="title class_">Object</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">toString</span>.<span class="title function_">call</span>(<span class="keyword">new</span> <span class="title class_">Date</span>()) ; <span class="comment">// [object Date]</span></span><br><span class="line"><span class="title class_">Object</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">toString</span>.<span class="title function_">call</span>([]) ; <span class="comment">// [object Array]</span></span><br><span class="line"><span class="title class_">Object</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">toString</span>.<span class="title function_">call</span>(<span class="keyword">new</span> <span class="title class_">RegExp</span>()) ; <span class="comment">// [object RegExp]</span></span><br><span class="line"><span class="title class_">Object</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">toString</span>.<span class="title function_">call</span>(<span class="keyword">new</span> <span class="title class_">Error</span>()) ; <span class="comment">// [object Error]</span></span><br><span class="line"><span class="title class_">Object</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">toString</span>.<span class="title function_">call</span>(<span class="variable language_">document</span>) ; <span class="comment">// [object HTMLDocument]</span></span><br><span class="line"><span class="title class_">Object</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">toString</span>.<span class="title function_">call</span>(<span class="variable language_">window</span>) ; <span class="comment">//[object global] window 是全局对象 global 的引用</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>constructor</p>
-  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> f = <span class="keyword">new</span> <span class="title function_">F</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(f.<span class="property">constructor</span> == F); <span class="comment">// true</span></span><br></pre></td></tr></table></figure></li>
-</ol>
+
+<h2 id="Object-prototype-toString-call"><a href="#Object-prototype-toString-call" class="headerlink" title="Object.prototype.toString.call"></a>Object.prototype.toString.call</h2>  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Object</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">toString</span>.<span class="title function_">call</span>(<span class="string">&#x27;&#x27;</span>) ;   <span class="comment">// [object String]</span></span><br><span class="line"><span class="title class_">Object</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">toString</span>.<span class="title function_">call</span>(&#123;&#125;) ;   <span class="comment">// [object Object]</span></span><br><span class="line"><span class="title class_">Object</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">toString</span>.<span class="title function_">call</span>(<span class="number">1</span>) ;    <span class="comment">// [object Number]</span></span><br><span class="line"><span class="title class_">Object</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">toString</span>.<span class="title function_">call</span>(<span class="literal">true</span>) ; <span class="comment">// [object Boolean]</span></span><br><span class="line"><span class="title class_">Object</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">toString</span>.<span class="title function_">call</span>(<span class="title class_">Symbol</span>()); <span class="comment">//[object Symbol]</span></span><br><span class="line"><span class="title class_">Object</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">toString</span>.<span class="title function_">call</span>(<span class="literal">undefined</span>) ; <span class="comment">// [object Undefined]</span></span><br><span class="line"><span class="title class_">Object</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">toString</span>.<span class="title function_">call</span>(<span class="literal">null</span>) ; <span class="comment">// [object Null]</span></span><br><span class="line"><span class="title class_">Object</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">toString</span>.<span class="title function_">call</span>(<span class="keyword">new</span> <span class="title class_">Function</span>()) ; <span class="comment">// [object Function]</span></span><br><span class="line"><span class="title class_">Object</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">toString</span>.<span class="title function_">call</span>(<span class="keyword">new</span> <span class="title class_">Date</span>()) ; <span class="comment">// [object Date]</span></span><br><span class="line"><span class="title class_">Object</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">toString</span>.<span class="title function_">call</span>([]) ; <span class="comment">// [object Array]</span></span><br><span class="line"><span class="title class_">Object</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">toString</span>.<span class="title function_">call</span>(<span class="keyword">new</span> <span class="title class_">RegExp</span>()) ; <span class="comment">// [object RegExp]</span></span><br><span class="line"><span class="title class_">Object</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">toString</span>.<span class="title function_">call</span>(<span class="keyword">new</span> <span class="title class_">Error</span>()) ; <span class="comment">// [object Error]</span></span><br><span class="line"><span class="title class_">Object</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">toString</span>.<span class="title function_">call</span>(<span class="variable language_">document</span>) ; <span class="comment">// [object HTMLDocument]</span></span><br><span class="line"><span class="title class_">Object</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">toString</span>.<span class="title function_">call</span>(<span class="variable language_">window</span>) ; <span class="comment">//[object global] window 是全局对象 global 的引用</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="constructor-NaN"><a href="#constructor-NaN" class="headerlink" title="constructor"></a>constructor</h2>  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> f = <span class="keyword">new</span> <span class="title function_">F</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(f.<span class="property">constructor</span> == F); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/23/JS%E5%88%A4%E6%96%AD%E7%B1%BB%E5%9E%8B/" data-id="clofhibx90006hqn5c1mu811w" data-title="JS判断类型" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/23/JS%E5%88%A4%E6%96%AD%E7%B1%BB%E5%9E%8B/" data-id="cm5qduolg0006gjqedrssgefm" data-title="JS判断类型" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -608,63 +1034,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/23/new%E8%B0%83%E7%94%A8%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/" data-id="clofhibxh000fhqn5hw0g30sr" data-title="new调用构造函数发生了什么" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/interview-notes/tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-JS事件循环" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/interview-notes/2023/08/22/JS%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/" class="article-date">
-  <time class="dt-published" datetime="2023-08-22T17:19:37.000Z" itemprop="datePublished">2023-08-22</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/interview-notes/2023/08/22/JS%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/">JS事件循环</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>参考：<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Event_loop">mdn</a></p>
-<p>并发模型与事件循环：<strong>JavaScript有一个基于事件循环的并发模型，事件循环负责执行代码、收集和处理事件以及执行队列中的子任务。</strong></p>
-<h3 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h3><p>函数调用形成了一个由若干帧组成的栈。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">foo</span> (b) &#123;</span><br><span class="line">  <span class="keyword">const</span> a = <span class="number">10</span>;</span><br><span class="line">  <span class="keyword">return</span> a + b + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">bar</span> (x) &#123;</span><br><span class="line">  <span class="keyword">const</span> y = <span class="number">3</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="title function_">foo</span>(x * y);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">bar</span>(<span class="number">7</span>)); <span class="comment">// 32</span></span><br></pre></td></tr></table></figure>
-
-<p>当调用bar时，第一个帧被创建并压入栈中，帧中包含了bar的参数和局部变量。当bar调用foo时候，第二个帧被创建并压入栈中，放在第一个帧之上，帧中包含foo的参数和局部变量。当foo执行完毕然后返回时，第二个帧就被弹出栈（此时栈中剩下bar函数的调用帧）。当bar也执行完毕然后返回时，第一个帧也被弹出，栈就被清空了。</p>
-<h3 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h3><p>对象分配在堆中，堆是一个用来表示一大块（通常是非结构化的）内存区域的计算机术语。</p>
-<h3 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h3><p>一个JavaScript运行时包含了一个待处理消息的消息队列。每一个消息都关联着一个用以处理该消息的回调函数。</p>
-<p>在事件循环期间的某个时刻，运行时会从最先进入队列的消息开始处理队列中的消息。被处理的消息会被移出队列，并作为输入参数来调用与之关联的函数。正如前面提到的，调用一个函数会为其创建一个新的的栈帧。</p>
-<p>函数的处理会一直进行到执行栈再次为空为止；然后事件循环将会处理队列中的下一个消息（如果还有的话）。</p>
-<h3 id="JavaScript任务分为两种，同步任务和异步任务"><a href="#JavaScript任务分为两种，同步任务和异步任务" class="headerlink" title="JavaScript任务分为两种，同步任务和异步任务"></a>JavaScript任务分为两种，同步任务和异步任务</h3><ul>
-<li>同步任务：在主线程上排队执行的任务，只有上一个任务执行完毕后，才能执行下一个任务。</li>
-<li>异步任务：不进入主线程，而是放在任务队列，若有多个异步任务，则需要在任务队列中排队等待。</li>
-</ul>
-<p><strong>JavaScript在执行代码时，会将同步的代码按照顺序排在执行栈中，然后依次执行里面的函数。当遇到异步任务时，就将其放入任务队列中，等待当前执行栈所有同步代码执行完成之后，就会从异步任务队列中取出已完成的异步任务的回调并将其放入执行栈中继续执行，如此循环往复，直到执行完所有任务</strong><br><strong>在事件驱动的模式下，至少包含了一个执行循环来检测任务队列中是否有新任务。通过不断循环，去取出异步任务的回调来执行，这个过程就是<a href="/interview-notes/2023/08/22/JS%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF">事件循环</a>，每一次循环就是一个事件周期。</strong></p>
-<p>根据任务种类不同，任务分为宏任务队列和微任务队列<br>宏任务：<strong>script（整体代码）、setTimeout、setInterval、I&#x2F;O、UI交互事件、setIsetImmediasetImmediate（Node.js环境）</strong><br>微任务：<strong>Promise、MutationObserver、process.nextTick（Node.js环境）</strong><br>执行情况：<br>1.JavaScript引擎首先从宏任务队列中取出第一个任务<br>2.执行完毕后，再将微任务中的所有任务取出，按照顺序分别全部执行，如果在这一步产生新的微任务，也需要执行。也就是说在执行微任务的过程中产生新的微任务并不会推到下一个循环中执行，而是在当前循环中继续执行<br>3.然后再从宏任务队列中取下一个，执行完毕后，再次讲微任务队列中的全部取出，循环往复，知道两个任务队列中的任务都取完<br><strong>也就是说，一次Eventloop循环会处理一个宏任务和所有这次循环中产生的微任务</strong></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/22/JS%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/" data-id="clofhibx60004hqn5ebyo3rj1" data-title="JS事件循环" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/23/new%E8%B0%83%E7%94%A8%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/" data-id="cm5qduolj000fgjqe70yrepob" data-title="new调用构造函数发生了什么" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -682,7 +1052,7 @@
 
   <nav id="page-nav">
     
-    <span class="page-number current">1</span><a class="page-number" href="/interview-notes/page/2/">2</a><a class="extend next" rel="next" href="/interview-notes/page/2/">下一页 &raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/interview-notes/page/2/">2</a><a class="page-number" href="/interview-notes/page/3/">3</a><a class="extend next" rel="next" href="/interview-notes/page/2/">下一页 &raquo;</a>
   </nav>
 
 </section>
@@ -722,7 +1092,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/interview-notes/archives/2023/11/">十一月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/interview-notes/archives/2023/08/">八月 2023</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/interview-notes/archives/2025/01/">一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/interview-notes/archives/2023/08/">八月 2023</a></li></ul>
     </div>
   </div>
 
@@ -735,7 +1105,11 @@
       <ul>
         
           <li>
-            <a href="/interview-notes/2023/11/01/%E9%97%AD%E5%8C%85/">闭包</a>
+            <a href="/interview-notes/2025/01/10/%E9%97%AD%E5%8C%85/">闭包</a>
+          </li>
+        
+          <li>
+            <a href="/interview-notes/2025/01/10/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95/">(no title)</a>
           </li>
         
           <li>
@@ -748,10 +1122,6 @@
         
           <li>
             <a href="/interview-notes/2023/08/24/cookies-sessionStorage-localStorage%E5%8C%BA%E5%88%AB/">cookies,sessionStorage,localStorage区别</a>
-          </li>
-        
-          <li>
-            <a href="/interview-notes/2023/08/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6/">浏览器缓存机制</a>
           </li>
         
       </ul>
@@ -770,7 +1140,7 @@
         <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a></br>
 All website licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></br>
       
-      &copy; 2023 ns<br>
+      &copy; 2025 ns<br>
       Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
