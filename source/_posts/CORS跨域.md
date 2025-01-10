@@ -4,11 +4,11 @@ date: 2023-08-23 16:21:41
 tags: [JavaScript,http,浏览器]
 ---
 
-**CORS即Cross Origin Resource Sharing(跨来源资源共享)**
+## **CORS即Cross Origin Resource Sharing(跨来源资源共享)**
 
 CORS可以分成两种：
 
-1. 简单请求
+### 简单请求
   
   http方法是下列之一
   
@@ -45,7 +45,7 @@ CORS可以分成两种：
 
   cors的复杂请求令cors显得更加有用。比如需要**发送PUT、DELETE等HTTP动作，或者发送Content-Type: application/json的内容**
 
-2. 复杂请求
+### 复杂请求
   
   复杂请求表面上和简单请求使用上差不多，但实际上浏览器发送了不止一个请求。其中最先发送的是一种“预请求”，服务端也需要返回“预响应”作为响应。预请求实际上是对服务端的一种权限请求，只有当预请求成功返回，实际请求才开始执行。
 
