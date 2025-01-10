@@ -84,14 +84,14 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-闭包" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-前端面试" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/interview-notes/2025/01/10/%E9%97%AD%E5%8C%85/" class="article-date">
-  <time class="dt-published" datetime="2025-01-10T06:35:03.982Z" itemprop="datePublished">2025-01-10</time>
+    <a href="/interview-notes/2025/01/10/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95/" class="article-date">
+  <time class="dt-published" datetime="2025-01-10T06:38:03.205Z" itemprop="datePublished">2025-01-10</time>
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/interview-notes/categories/JavaScript/">JavaScript</a>
+    <a class="article-category-link" href="/interview-notes/categories/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95/">前端面试</a>
   </div>
 
   </div>
@@ -102,7 +102,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/interview-notes/2025/01/10/%E9%97%AD%E5%8C%85/">闭包</a>
+      <a class="p-name article-title" href="/interview-notes/2025/01/10/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95/">前端面试</a>
     </h1>
   
 
@@ -110,42 +110,7 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>能够访问外部函数作用域中变量的函数</p>
-<h2 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h2><p>保护函数的私有变量不受外部干扰，形成不销毁的栈内存<br>保存，把一些函数内的值保存下来，实现方法和属性的私有化</p>
-<p>使用场景：<br>1.自执行函数<br>2.函数作为参数，return返回一个函数<br>3.循环赋值<br>4.使用回调函数就是在使用闭包<br>5.节流防抖<br>6.柯里化实现</p>
-<h2 id="需要注意"><a href="#需要注意" class="headerlink" title="需要注意"></a>需要注意</h2><p>容易导致内存泄漏，因为闭包会包含其他的函数作用域，比其他函数更占内存，过度使用会导致内存占用过多。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> data = [];</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">  data[i] = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(i);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">data[<span class="number">0</span>]();</span><br><span class="line">data[<span class="number">1</span>]();</span><br><span class="line">data[<span class="number">2</span>]()</span><br><span class="line"><span class="comment">/* 输出</span></span><br><span class="line"><span class="comment">    3</span></span><br><span class="line"><span class="comment">    3</span></span><br><span class="line"><span class="comment">    3</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> data = [];</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">    (<span class="keyword">function</span>(<span class="params">j</span>)&#123;</span><br><span class="line">      <span class="built_in">setTimeout</span>( data[j] = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(j);</span><br><span class="line">      &#125;, <span class="number">0</span>)</span><br><span class="line">    &#125;)(i)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">data[<span class="number">0</span>]();</span><br><span class="line">data[<span class="number">1</span>]();</span><br><span class="line">data[<span class="number">2</span>]()</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> data = [];</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">  data[i] = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(i);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">data[<span class="number">0</span>]();</span><br><span class="line">data[<span class="number">1</span>]();</span><br><span class="line">data[<span class="number">2</span>]()</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> result = [];</span><br><span class="line"><span class="keyword">var</span> a = <span class="number">3</span>;</span><br><span class="line"><span class="keyword">var</span> total = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">foo</span>(<span class="params">a</span>) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">        result[i] = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">            total += i * a;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(total);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">foo</span>(<span class="number">1</span>);</span><br><span class="line">result[<span class="number">0</span>]();  <span class="comment">// 3</span></span><br><span class="line">result[<span class="number">1</span>]();  <span class="comment">// 6</span></span><br><span class="line">result[<span class="number">2</span>]();  <span class="comment">// 9</span></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2025/01/10/%E9%97%AD%E5%8C%85/" data-id="cm5qduolu0018gjqe0q63ak00" data-title="闭包" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/interview-notes/tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-前端面试" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/interview-notes/2025/01/10/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95/" class="article-date">
-  <time class="dt-published" datetime="2025-01-10T06:35:03.981Z" itemprop="datePublished">2025-01-10</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="前端面试"><a href="#前端面试" class="headerlink" title="前端面试"></a>前端面试</h1><h2 id="HTTP是什么"><a href="#HTTP是什么" class="headerlink" title="HTTP是什么"></a>HTTP是什么</h2><ul>
+        <h2 id="HTTP是什么"><a href="#HTTP是什么" class="headerlink" title="HTTP是什么"></a>HTTP是什么</h2><ul>
 <li>支持客户&#x2F;服务器模式</li>
 <li>简单快速</li>
 <li>灵活，允许传输任意类型的数据对象，由 Content-Type 标记</li>
@@ -546,10 +511,61 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2025/01/10/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95/" data-id="cm5qduolp000rgjqefc32ck4i" data-title="" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2025/01/10/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95/" data-id="cm5qdyiq8000rg2q7gvn4anxc" data-title="前端面试" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/interview-notes/tags/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95/" rel="tag">前端面试</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-闭包" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/interview-notes/2025/01/10/%E9%97%AD%E5%8C%85/" class="article-date">
+  <time class="dt-published" datetime="2025-01-10T06:38:03.205Z" itemprop="datePublished">2025-01-10</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/interview-notes/categories/JavaScript/">JavaScript</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/interview-notes/2025/01/10/%E9%97%AD%E5%8C%85/">闭包</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>能够访问外部函数作用域中变量的函数</p>
+<h2 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h2><p>保护函数的私有变量不受外部干扰，形成不销毁的栈内存<br>保存，把一些函数内的值保存下来，实现方法和属性的私有化</p>
+<p>使用场景：<br>1.自执行函数<br>2.函数作为参数，return返回一个函数<br>3.循环赋值<br>4.使用回调函数就是在使用闭包<br>5.节流防抖<br>6.柯里化实现</p>
+<h2 id="需要注意"><a href="#需要注意" class="headerlink" title="需要注意"></a>需要注意</h2><p>容易导致内存泄漏，因为闭包会包含其他的函数作用域，比其他函数更占内存，过度使用会导致内存占用过多。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> data = [];</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">  data[i] = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(i);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">data[<span class="number">0</span>]();</span><br><span class="line">data[<span class="number">1</span>]();</span><br><span class="line">data[<span class="number">2</span>]()</span><br><span class="line"><span class="comment">/* 输出</span></span><br><span class="line"><span class="comment">    3</span></span><br><span class="line"><span class="comment">    3</span></span><br><span class="line"><span class="comment">    3</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> data = [];</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">    (<span class="keyword">function</span>(<span class="params">j</span>)&#123;</span><br><span class="line">      <span class="built_in">setTimeout</span>( data[j] = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(j);</span><br><span class="line">      &#125;, <span class="number">0</span>)</span><br><span class="line">    &#125;)(i)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">data[<span class="number">0</span>]();</span><br><span class="line">data[<span class="number">1</span>]();</span><br><span class="line">data[<span class="number">2</span>]()</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> data = [];</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">  data[i] = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(i);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">data[<span class="number">0</span>]();</span><br><span class="line">data[<span class="number">1</span>]();</span><br><span class="line">data[<span class="number">2</span>]()</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> result = [];</span><br><span class="line"><span class="keyword">var</span> a = <span class="number">3</span>;</span><br><span class="line"><span class="keyword">var</span> total = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">foo</span>(<span class="params">a</span>) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">        result[i] = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">            total += i * a;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(total);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">foo</span>(<span class="number">1</span>);</span><br><span class="line">result[<span class="number">0</span>]();  <span class="comment">// 3</span></span><br><span class="line">result[<span class="number">1</span>]();  <span class="comment">// 6</span></span><br><span class="line">result[<span class="number">2</span>]();  <span class="comment">// 9</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://nlovesye.github.io/interview-notes/2025/01/10/%E9%97%AD%E5%8C%85/" data-id="cm5qdyiqd001ag2q7hn27eaw4" data-title="闭包" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/interview-notes/tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+
     </footer>
   </div>
   
@@ -587,7 +603,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/24/forin%E5%92%8Cforof/" data-id="cm5qduoli000bgjqe11dy1tvg" data-title="forin和forof" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/24/forin%E5%92%8Cforof/" data-id="cm5qdyiq1000bg2q71mw20pb7" data-title="forin和forof" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -639,7 +655,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/24/vue3%E5%92%8Creact%E5%8C%BA%E5%88%AB/" data-id="cm5qduolm000kgjqe05w63k8f" data-title="vue3和react区别" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/24/vue3%E5%92%8Creact%E5%8C%BA%E5%88%AB/" data-id="cm5qdyiq5000kg2q73vjh0rvo" data-title="vue3和react区别" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -686,7 +702,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/24/cookies-sessionStorage-localStorage%E5%8C%BA%E5%88%AB/" data-id="cm5qduolh0008gjqe9d4j27rg" data-title="cookies,sessionStorage,localStorage区别" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/24/cookies-sessionStorage-localStorage%E5%8C%BA%E5%88%AB/" data-id="cm5qdyiq00008g2q7cvjy0siu" data-title="cookies,sessionStorage,localStorage区别" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -767,7 +783,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6/" data-id="cm5qduols0011gjqehj5hd922" data-title="浏览器缓存机制" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6/" data-id="cm5qdyiqc0015g2q72zqg7rm6" data-title="浏览器缓存机制" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -844,7 +860,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E8%B7%A8%E5%9F%9F/" data-id="cm5qduolt0014gjqe0jvr3cjw" data-title="浏览器跨域" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E8%B7%A8%E5%9F%9F/" data-id="cm5qdyiqb0012g2q785xd0a4f" data-title="浏览器跨域" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -931,7 +947,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/23/CORS%E8%B7%A8%E5%9F%9F/" data-id="cm5qduold0003gjqebqh4bw1d" data-title="CORS跨域" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/23/CORS%E8%B7%A8%E5%9F%9F/" data-id="cm5qdyipw0003g2q7htubbbwu" data-title="CORS跨域" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -988,7 +1004,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/23/JS%E5%88%A4%E6%96%AD%E7%B1%BB%E5%9E%8B/" data-id="cm5qduolg0006gjqedrssgefm" data-title="JS判断类型" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/23/JS%E5%88%A4%E6%96%AD%E7%B1%BB%E5%9E%8B/" data-id="cm5qdyipx0004g2q75bqq57oi" data-title="JS判断类型" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -1034,7 +1050,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/23/new%E8%B0%83%E7%94%A8%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/" data-id="cm5qduolj000fgjqe70yrepob" data-title="new调用构造函数发生了什么" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/23/new%E8%B0%83%E7%94%A8%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/" data-id="cm5qdyiq3000fg2q7d6pwctqv" data-title="new调用构造函数发生了什么" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -1063,7 +1079,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">分类</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/interview-notes/categories/JavaScript/">JavaScript</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/interview-notes/categories/JavaScript/">JavaScript</a></li><li class="category-list-item"><a class="category-list-link" href="/interview-notes/categories/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95/">前端面试</a></li></ul>
     </div>
   </div>
 
@@ -1073,7 +1089,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/interview-notes/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/interview-notes/tags/React/" rel="tag">React</a></li><li class="tag-list-item"><a class="tag-list-link" href="/interview-notes/tags/Vue/" rel="tag">Vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/interview-notes/tags/http/" rel="tag">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/interview-notes/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/interview-notes/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/interview-notes/tags/React/" rel="tag">React</a></li><li class="tag-list-item"><a class="tag-list-link" href="/interview-notes/tags/Vue/" rel="tag">Vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/interview-notes/tags/http/" rel="tag">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/interview-notes/tags/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95/" rel="tag">前端面试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/interview-notes/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器</a></li></ul>
     </div>
   </div>
 
@@ -1083,7 +1099,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/interview-notes/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/interview-notes/tags/React/" style="font-size: 10px;">React</a> <a href="/interview-notes/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/interview-notes/tags/http/" style="font-size: 13.33px;">http</a> <a href="/interview-notes/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 16.67px;">浏览器</a>
+      <a href="/interview-notes/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/interview-notes/tags/React/" style="font-size: 10px;">React</a> <a href="/interview-notes/tags/Vue/" style="font-size: 10px;">Vue</a> <a href="/interview-notes/tags/http/" style="font-size: 13.33px;">http</a> <a href="/interview-notes/tags/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95/" style="font-size: 10px;">前端面试</a> <a href="/interview-notes/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 16.67px;">浏览器</a>
     </div>
   </div>
 
@@ -1105,11 +1121,11 @@
       <ul>
         
           <li>
-            <a href="/interview-notes/2025/01/10/%E9%97%AD%E5%8C%85/">闭包</a>
+            <a href="/interview-notes/2025/01/10/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95/">前端面试</a>
           </li>
         
           <li>
-            <a href="/interview-notes/2025/01/10/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95/">(no title)</a>
+            <a href="/interview-notes/2025/01/10/%E9%97%AD%E5%8C%85/">闭包</a>
           </li>
         
           <li>
