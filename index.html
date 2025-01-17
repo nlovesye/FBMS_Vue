@@ -86,8 +86,8 @@
   
     <article id="post-前端面试" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/interview-notes/2025/01/10/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95/" class="article-date">
-  <time class="dt-published" datetime="2025-01-10T06:38:03.205Z" itemprop="datePublished">2025-01-10</time>
+    <a href="/interview-notes/2025/01/17/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95/" class="article-date">
+  <time class="dt-published" datetime="2025-01-17T01:06:26.536Z" itemprop="datePublished">2025-01-17</time>
 </a>
     
   <div class="article-category">
@@ -102,7 +102,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/interview-notes/2025/01/10/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95/">前端面试</a>
+      <a class="p-name article-title" href="/interview-notes/2025/01/17/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95/">前端面试</a>
     </h1>
   
 
@@ -507,11 +507,90 @@
 </ul>
 </li>
 </ul>
+<h2 id="Vue2和Vue3区别"><a href="#Vue2和Vue3区别" class="headerlink" title="Vue2和Vue3区别"></a>Vue2和Vue3区别</h2><ul>
+<li>双向数据绑定实现原理不同<ul>
+<li>vue2使用Object.defineProperties</li>
+<li>vue3使用es6的proxy</li>
+</ul>
+</li>
+<li>定义数据变量和方法不同<ul>
+<li>vue2把数据放在data中，方法放在methods中</li>
+<li>vue3需要在setup方法中定义，此方法在组件初始化构造的时候触发，从vue引入reactive方法来声明响应式数据</li>
+</ul>
+</li>
+<li>api类型不同<ul>
+<li>vue2选项式一般</li>
+<li>vue3组合式一般</li>
+</ul>
+</li>
+<li>生命周期钩子函数不同<ul>
+<li>vue2 beforeCreate created beforeMount mounted beforeUpdate updated</li>
+<li>vue3 setup onBeforeMount onMounted onBeforeUpdate onUpdated</li>
+</ul>
+</li>
+<li>指令和插槽不同<ul>
+<li>vue2 v-if 和 v-for同时存在v-for优先级高，并不建议一起使用；vue2中使用slot可直接使用slot</li>
+<li>vue3 v-if 和 v-for同时存在v-if优先级高，只会把v-if当作v-for中的一个判断语句；vue3中使用slot必须使用v-slot的形式；vue3中移除keycode和native作为v-on的修饰符，移除filter</li>
+</ul>
+</li>
+<li>父子组件传参不同<ul>
+<li>vue2中使用this.$emit</li>
+<li>vue3中可在setup函数第二个参数获取emit</li>
+</ul>
+</li>
+<li>碎片不同<ul>
+<li>vue2不支持Fragments</li>
+<li>vue3支持Fragments，可同时多个根节点</li>
+</ul>
+</li>
+</ul>
+<h2 id="Vue3-reactive-和-ref区别"><a href="#Vue3-reactive-和-ref区别" class="headerlink" title="Vue3 reactive 和 ref区别"></a>Vue3 reactive 和 ref区别</h2><h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a><a target="_blank" rel="noopener" href="https://juejin.cn/post/7291680355799056395">参考</a></h3><ul>
+<li>ref主要用于创建单个的响应式数据。reactive用于创建包含多个响应式属性的对象。</li>
+<li>对于基本数据类型推荐使用ref。对于对象或数组，推荐使用reactive。</li>
+<li>在模版中使用响应式数据时，无需使用.value访问ref；而reactive类型的数据直接使用对象属性名</li>
+<li>reactive会递归地将所有属性转换为响应式数据</li>
+<li>ref返回一个由RefImpl类构造出来的对象，而reactive返回一个原始对象的响应式代理Proxy</li>
+<li>watch监听ref和reactive的方式不同<ul>
+<li>watch监听引用类型的ref数据比如对象，需要使用{deep: true}或者通过监听.value的方式监听数据变化；监听reactive则不需要{deep: true}就能监听数据的变化</li>
+</ul>
+</li>
+</ul>
+<h2 id="Vue组件间通信方式"><a href="#Vue组件间通信方式" class="headerlink" title="Vue组件间通信方式"></a>Vue组件间通信方式</h2><ul>
+<li>props&#x2F;emit 适用于父子组件通信</li>
+<li>ref与$parent&#x2F;$children 适用于父子组件通信<ul>
+<li>ref如果在普通dom元素上则是dom元素，如果是组件上则是组件实例</li>
+<li>$parent&#x2F;$children 访问父&#x2F;子实例</li>
+</ul>
+</li>
+<li>EventBus（$emit&#x2F;$on）适用于父&#x2F;子，隔代，兄弟组件间通信<ul>
+<li>通过一个空的Vue实例作为事件中心，用于触发&#x2F;监听事件</li>
+</ul>
+</li>
+<li>$attrs&#x2F;$listeners 适用于隔代组件通信（属性&#x2F;事件透传）<ul>
+<li>$attrs 包含父作用域中不被prop所识别的特性绑定（除class，style），一般配合inheritAttrs使用，可以通过v-bind&#x3D;”$attrs”传入内部组件</li>
+<li>$listeners 包含父作用域中的v-on事件监听器，可以通过v-on&#x3D;”$listeners”传入内部组件</li>
+</ul>
+</li>
+<li>provide &#x2F; inject 适用于隔代组件通信<ul>
+<li>祖先组件中通过provide提供变量，子孙组件中通过inject来注入变量</li>
+</ul>
+</li>
+<li>Vuex &#x2F; pinia 状态管理库 适用于父&#x2F;子，隔代，兄弟组件间通信</li>
+</ul>
+<h2 id="vue-router中常用的-hash-和-history-模式的实现原理"><a href="#vue-router中常用的-hash-和-history-模式的实现原理" class="headerlink" title="vue-router中常用的 hash 和 history 模式的实现原理"></a>vue-router中常用的 hash 和 history 模式的实现原理</h2><h3 id="hash-mode"><a href="#hash-mode" class="headerlink" title="hash mode"></a>hash mode</h3><ul>
+<li>url中hash值是一种客户端状态，当向服务端发送请求时，hash值不会发送</li>
+<li>利用hashchange事件监听hash部分的变动实现页面路由切换跳转</li>
+</ul>
+<h3 id="history-mode"><a href="#history-mode" class="headerlink" title="history mode"></a>history mode</h3><ul>
+<li>html5提供了history api来实现url的变化，最主要有两个，history.pushState() 和 history.replaceState()，都是操作浏览器的历史记录，一个是新增一个历史记录一个是替换当前的历史记录</li>
+<li>可以使用 popstate 事件来监听url的变化来实现页面路由切换跳转</li>
+<li>history.pushState 和 history.replaceState 不会触发 popstate 事件，这时需要手动触发页面跳转</li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2025/01/10/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95/" data-id="cm5qdyiq8000rg2q7gvn4anxc" data-title="前端面试" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2025/01/17/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95/" data-id="cm6027148000rg6q8cbsh6bnw" data-title="前端面试" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -527,8 +606,8 @@
   
     <article id="post-闭包" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/interview-notes/2025/01/10/%E9%97%AD%E5%8C%85/" class="article-date">
-  <time class="dt-published" datetime="2025-01-10T06:38:03.205Z" itemprop="datePublished">2025-01-10</time>
+    <a href="/interview-notes/2025/01/17/%E9%97%AD%E5%8C%85/" class="article-date">
+  <time class="dt-published" datetime="2025-01-17T01:06:26.536Z" itemprop="datePublished">2025-01-17</time>
 </a>
     
   <div class="article-category">
@@ -543,7 +622,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/interview-notes/2025/01/10/%E9%97%AD%E5%8C%85/">闭包</a>
+      <a class="p-name article-title" href="/interview-notes/2025/01/17/%E9%97%AD%E5%8C%85/">闭包</a>
     </h1>
   
 
@@ -560,7 +639,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2025/01/10/%E9%97%AD%E5%8C%85/" data-id="cm5qdyiqd001ag2q7hn27eaw4" data-title="闭包" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2025/01/17/%E9%97%AD%E5%8C%85/" data-id="cm602714e001ag6q81icw0tkt" data-title="闭包" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -603,7 +682,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/24/forin%E5%92%8Cforof/" data-id="cm5qdyiq1000bg2q71mw20pb7" data-title="forin和forof" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/24/forin%E5%92%8Cforof/" data-id="cm6027141000bg6q8g0ylhn7p" data-title="forin和forof" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -655,7 +734,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/24/vue3%E5%92%8Creact%E5%8C%BA%E5%88%AB/" data-id="cm5qdyiq5000kg2q73vjh0rvo" data-title="vue3和react区别" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/24/vue3%E5%92%8Creact%E5%8C%BA%E5%88%AB/" data-id="cm6027145000kg6q83bpvdb7c" data-title="vue3和react区别" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -702,7 +781,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/24/cookies-sessionStorage-localStorage%E5%8C%BA%E5%88%AB/" data-id="cm5qdyiq00008g2q7cvjy0siu" data-title="cookies,sessionStorage,localStorage区别" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/24/cookies-sessionStorage-localStorage%E5%8C%BA%E5%88%AB/" data-id="cm60271400008g6q8b9yr5zxv" data-title="cookies,sessionStorage,localStorage区别" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -783,7 +862,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6/" data-id="cm5qdyiqc0015g2q72zqg7rm6" data-title="浏览器缓存机制" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6/" data-id="cm602714c0012g6q874apfuwp" data-title="浏览器缓存机制" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -860,7 +939,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E8%B7%A8%E5%9F%9F/" data-id="cm5qdyiqb0012g2q785xd0a4f" data-title="浏览器跨域" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/23/%E6%B5%8F%E8%A7%88%E5%99%A8%E8%B7%A8%E5%9F%9F/" data-id="cm602714d0015g6q84nxmgllt" data-title="浏览器跨域" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -947,7 +1026,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/23/CORS%E8%B7%A8%E5%9F%9F/" data-id="cm5qdyipw0003g2q7htubbbwu" data-title="CORS跨域" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/23/CORS%E8%B7%A8%E5%9F%9F/" data-id="cm602713w0003g6q82ky92ygf" data-title="CORS跨域" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -1004,7 +1083,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/23/JS%E5%88%A4%E6%96%AD%E7%B1%BB%E5%9E%8B/" data-id="cm5qdyipx0004g2q75bqq57oi" data-title="JS判断类型" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/23/JS%E5%88%A4%E6%96%AD%E7%B1%BB%E5%9E%8B/" data-id="cm602713x0004g6q8et9r52g3" data-title="JS判断类型" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -1050,7 +1129,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/23/new%E8%B0%83%E7%94%A8%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/" data-id="cm5qdyiq3000fg2q7d6pwctqv" data-title="new调用构造函数发生了什么" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://nlovesye.github.io/interview-notes/2023/08/23/new%E8%B0%83%E7%94%A8%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/" data-id="cm6027143000fg6q829s8918i" data-title="new调用构造函数发生了什么" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -1121,11 +1200,11 @@
       <ul>
         
           <li>
-            <a href="/interview-notes/2025/01/10/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95/">前端面试</a>
+            <a href="/interview-notes/2025/01/17/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95/">前端面试</a>
           </li>
         
           <li>
-            <a href="/interview-notes/2025/01/10/%E9%97%AD%E5%8C%85/">闭包</a>
+            <a href="/interview-notes/2025/01/17/%E9%97%AD%E5%8C%85/">闭包</a>
           </li>
         
           <li>
